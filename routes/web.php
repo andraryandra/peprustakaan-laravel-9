@@ -17,21 +17,28 @@ use App\Http\Controllers\LandingpageController;
 
 require __DIR__ . '/admin.php';
 
-Route::get('/', function () {
-    return view('/user/landingpage/home');
-});
+// Route::get('/', function () {
+//     return view('/user/landingpage/home');
+// });
+
+Route::get('/', [LandingpageController::class, 'index'])->name('landingPage.index');
+Route::get('showMading/{showMading}', [LandingpageController::class, 'showMadingLandingPageHome'])->name('landingPage.showMading');
+Route::get('/mading', [LandingpageController::class, 'mading'])->name('landingPage.mading');
+Route::get('/ebook', [LandingpageController::class, 'ebookLandingPage'])->name('landingPage.ebook');
+Route::get('showEbook/{showEbook}', [LandingpageController::class, 'showEbookLandingPageHome'])->name('landingPage.showEbook');
+
 
 Route::get('/about', function () {
     return view('/user/landingpage/about');
 });
 
-Route::get('/mading', function () {
-    return view('/user/landingpage/mading');
-});
+// Route::get('/mading', function () {
+//     return view('/user/landingpage/mading');
+// });
 
-Route::get('/ebook', function () {
-    return view('/user/landingpage/ebook');
-});
+// Route::get('/ebook', function () {
+//     return view('/user/landingpage/ebook');
+// });
 
 
 
@@ -59,12 +66,12 @@ Route::get("/v_index", function () {
 
 
 
-Route::group(['middleware' => ['guest']], function() {
+// Route::group(['middleware' => ['guest']], function() {
     Route::controller(loginuser::class)->group(function(){
         Route::get('login', 'index')->name('login');
         Route::post('login/proses', 'proses');
     });
-});
+// });
 
 Route::group(['middleware' => ['cekUserLogin']], function() {
     // Route::resource('landingpage', AnggotaController::class);

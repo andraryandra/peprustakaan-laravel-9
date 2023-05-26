@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('madings', function (Blueprint $table) {
+        Schema::create('mading_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
-            $table->string('image');
-            $table->string('judul');
-            $table->longText('slug');
-            $table->longText('tags');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('mading_id')->constrained('madings')->onDelete('cascade');
+
+            $table->string('verifikasi_mading')->default('PENDING');
+            $table->longText('description')->nullable();
 
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('madings');
+        Schema::dropIfExists('mading_items');
     }
 };

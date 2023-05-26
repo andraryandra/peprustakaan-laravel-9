@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\Laporan\AnggotaController as LaporanAnggotaContro
 use App\Http\Controllers\Admin\Laporan\EbookController as LaporanEbookController;
 use App\Http\Controllers\Admin\Laporan\MadingController as LaporanMadingController;
 use App\Http\Controllers\Admin\Master\EbookController;
-use App\Http\Controllers\Admin\Verifikasi\EbookController as verebook;
 use App\Http\Controllers\Admin\Master\LoginController;
 use App\Http\Controllers\Admin\Master\MadingController;
 use App\Http\Controllers\Admin\Master\KategoriController;
@@ -18,7 +17,8 @@ use App\Http\Controllers\Admin\Pengaturan\UbahPasswordController;
 use App\Http\Controllers\Admin\Tampilan\AboutController;
 use App\Http\Controllers\Admin\Tampilan\FooterController;
 use App\Http\Controllers\Admin\Tampilan\TampilanHomeController;
-use App\Http\Controllers\Admin\Verifikasi\MadingController as VerifikasiMadingController;
+use App\Http\Controllers\Admin\Verifikasi\VerifikasiEbookController;
+use App\Http\Controllers\Admin\Verifikasi\VerifikasiMadingController;
 
 Route::group(['middleware' => ['guest']], function() {
     Route::controller(LoginController::class)->group(function(){
@@ -34,15 +34,17 @@ Route::group(['middleware' => ['cekUserLogin']], function() {
     Route::prefix("admin")->group(function() {
         Route::prefix("autentikasi")->group(function() {
             Route::prefix("petugas")->group(function() {
-                Route::get("/edit", [PetugasController::class, "edit"]);
-                Route::put("/simpan", [PetugasController::class, "update"]);
-                Route::resource("/", PetugasController::class);
+                // Route::get("/edit", [PetugasController::class, "edit"]);
+                // Route::put("/simpan", [PetugasController::class, "update"]);
+                Route::resource("petugas", PetugasController::class);
+                Route::get('changeStatusAdmin', [PetugasController::class, 'changeStatusAdmin'])->name('petugas.changeStatusAdmin');
             });
-            Route::prefix("anggota")->group(function() {
-                Route::get("/edit", [AnggotaController::class, "edit"]);
-                Route::put("/simpan", [AnggotaController::class, "update"]);
-                Route::resource("/", AnggotaController::class);
-            });
+            // Route::prefix("anggota")->group(function() {
+                // Route::get("/edit", [AnggotaController::class, "edit"]);
+                // Route::put("/simpan", [AnggotaController::class, "update"]);
+                Route::resource("anggota", AnggotaController::class);
+                Route::get('changeStatus', [AnggotaController::class, 'changeStatus'])->name('anggota.changeStatus');
+            // });
         });
 
         Route::prefix("pengaturan")->group(function() {
@@ -66,12 +68,12 @@ Route::group(['middleware' => ['cekUserLogin']], function() {
         });
 
         Route::prefix("verifikasi")->group(function() {
-            Route::prefix("v_ebook")->group(function() {
-                Route::resource("/", verebook::class);
-            });
-            Route::prefix("v_mading")->group(function() {
-                Route::resource("/", VerifikasiMadingController::class);
-            });
+            // Route::prefix("v_ebook")->group(function() {
+                Route::resource("verifikasiEbook", VerifikasiEbookController::class);
+            // });
+            // Route::prefix("v_mading")->group(function() {
+                Route::resource("verifikasiMading", VerifikasiMadingController::class);
+            // });
         });
 
         Route::prefix("laporan")->group(function() {
@@ -86,29 +88,29 @@ Route::group(['middleware' => ['cekUserLogin']], function() {
             });
         });
 
-        Route::prefix("kategori")->group(function() {
-            Route::get("/edit", [KategoriController::class, "edit"]);
-            Route::put("/simpan", [KategoriController::class, "update"]);
-            Route::resource("/kategori", KategoriController::class);
-        });
+        // Route::prefix("kategori")->group(function() {
+            // Route::get("/edit", [KategoriController::class, "edit"]);
+            // Route::put("/simpan", [KategoriController::class, "update"]);
+            Route::resource("categori", KategoriController::class);
+        // });
 
-        Route::prefix("sub-kategori")->group(function() {
-            Route::get("/edit", [SubKategoriController::class, "edit"]);
-            Route::put("/simpan", [SubKategoriController::class, "update"]);
-            Route::resource("/sub-kategori", SubKategoriController::class);
-        });
+        // Route::prefix("sub-kategori")->group(function() {
+            // Route::get("/edit", [SubKategoriController::class, "edit"]);
+            // Route::put("/simpan", [SubKategoriController::class, "update"]);
+            Route::resource("sub-kategori", SubKategoriController::class);
+        // });
 
-        Route::prefix("majding")->group(function() {
-            Route::get("/edit", [MadingController::class, "edit"]);
-            Route::put("/simpan", [MadingController::class, "update"]);
-            Route::resource("/", MadingController::class);
-        });
+        // Route::prefix("majding")->group(function() {
+            // Route::get("/edit", [MadingController::class, "edit"]);
+            // Route::put("/simpan", [MadingController::class, "update"]);
+            Route::resource("madjing", MadingController::class);
+        // });
 
-        Route::prefix("buku")->group(function() {
-            Route::get("/edit", [EbookController::class, "edit"]);
-            Route::put("/simpan", [EbookController::class, "update"]);
-            Route::resource("/buku", EbookController::class);
-        });
+        // Route::prefix("buku")->group(function() {
+            // Route::get("/edit", [EbookController::class, "edit"]);
+            // Route::put("/simpan", [EbookController::class, "update"]);
+            Route::resource("buku", EbookController::class);
+        // });
     });
 });
 

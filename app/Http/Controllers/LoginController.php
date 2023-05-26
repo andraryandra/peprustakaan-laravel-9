@@ -10,9 +10,9 @@ class LoginController extends Controller
     public function index()
     {
         if($user = Auth::user()){
-            if($user->level == '1'){
+            if($user->level == 'petugas'){
                 return redirect()->intended('dashboard');
-            }elseif($user->level == '2'){
+            }elseif($user->level == 'anggota'){
                 return redirect()->intended('landingpage');
             }
         }
@@ -21,31 +21,37 @@ class LoginController extends Controller
     }
 
     public function proses(Request $request)
-    {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ],
-    );
+{
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required'
+    ]);
 
     $credentials = $request->only('username', 'password');
 
-    if(Auth::attempt($credentials)){
+    if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
         $user = Auth::user();
-        if($user->level == '1'){
-            return redirect()->intended('dashboard');
-        }elseif($user->level == '2'){
-            return redirect()->intended('landingpage');
+
+        if ($user->status == 'ACTIVE') {
+            if ($user->level == 'petugas') {
+                return redirect()->intended('dashboard');
+            } elseif ($user->level == 'anggota') {
+                return redirect()->intended('/');
+            }
+        } else {
+            Auth::logout();
+            return back()->withErrors([
+                'username' => 'Akun Anda tidak aktif. Silakan hubungi administrator.',
+            ])->onlyInput('username');
         }
-
-        return redirect()->intended('/');
     }
 
-        return back()->withErrors([
-            'username' => 'Maaf username atau password anda salah',
-        ])->onlyInput('username');
-    }
+    return back()->withErrors([
+        'username' => 'Maaf, username atau password Anda salah.',
+    ])->onlyInput('username');
+}
+
 
     public function logout(Request $request)
     {

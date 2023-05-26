@@ -1,15 +1,15 @@
-@foreach ($anggotas as $item)
+@foreach ($petugas as $item)
     <div class="modal fade" id="exampleModalEdit{{ $item->id }}" tabindex="-1"
         aria-labelledby="exampleModalLabel{{ $item->id }}" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="width: 50%">
             <div class="modal-content">
                 <div class="modal-header hader">
                     <h3 class="modal-title" id="exampleModalLabel{{ $item->id }}">
-                        Tambah Anggota
+                        Edit Petugas
                     </h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('anggota.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('petugas.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="modal-body">
@@ -42,50 +42,19 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <label class="username">NIS</label>
+                                    <label class="username">Username</label>
                                     <input type="text" name="username"
                                         class="form-control @error('username') is-invalid @enderror"
                                         placeholder="Masukkan username" value="{{ $item->username }}">
-                                </div>
-                            </div><!-- Col -->
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label class="alamat">Alamat</label>
-                                    <input type="text" name="alamat"
-                                        class="form-control @error('alamat') is-invalid @enderror"
-                                        placeholder="Masukkan Alamat" value="{{ $item->alamat }}">
                                 </div>
                             </div><!-- Col -->
                         </div><!-- Row -->
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="mb-3">
-                                    <label>Keterangan</label>
-                                    <div>
-                                        <select class="form-control mb-3" name="keterangan">
-                                            <option>-- Pilih saja --</option>
-                                            @if ($item->keterangan == 'TU')
-                                                <option value="TU" selected>TU</option>
-                                                <option value="SISWA">Siswa</option>
-                                            @elseif($item->keterangan == 'SISWA')
-                                                <option value="TU">TU</option>
-                                                <option value="SISWA" selected>Siswa</option>
-                                            @else
-                                                <option value="TU">TU</option>
-                                                <option value="SISWA">Siswa</option>
-                                            @endif
-                                        </select>
-                                        @error('keterangan')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="mb-3">
                                     <label>Level</label>
                                     <div>
-                                        <select class="form-control mb-3" name="level">
+                                        <select class="form-select mb-3" name="level">
                                             <option>-- Pilih saja --</option>
                                             @if ($item->level == 'petugas')
                                                 <option value="0" selected>Petugas</option>

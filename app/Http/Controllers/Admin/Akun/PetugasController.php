@@ -6,45 +6,96 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PetugasController extends Controller
 {
     public function index()
     {
-        $petugas = User::where("level", 1)->get();
+        $petugas = User::where("level", '0')->get();
         $user = User::findOrFail(Auth::id());
 
         return view('admin.autentikasi.petugas.p_index', compact("petugas", "user"));
     }
 
+    public function changeStatusAdmin(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->status = $request->status;
+        $user->save();
+
+        return response()->json(['success'=>'Status change successfully.']);
+    }
+
     public function store(Request $request)
     {
-        if($request->password != $request->password) {
-            return back();
-        } else {
-            User::create([
-                'name' => $request->name,
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'level' => 1
-            ]);
-            return redirect('/admin/autentikasi/petugas');
+        $userPath = $request->file('photo')->store('profileadmin', 'public');
+
+        $users = User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'photo' => $userPath,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'level' => 0,
+            'status' => 'ACTIVE',
+        ]);
+
+        if($users){
+            //redirect dengan pesan sukses
+            return redirect()->route('petugas.index')->with(['berhasil' => 'Data Berhasil Disimpan!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('petugas.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
     public function update(Request $request, $id)
     {
-        if($request->password != $request->password) {
-            return back();
+        $user = User::findOrFail($id);
+
+        $userPath = $user->photo; // Menyimpan path foto pengguna sebelumnya
+
+        // Validasi data yang diperlukan untuk update
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'nullable',
+            'level' => 'nullable',
+        ]);
+
+        // Mengambil foto baru jika ada
+        if ($request->hasFile('photo')) {
+            // Menghapus foto pengguna sebelumnya
+            Storage::disk('public')->delete($userPath);
+
+            // Menyimpan foto baru
+            $userPath = $request->file('photo')->store('profilesiswa', 'public');
+        }
+
+        // Mengupdate data pengguna
+        $userData = [
+            'name' => $request->name,
+            'username' => $request->username,
+            'photo' => $userPath,
+            'email' => $request->email,
+            'level' => $request->level,
+        ];
+
+        // Memeriksa apakah password diisi atau tidak
+        if ($request->filled('password')) {
+            $userData['password'] = bcrypt($request->password);
+        }
+
+        $user->update($userData);
+
+        if ($user) {
+            // Redirect dengan pesan sukses
+            return redirect()->route('petugas.index')->with(['berhasil' => 'Data Berhasil Diperbarui!']);
         } else {
-            User::where("id", $id)->update([
-                'name' => $request->name,
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-            ]);
-            return redirect('/admin/autentikasi/petugas');
+            // Redirect dengan pesan error
+            return redirect()->route('petugas.index')->with(['error' => 'Data Gagal Diperbarui!']);
         }
     }
 
@@ -55,5 +106,28 @@ class PetugasController extends Controller
         ];
 
         return view("admin.autentikasi.petugas.detail", $data);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Memeriksa apakah ada foto pengguna sebelum menghapusnya
+        if ($user->photo) {
+            // Menghapus foto pengguna
+            Storage::disk('public')->delete($user->photo);
+        }
+
+        // Menghapus data pengguna
+        $user->delete();
+
+        // Redirect dengan pesan sukses
+        if ($user) {
+            // Redirect dengan pesan sukses
+            return redirect()->route('petugas.index')->with(['berhasil' => 'Data Berhasil Dihapus!']);
+        } else {
+            // Redirect dengan pesan error
+            return redirect()->route('petugas.index')->with(['error' => 'Data Gagal Dihapus!']);
+        }
     }
 }

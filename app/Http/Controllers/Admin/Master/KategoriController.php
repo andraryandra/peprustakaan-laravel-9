@@ -22,39 +22,52 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama_kategori' => '',
+            'nama_kategori' => 'required',
         ]);
 
-        Kategori::create([
+        $kategori = Kategori::create([
             'nama_kategori' => $request->nama_kategori,
             'slug' => Str::slug($request->nama_kategori),
         ]);
 
-        return back()->with('berhasil', 'Kategori baru telah ditambahkan');
+        if ($kategori) {
+            return redirect()->route('categori.index')->with('berhasil', 'Kategori baru telah ditambahkan');
+        } else {
+            return redirect()->route('categori.index')->with('gagal', 'Kategori baru gagal ditambahkan');
+        }
     }
 
-    public function edit(Request $request)
-    {
-        $data = [
-            "edit" => Kategori::where("id", $request->id)->first(),
-        ];
+    // public function edit(Request $request)
+    // {
+    //     $data = [
+    //         "edit" => Kategori::where("id", $request->id)->first(),
+    //     ];
 
-        return view("admin.kategori.edit", $data);
-    }
+    //     return view("admin.kategori.edit", $data);
+    // }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama_kategori' => '',
+            'nama_kategori' => 'required',
         ]);
 
-        Kategori::where("id", $request->id)->update([
+        $kategori = Kategori::findOrFail($id);
+
+        $updateData = [
             'nama_kategori' => $request->nama_kategori,
             'slug' => Str::slug($request->nama_kategori),
-        ]);
+        ];
 
-        return back();
+        $kategori->update($updateData);
+
+        if ($kategori) {
+            return redirect()->route('categori.index')->with('berhasil', 'Kategori berhasil diperbarui');
+        } else {
+            return redirect()->route('categori.index')->with('gagal', 'Kategori gagal diperbarui');
+        }
     }
+
 
     public function destroy($id)
     {
@@ -62,6 +75,10 @@ class KategoriController extends Controller
         $kategori = Kategori::find($id);
         $kategori->delete();
 
-        return redirect()->back();
+        if ($kategori) {
+            return redirect()->route('categori.index')->with('berhasil', 'Kategori berhasil dihapus');
+        } else {
+            return redirect()->route('categori.index')->with('gagal', 'Kategori gagal dihapus');
+        }
     }
 }

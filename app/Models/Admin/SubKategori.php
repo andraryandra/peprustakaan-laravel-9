@@ -4,17 +4,18 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Kategori;
 
 class SubKategori extends Model
 {
     use HasFactory;
 
-    protected $guarded = [' '];
+    protected $guarded = [''];
 
     protected $table = "subkategoris";
 
     public function kategori()
     {
-        return $this->belongsTo("App\Models\Admin\Kategori","kategori_id", "id");
+        return $this->belongsTo(Kategori::class,"kategori_id", "id");
     }
 }

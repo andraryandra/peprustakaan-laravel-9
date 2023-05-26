@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Responsive HTML Admin Dashboard Template based on Bootstrap 5">
     <meta name="author" content="NobleUI">
-    <meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <meta name="keywords"
+        content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
     <title>Dashboard Petugas | @yield('title')</title>
 
@@ -41,7 +43,10 @@
 
     <link rel="stylesheet" href="/../../assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
 </head>
+
 <body>
+    @stack('style')
+
     <div class="main-wrapper">
         <div class="page-wrapper">
 
@@ -54,6 +59,13 @@
 
             <div>
                 @yield('content')
+                @yield('mading')
+                @yield('madingVerifikasi')
+                @yield('anggota')
+                @yield('petugas')
+                @yield('category')
+                @yield('subKategori')
+                @yield('ebook')
             </div>
 
             @include('admin.partials.footer')
@@ -79,7 +91,8 @@
         <script src="/../../assets/admin/js/dashboard-light.js"></script>
         <!-- End custom js for this page -->
 
-        @yield("js")
+        @yield('js')
+        @stack('javascript')
+</body>
 
-    </body>
 </html>

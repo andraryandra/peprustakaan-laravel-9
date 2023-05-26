@@ -20,7 +20,10 @@ return new class extends Migration
             $table->string('username', 50)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('level', 5);
+            // $table->string('level', 5);
+            $table->tinyInteger('level')->default(0);
+            /* Users: 0=>User, 1=>Admin, 2=>Manager */
+            $table->enum('status', ["ACTIVE", "INACTIVE"])->default("ACTIVE");
             $table->string("no_telp", 30)->nullable();
             $table->date("tgl_lahir")->nullable();
             $table->string("photo")->nullable();
@@ -31,7 +34,8 @@ return new class extends Migration
             $table->string('alamat', 100)->nullable();
             $table->string('kelurahan')->nullable();
 		    $table->integer('id_kodepos')->nullable();
-            $table->enum('keterangan', ["tu", "siswa"])->nullable();
+            $table->enum('keterangan', ["TU", "SISWA"])->nullable();
+            $table->timestamp('last_seen')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

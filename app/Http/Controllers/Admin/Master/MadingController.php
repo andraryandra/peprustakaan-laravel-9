@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\Admin\Mading;
 use Illuminate\Http\Request;
+use App\Models\Admin\MadingItem;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -15,83 +17,126 @@ class MadingController extends Controller
     public function index()
     {
         $user = User::findOrFail(Auth::id());
-        $data_mading = Mading::get();
+        $data_mading = Mading::with('user')->get();
 
-        return view('admin.majding.v_index', compact("user", "data_mading"));
+        $users = User::get();
+
+        return view('admin.majding.v_index', compact(
+            "user",
+            "data_mading",
+            'users',
+        ));
+    }
+
+    public function show($id)
+    {
+        $data = [
+            "data_mading" => Mading::where("id", $id)->first(),
+            "users" => User::get(),
+            "mading_latest" => Mading::get(),
+        ];
+
+        return view('user.anggota.tampilan.detail_mading', $data);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
+            'user_id' => 'required',
             'image' => 'mimes:jpg,jpeg,png',
-            'judul' => '',
-            'buat'  => ''
+            'judul' => 'required',
+            'tags'  => 'required',
+            'slug' => 'required',
+            'verifikasi_mading' => 'nullable',
         ]);
 
-        if($request->file("image")) {
-            $data = $request->file("image")->store("mading");
-        }
+        $madingPath = $request->file('image')->store('mading', 'public');
 
-        Mading::create([
-            'image' => $data,
+        DB::beginTransaction();
+        $madings = Mading::create([
+            'user_id' => $request->user_id,
+            'image' => $madingPath,
             'judul' => $request->judul,
-            'slug' => Str::slug($request->judul),
-            'buat' => $request->buat
+            'slug' => $request->slug,
+            'tags' => $request->tags,
         ]);
 
-        return back()->with('berhasil', 'Mading telah ditambahkan');
+        MadingItem::create([
+            'mading_id' => $madings->id,
+            'user_id' => $madings->user_id,
+            'verifikasi_mading' => 'PENDING',
+        ]);
+        DB::commit();
+
+        // return back()->with('berhasil', 'Mading telah ditambahkan');
+        if ($madings) {
+            return redirect()->route('madjing.index')->with('berhasil', 'Mading telah ditambahkan');
+        } else {
+            return redirect()->route('madjing.index')->with('gagal', 'Mading gagal ditambahkan');
+        }
     }
 
-    public function edit(Request $request)
+    public function edit($id)
     {
         $data = [
-            "edit" => Mading::where("id", $request->id)->first()
+            "data_mading" => Mading::where("id", $id)->first(),
+            "users" => User::get(),
+            "mading_latest" => Mading::get(),
         ];
 
         return view('admin.majding.edit', $data);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'image' => 'mimes:jpg,jpeg,png',
-            'judul' => '',
-            'buat'  => ''
+            'user_id' => 'required',
+            'image' => 'nullable|mimes:jpg,jpeg,png',
+            'judul' => 'required',
+            'tags' => 'required',
+            'slug' => 'required',
         ]);
 
-        if($request->file("image_new")) {
-            if ($request->gambarLama) {
-                Storage::delete($request->gambarLama);
+        $mading = Mading::findOrFail($id);
+
+        if ($request->hasFile("image")) {
+            $madingPath = $request->file('image')->store('mading', 'public');
+
+            // Menghapus gambar lama jika ada
+            if ($mading->image) {
+                Storage::disk('public')->delete($mading->image);
             }
 
-            $data = $request->file("image_new")->store("mading");
-        }else {
-            $data = $request->gambarLama;
+            $mading->image = $madingPath;
         }
 
-        Mading::where("id", $request->id)->update([
-            'image' => $data,
-            'judul' => $request->judul,
-            'slug' => Str::slug($request->judul),
-            'buat' => $request->buat
-        ]);
+        $mading->user_id = $request->user_id;
+        $mading->judul = $request->judul;
+        $mading->slug = $request->slug;
+        $mading->tags = $request->tags;
 
-        return back();
+        $mading->save();
+
+        // return back()->with('berhasil', 'Mading telah diperbarui');
+        if ($mading) {
+            return redirect()->route('madjing.index')->with('berhasil', 'Mading telah diperbarui');
+        } else {
+            return back()->with('error', 'Mading gagal diperbarui');
+        }
     }
 
-    public function show(Request $request)
-    {
-        $data = [
-            "detail" => Mading::where("id", $request->id)->first()
-        ];
 
-        return view("admin.majding.detail", $data);
-    }
-
-    public function destroy(Mading $majding)
+    public function destroy($id)
     {
-        $majding->delete();
-        return back()->with('berhasil');
+        $data = Mading::where("id", $id)->first();
+        Storage::delete($data->image);
+        Mading::where("id", $id)->delete();
+
+        if ($data) {
+            return back()->with('berhasil', 'Mading telah dihapus');
+        } else {
+            return back()->with('error', 'Mading gagal dihapus');
+        }
     }
 }
 

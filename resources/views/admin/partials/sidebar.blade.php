@@ -2,7 +2,7 @@
     <nav class="sidebar">
         <div class="sidebar-header">
             <a href="#" class="sidebar-brand">
-               E<span>Dumel</span>
+                E<span>Dumel</span>
             </a>
             <div class="sidebar-toggler not-active">
                 <span></span>
@@ -26,7 +26,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false"
+                        aria-controls="emails">
                         <i class="link-icon" data-feather="home">
                         </i>
                         <span class="link-title">
@@ -43,12 +44,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('admin/tampilan/about') }}"  class="nav-link">
+                                <a href="{{ url('admin/tampilan/about') }}" class="nav-link">
                                     About
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('admin/tampilan/footer') }}"  class="nav-link">
+                                <a href="{{ url('admin/tampilan/footer') }}" class="nav-link">
                                     Footer
                                 </a>
                             </li>
@@ -57,7 +58,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#ebooks" role="button" aria-expanded="false" aria-controls="ebooks">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ebooks" role="button" aria-expanded="false"
+                        aria-controls="ebooks">
                         <i class="link-icon" data-feather="book">
                         </i>
                         <span class="link-title">
@@ -69,7 +71,7 @@
                     <div class="collapse" id="ebooks">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ route('kategori.index') }}" class="nav-link">
+                                <a href="{{ route('categori.index') }}" class="nav-link">
                                     Kategori
                                 </a>
                             </li>
@@ -88,14 +90,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('index') }}" class="nav-link">
+                    <a href="{{ route('madjing.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="image"></i>
                         <span class="link-title">Mading</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" role="button" aria-expanded="false" aria-controls="verifikasi">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" role="button"
+                        aria-expanded="false" aria-controls="verifikasi">
                         <i class="link-icon" data-feather="check-circle">
                         </i>
                         <span class="link-title">
@@ -107,12 +110,12 @@
                     <div class="collapse" id="verifikasi">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url("/admin/verifikasi/v_ebook") }}" class="nav-link">
+                                <a href="{{ route('verifikasiEbook.index') }}" class="nav-link">
                                     Buku
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url("/admin/verifikasi/v_mading") }}" class="nav-link">
+                                <a href="{{ route('verifikasiMading.index') }}" class="nav-link">
                                     Mading
                                 </a>
                             </li>
@@ -121,7 +124,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#folders" role="button" aria-expanded="false" aria-controls="folders">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#folders" role="button" aria-expanded="false"
+                        aria-controls="folders">
                         <i class="link-icon" data-feather="folder">
                         </i>
                         <span class="link-title">
@@ -133,17 +137,17 @@
                     <div class="collapse" id="folders">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url("/admin/laporan/dataanggota") }}" class="nav-link">
+                                <a href="{{ url('/admin/laporan/dataanggota') }}" class="nav-link">
                                     Data Anggota
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url("/admin/laporan/dataebook") }}" class="nav-link">
+                                <a href="{{ url('/admin/laporan/dataebook') }}" class="nav-link">
                                     Data Ebook
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url("/admin/laporan/datamading") }}" class="nav-link">
+                                <a href="{{ url('/admin/laporan/datamading') }}" class="nav-link">
                                     Data Mading
                                 </a>
                             </li>
@@ -153,14 +157,14 @@
 
                 <li class="nav-item nav-category">Master</li>
                 <li class="nav-item">
-                    <a href="{{ url("/admin/autentikasi/petugas") }}" class="nav-link">
+                    <a href="{{ route('petugas.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="user-plus"></i>
                         <span class="link-title">Petugas</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url("/admin/autentikasi/anggota") }}" class="nav-link">
+                    <a href="{{ route('anggota.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="users"></i>
                         <span class="link-title">Anggota</span>
                     </a>
@@ -177,14 +181,16 @@
             <h6 class="text-muted mb-2">Sidebar:</h6>
             <div class="mb-3 pb-3 border-bottom">
                 <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarLight" value="sidebar-light" checked>
+                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarLight"
+                        value="sidebar-light" checked>
                     <label class="form-check-label" for="sidebarLight">
                         Light
                     </label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarDark" value="sidebar-dark">
+                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarDark"
+                        value="sidebar-dark">
                     <label class="form-check-label" for="sidebarDark">
                         Dark
                     </label>

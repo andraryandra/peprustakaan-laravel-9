@@ -15,13 +15,18 @@ return new class extends Migration
     {
         Schema::create('ebooks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("kategori_id");
-            $table->foreignId("subkategori_id");
+
+            $table->foreignId("user_id")->constrained("users")->onDelete("cascade");
+            $table->foreignId("kategori_id")->constrained("kategoris")->onDelete("cascade");
+            $table->foreignId("subkategori_id")->constrained("subkategoris")->onDelete("cascade");
+
             $table->string("cover");
             $table->string("file");
             $table->string("judul_buku");
+            $table->longText("sinopsis");
             $table->string("penulis");
-            $table->string("tahun_terbit");
+            $table->date("tahun_terbit");
+
             $table->timestamps();
         });
     }

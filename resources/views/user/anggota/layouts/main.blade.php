@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description" content="Edumel- Education Html Template by dreambuzz">
-    <meta name="keywords" content="education,edumel,instructor,lms,online,instructor,dreambuzz,bootstrap,kindergarten,tutor,e learning">
+    <meta name="keywords"
+        content="education,edumel,instructor,lms,online,instructor,dreambuzz,bootstrap,kindergarten,tutor,e learning">
     <meta name="author" content="dreambuzz">
 
     <title>L-Ebook</title>
@@ -28,14 +30,22 @@
     <link rel="stylesheet" href="/../../assets/user/css/style.css">
     <link rel="stylesheet" href="/../../assets/user/css/responsive.css">
 </head>
+
 <body id="top-header">
+
+    @stack('style')
+
     @include('user.anggota.layouts.navbar')
 
     <div>
         @yield('container')
+        @yield('landingPageHomeMading')
     </div>
 
     @include('user.anggota.layouts.footer')
+
+    @stack('javascript')
+
 
     <!-- Main jQuery -->
     <script src="/../../assets/vendors/jquery/jquery.js"></script>
@@ -57,4 +67,5 @@
 
     <script src="/../../assets/js/script.js"></script>
 </body>
+
 </html>

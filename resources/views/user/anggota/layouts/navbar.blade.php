@@ -15,13 +15,13 @@
                 <nav class="site-navbar ms-auto">
 
                     <ul class="primary-menu">
-                        <li class="current">
-                            <a href="/landingpage">Home</a>
+                        <li class="current {{ Request::routeIs('landingPage.index') ? 'active' : '' }}">
+                            <a href="{{ route('landingPage.index') }}">Home</a>
                         </li>
                         <li><a href="{{ url('/user/anggota/tampilan/about') }}">About</a></li>
 
-                        <li>
-                            <a href="{{ url('/user/anggota/tampilan/mading') }}">Mading</a>
+                        <li class="{{ Request::routeIs('landingPage.mading') ? 'active' : '' }}">
+                            <a href="{{ route('landingPage.mading') }}">Mading</a>
                         </li>
 
                         <li>
@@ -33,20 +33,29 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ Auth::user()->name }}
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="{{ url('/user/anggota/tampilan/riwayat') }}">Riwayat Ebook</a></li>
-                              <li><a class="dropdown-item" href="/user/pemesanan/history/on_progress">Riwayat Download</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li>
-                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                            @auth
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
                                 </a>
-                              </li>
-                            </ul>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/user/profil/profil">Riwayat Ebook</a></li>
+                                    <li><a class="dropdown-item" href="/user/pemesanan/history/on_progress">Riwayat
+                                            Download</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/logout" data-toggle="modal"
+                                            data-target="#logoutModal">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            @else
+                                <a class="nav-link" href="/login">Login</a>
+                            @endauth
                         </li>
                     </ul>
 

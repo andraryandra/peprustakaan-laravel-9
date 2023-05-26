@@ -1,20 +1,20 @@
 @extends('user.anggota.layouts.main')
 
-@section('container')
-<section class="page-header">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8 col-xl-8">
-          <div class="title-block">
-            <h1>MADING</h1>
-          </div>
+@section('landingPageHomeMading')
+    <section class="page-header">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-8">
+                    <div class="title-block">
+                        <h1>MADING</h1>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-</section>
+    </section>
 
     <!--course section start-->
-    <section class="section-padding page" >
+    <section class="section-padding page">
         <div class="course-top-wrap">
             <div class="container">
                 <div class="row align-items-center">
@@ -25,7 +25,7 @@
                     <div class="col-lg-4">
                         <div class="topbar-search">
                             <form method="get" action="#">
-                                <input type="text"  placeholder="Search our courses" class="form-control">
+                                <input type="text" placeholder="Search our courses" class="form-control">
                                 <label><i class="fa fa-search"></i></label>
                             </form>
                         </div>
@@ -135,7 +135,8 @@
                     <div class=" course-style-5 bg-white">
                         <div class="course-header">
                             <div class="course-thumb">
-                                <img src="/../../assets/user/images/mading/madinglari.jpg" alt="" class="img-fluid">
+                                <img src="/../../assets/user/images/mading/madinglari.jpg" alt=""
+                                    class="img-fluid">
                             </div>
                         </div>
 
@@ -154,7 +155,8 @@
                     <div class=" course-style-5 bg-white">
                         <div class="course-header">
                             <div class="course-thumb">
-                                <img src="/../../assets/user/images/mading/madinglari.jpg" alt="" class="img-fluid">
+                                <img src="/../../assets/user/images/mading/madinglari.jpg" alt=""
+                                    class="img-fluid">
                             </div>
                         </div>
 
@@ -173,7 +175,8 @@
                     <div class=" course-style-5 bg-white">
                         <div class="course-header">
                             <div class="course-thumb">
-                                <img src="/../../assets/user/images/mading/madinglari.jpg" alt="" class="img-fluid">
+                                <img src="/../../assets/user/images/mading/madinglari.jpg" alt=""
+                                    class="img-fluid">
                             </div>
                         </div>
 
@@ -192,5 +195,4 @@
         <!--course-->
     </section>
     <!--course section end-->
-
 @endsection
