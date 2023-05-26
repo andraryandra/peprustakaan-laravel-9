@@ -1,4 +1,4 @@
-@extends('layouts_user.main')
+@extends('layouts_user.ebook_main')
 
 @section('container')
     <section class="page-header">
@@ -76,9 +76,22 @@
                         @endif
                     @endforeach
                 @empty
-                    <div class="col-12 text-center">
-                        <div class="alert alert-info" role="alert">
-                            Tidak ada data mading yang tersedia.
+                    <div class="course-item col-lg-3 col-md-6 col-sm-6">
+                        <div class=" course-style-5 bg-white">
+                            <div class="course-header">
+                                <div class="course-thumb">
+                                    <img src="assets/user/images/mading/madinglari.jpg" alt="" class="img-fluid">
+                                </div>
+                            </div>
+
+                            <div class="course-content">
+                                <h4> <a href="#">Lomba Olahraga Tingkat Provinsi</a> </h4>
+
+                                <div class="course-footer mt-20 d-flex align-items-center justify-content-between">
+                                    <span class="students"><i class="far fa-user-alt me-2"></i>Felisa Rahmawati</span>
+                                    <a href="" class="rounded-btn"><i class="fa fa-long-arrow-right"></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforelse

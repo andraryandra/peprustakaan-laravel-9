@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Tampilan\Home;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Admin\Tampilan\Footer;
 use Illuminate\Support\Facades\Storage;
 
 class TampilanHomeController extends Controller
@@ -22,59 +23,89 @@ class TampilanHomeController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'image' => 'mimes:jpg,jpeg,png',
-            'teks1' => '',
-            'teks2' => '',
-        ]);
+        $existingData = Home::first();
 
-        if($request->file("image")) {
-            $data = $request->file("image")->store("Tampilan-home");
+        if ($existingData) {
+            return redirect()->route('home.index')->with('gagal', 'Data hanya dapat diinputkan sekali');
         }
 
-        Home::create([
-            'image' => $data,
+        $this->validate($request, [
+            'image' => 'required|mimes:jpg,jpeg,png',
+            'teks1' => 'required',
+            'teks2' => 'required',
+        ]);
+
+        $homePath = $request->file('image')->store('landingPage', 'public');
+
+        $home = Home::create([
+            'image' => $homePath,
             'teks1' => $request->teks1,
             'teks2' => $request->teks2
         ]);
 
-        return back()->with('berhasil', 'Home baru telah ditambahkan');
+        if ($home) {
+            return redirect()->route('home.index')->with('berhasil', 'Data berhasil ditambahkan');
+        } else {
+            return redirect()->route('home.index')->with('gagal', 'Data gagal ditambahkan');
+        }
     }
 
-    public function edit(Request $request)
-    {
-        $data = [
-            "edit" => Home::where("id", $request->id)->first()
-        ];
 
-        return view("admin.tampilan.landingpage.edit", $data);
-    }
+    // public function edit(Request $request)
+    // {
+    //     $data = [
+    //         "edit" => Home::where("id", $request->id)->first()
+    //     ];
 
-    public function update(Request $request)
+    //     return view("admin.tampilan.landingpage.edit", $data);
+    // }
+
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'image' => 'mimes:jpg,jpeg,png',
-            'teks1' => '',
-            'teks2' => ''
+            'teks1' => 'required',
+            'teks2' => 'required',
         ]);
 
-        if($request->file("image_new")) {
-            if ($request->gambarLama) {
-                Storage::delete($request->gambarLama);
-            }
+        $home = Home::findOrFail($id);
 
-            $data = $request->file("image_new")->store("Tampilan-home");
-        }else {
-            $data = $request->gambarLama;
+        $homePath = $home->image;
+
+        if ($request->hasFile('image')) {
+            Storage::disk('public')->delete($homePath);
+            $homePath = $request->file('image')->store('landingPage', 'public');
         }
 
-        Home::where("id", $request->id)->update([
-            'image' => $data,
+        $home->update([
+            'image' => $homePath,
             'teks1' => $request->teks1,
-            'teks2' => $request->teks2,
+            'teks2' => $request->teks2
         ]);
 
-        return back();
+        if ($home) {
+            return redirect()->route('home.index')->with('berhasil', 'Data berhasil diperbarui');
+        } else {
+            return redirect()->route('home.index')->with('gagal', 'Data gagal diperbarui');
+        }
     }
+
+    public function destroy($id)
+    {
+        $home = Home::findOrFail($id);
+
+        $imagePath = $home->image;
+
+        Storage::disk('public')->delete($imagePath);
+
+        $home->delete();
+
+        if ($home) {
+            return redirect()->route('home.index')->with('berhasil', 'Data berhasil dihapus');
+        } else {
+            return redirect()->route('home.index')->with('gagal', 'Data gagal dihapus');
+        }
+    }
+
 
 }

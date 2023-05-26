@@ -1,4 +1,4 @@
-@extends('layouts_user.main')
+@extends('layouts_user.ebook_main')
 
 @section('landingPageHome')
     {{-- <section class="banner-style-4 banner-padding">
@@ -29,18 +29,28 @@
             <div class="row align-items-center">
                 <div class="col-md-12 col-xl-6 col-lg-6">
                     <div class="banner-content">
-                        <h1>Selamat Datang Di Perpustakaan SMK Negeri 2 Indramayu</h1>
-                        <p>Aplikasi L-Ebook menyediakan berbagai buku fiksi dan non - fiksi populer</p>
+                        @forelse ($home as $item)
+                            <h1>{{ $item->teks1 }}</h1>
+                            <p>{{ $item->teks2 }}</p>
+                        @empty
+                            <h1>Selamat Datang Di Perpustakaan SMK Negeri 2 Indramayu</h1>
+                            <p>Aplikasi L-Ebook menyediakan berbagai buku fiksi dan non - fiksi populer</p>
+                        @endforelse
 
                         <div class="btn-container">
-                            <a href="/login" class="btn btn-white rounded ms-2">Dapatkan Disini</a>
+                            <a href="{{ route('landingPage.ebook') }}" class="btn btn-white rounded ms-2">Dapatkan Disini</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-12 col-xl-6 col-lg-6">
                     <div class="banner-img-round mt-5 mt-lg-0">
-                        <img src="assets/user/images/banner/banner_img.png" alt="" class="img-fluid">
+                        @forelse ($home as $item)
+                            <img src="{{ Storage::url($item->image) }}" alt="{{ $item->id }}"
+                                class="img-fluid rounded shadow-lg">
+                        @empty
+                            <img src="assets/user/images/banner/banner_img.png" alt="" class="img-fluid">
+                        @endforelse
                     </div>
                 </div>
             </div> <!-- / .row -->
@@ -289,9 +299,34 @@
                 @endif
             @empty
                 @if ($activeMadingCount === 0)
-                    <div class="col-12 text-center">
-                        <div class="alert alert-info" role="alert">
-                            Tidak ada data mading yang tersedia.
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="course-grid course-style-3">
+                            <div class="course-header">
+                                <div class="course-thumb">
+                                    <img src="assets/user/images/mading/madinglari.jpg" alt=""
+                                        class="img-fluid">
+                                </div>
+                            </div>
+
+                            <div class="course-content">
+                                <h3 class="course-title mb-20"> <a href="">Data Competitive Strategy law &
+                                        Organization </a> </h3>
+
+                                <div class="course-meta-info">
+                                    <div class="d-flex align-items-center">
+                                        <div class="author me-3">
+                                            <i class="far fa-user-alt me-2"></i>
+                                            By <a href="#">Josephin</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="course-footer mt-20 d-flex align-items-center justify-content-between">
+                                    <div class="course-name"></div>
+                                    <a href="" class="btn btn-main-outline btn-radius btn-sm">Selanjutnya <i
+                                            class="fa fa-long-arrow-right"></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endif

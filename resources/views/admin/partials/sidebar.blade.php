@@ -39,17 +39,17 @@
                     <div class="collapse" id="emails">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('admin/tampilan/landingpage') }}" class="nav-link">
+                                <a href="{{ route('home.index') }}" class="nav-link">
                                     Home
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('admin/tampilan/about') }}" class="nav-link">
+                                <a href="{{ route('about.index') }}" class="nav-link">
                                     About
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('admin/tampilan/footer') }}" class="nav-link">
+                                <a href="{{ route('footer.index') }}" class="nav-link">
                                     Footer
                                 </a>
                             </li>
@@ -136,8 +136,8 @@
                     </a>
                     <div class="collapse" id="folders">
                         <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="{{ url('/admin/laporan/dataanggota') }}" class="nav-link">
+                            <li class="nav-item {{ Request::routeIs('data-user.index') ? 'active' : '' }}">
+                                <a href="{{ route('data-user.index') }}" class="nav-link">
                                     Data Anggota
                                 </a>
                             </li>
@@ -147,7 +147,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/admin/laporan/datamading') }}" class="nav-link">
+                                <a href="{{ route('data-mading.index') }}" class="nav-link">
                                     Data Mading
                                 </a>
                             </li>

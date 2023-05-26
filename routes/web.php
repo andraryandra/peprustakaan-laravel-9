@@ -26,11 +26,13 @@ Route::get('showMading/{showMading}', [LandingpageController::class, 'showMading
 Route::get('/mading', [LandingpageController::class, 'mading'])->name('landingPage.mading');
 Route::get('/ebook', [LandingpageController::class, 'ebookLandingPage'])->name('landingPage.ebook');
 Route::get('showEbook/{showEbook}', [LandingpageController::class, 'showEbookLandingPageHome'])->name('landingPage.showEbook');
+Route::get('/about', [LandingpageController::class, 'about'])->name('landingPage.about');
+Route::get('/footer', [LandingpageController::class, 'indexfooter'])->name('landingPage.footer');
 
 
-Route::get('/about', function () {
-    return view('/user/landingpage/about');
-});
+// Route::get('/about', function () {
+//     return view('/user/landingpage/about');
+// });
 
 // Route::get('/mading', function () {
 //     return view('/user/landingpage/mading');

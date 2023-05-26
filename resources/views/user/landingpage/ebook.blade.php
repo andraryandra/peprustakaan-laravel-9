@@ -94,9 +94,107 @@
                         @endif
                     @endforeach
                 @empty
-                    <div class="col-12 text-center">
-                        <div class="alert alert-info" role="alert">
-                            Tidak ada data mading yang tersedia.
+                    <div class="course-item col-lg-6 col-md-6">
+                        <div class="single-course style-2 bg-shade border-0">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-xl-5">
+                                    <div class="course-thumb"
+                                        style="background:url(../assets/user/images/ebook/dilan-1990.jpg)">
+                                        <span class="category">Ebook</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-7">
+                                    <div class="course-content py-4 pt-xl-0">
+                                        <h3 class="course-title"> <a href="#">Data Competitive Strategy law &
+                                                Organization </a> </h3>
+                                        <div class="course-meta d-flex align-items-center">
+                                            <div class="author">
+                                                <img src="assets/user/images/course/course-2.jpg" alt=""
+                                                    class="img-fluid">
+                                                <a href="">Josephin</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-item  col-lg-6 col-md-6">
+                        <div class="single-course style-2 bg-shade border-0">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-xl-5">
+                                    <div class="course-thumb"
+                                        style="background:url(../assets/user/images/ebook/dilan-1991.jpg)">
+                                        <span class="category">Ebook</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-7">
+                                    <div class="course-content py-4 pt-xl-0">
+                                        <h3 class="course-title"> <a href="#">Data Competitive Strategy law &
+                                                Organization </a> </h3>
+                                        <div class="course-meta d-flex align-items-center">
+                                            <div class="author">
+                                                <img src="assets/user/images/course/course-2.jpg" alt=""
+                                                    class="img-fluid">
+                                                <a href="">Josephin</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-item  col-lg-6 col-md-6">
+                        <div class="single-course style-2 bg-shade border-0">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-xl-5">
+                                    <div class="course-thumb"
+                                        style="background:url(../assets/user/images/ebook/jingga&senja.jpg)">
+                                        <span class="category">Ebook</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-7">
+                                    <div class="course-content py-4 pt-xl-0">
+                                        <h3 class="course-title"> <a href="#">Data Competitive Strategy law &
+                                                Organization </a> </h3>
+                                        <div class="course-meta d-flex align-items-center">
+                                            <div class="author">
+                                                <img src="assets/user/images/course/course-2.jpg" alt=""
+                                                    class="img-fluid">
+                                                <a href="">Josephin</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-item col-lg-6 col-md-6">
+                        <div class="single-course style-2 bg-shade border-0">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-xl-5">
+                                    <div class="course-thumb"
+                                        style="background:url(/assets/user/images/ebook/harry-potter.jpg)">
+                                        <span class="category">Ebook</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-7">
+                                    <div class="course-content py-4 pt-xl-0">
+                                        <h3 class="course-title"> <a href="#">Data Competitive Strategy law &
+                                                Organization </a> </h3>
+                                        <div class="course-meta d-flex align-items-center">
+                                            <div class="author">
+                                                <img src="assets/user/images/course/course-2.jpg" alt=""
+                                                    class="img-fluid">
+                                                <a href="">Josephin</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforelse

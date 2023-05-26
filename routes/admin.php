@@ -55,16 +55,16 @@ Route::group(['middleware' => ['cekUserLogin']], function() {
 
         Route::prefix("tampilan")->group(function() {
             Route::prefix("landingpage")->group(function() {
-                Route::get("/edit", [TampilanHomeController::class, "edit"]);
-                Route::put("/simpan", [TampilanHomeController::class, "update"]);
-                Route::resource("/", TampilanHomeController::class);
+                // Route::get("/edit", [TampilanHomeController::class, "edit"]);
+                // Route::put("/simpan", [TampilanHomeController::class, "update"]);
+                Route::resource("/home", TampilanHomeController::class);
             });
-            Route::prefix("footer")->group(function() {
-                Route::resource("/", FooterController::class);
-            });
-            Route::prefix("about")->group(function() {
-                Route::resource("/", AboutController::class);
-            });
+            // Route::prefix("footer")->group(function() {
+                Route::resource("footer", FooterController::class);
+            // });
+            // Route::prefix("about")->group(function() {
+                Route::resource("about", AboutController::class);
+            // });
         });
 
         Route::prefix("verifikasi")->group(function() {
@@ -77,15 +77,15 @@ Route::group(['middleware' => ['cekUserLogin']], function() {
         });
 
         Route::prefix("laporan")->group(function() {
-            Route::prefix("dataanggota")->group(function() {
-                Route::resource("/", LaporanAnggotaController::class);
-            });
+            // Route::prefix("dataanggota")->group(function() {
+                Route::resource("data-user", LaporanAnggotaController::class);
+            // });
             Route::prefix("dataebook")->group(function() {
                 Route::resource("/", LaporanEbookController::class);
             });
-            Route::prefix("datamading")->group(function() {
-                Route::resource("/", LaporanMadingController::class);
-            });
+            // Route::prefix("datamading")->group(function() {
+                Route::resource("data-mading", LaporanMadingController::class);
+            // });
         });
 
         // Route::prefix("kategori")->group(function() {

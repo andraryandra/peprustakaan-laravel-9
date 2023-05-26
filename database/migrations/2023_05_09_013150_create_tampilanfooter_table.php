@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('tampilanfooter', function (Blueprint $table) {
             $table->id();
+
+            $table->string('image');
+            $table->text('teks1');
+            $table->longText('teks2');
+
             $table->timestamps();
         });
     }

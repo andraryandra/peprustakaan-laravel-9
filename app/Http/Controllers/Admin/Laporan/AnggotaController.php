@@ -12,7 +12,14 @@ class AnggotaController extends Controller
     public function index()
     {
         $user = User::findOrFail(Auth::id());
+        $users = User::get();
+        $users_count = User::count();
 
-        return view("admin.laporan.dataanggota.laporanindex", compact("user"));
+        return view("admin.laporan.dataanggota.laporanindex", compact(
+            "user",
+            "users",
+            "users_count",
+
+        ));
     }
 }

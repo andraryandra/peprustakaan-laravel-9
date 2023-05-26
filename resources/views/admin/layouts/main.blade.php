@@ -66,6 +66,7 @@
                 @yield('category')
                 @yield('subKategori')
                 @yield('ebook')
+                @yield('landingPage')
             </div>
 
             @include('admin.partials.footer')

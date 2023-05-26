@@ -125,7 +125,7 @@
                             <label for="tags">Tags</label>
                             <input type="text" class="form-control" name="tags" id="tags"
                                 placeholder="Masukkan Tags" value="{{ old('tags') }}" style="display: none;">
-                            <input type="text" class="form-control" name="hidden_tags" id="hidden_tags">
+                            <input type="text" class="form-control" name="hidden_tags" id="hidden_tags" readonly>
                             @error('tags')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

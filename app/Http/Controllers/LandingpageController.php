@@ -9,24 +9,32 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Kategori;
 use App\Models\Admin\SubKategori;
 use Illuminate\Routing\Controller;
+use App\Models\Admin\Tampilan\Home;
+use App\Models\Admin\Tampilan\About;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Admin\Tampilan\Footer;
 
 class LandingpageController extends Controller
 {
     public function index()
     {
+        $home = Home::get();
         $data_mading = Mading::with('user')->get();
         $users = User::get();
+        $footer = Footer::get();
 
         return view('user.landingpage.home', compact(
             "data_mading",
             'users',
+            'home',
+            'footer',
         ));
     }
 
     public function showMadingLandingPageHome($id)
     {
         $data_mading = Mading::with('mading_items')->where("id", $id)->first();
+        $footer = Footer::get();
 
         if ($data_mading) {
             foreach ($data_mading->mading_items as $item) {
@@ -35,6 +43,7 @@ class LandingpageController extends Controller
                         "data_mading" => $data_mading,
                         "users" => User::get(),
                         "mading_latest" => Mading::get(),
+                        'footer' => $footer,
                     ];
 
                     return view('user.anggota.tampilan.detail_mading', $data);
@@ -47,17 +56,24 @@ class LandingpageController extends Controller
 
     public function about()
     {
-        return view("user.anggota.tampilan.about");
+
+        $about = About::all();
+        $footer = Footer::get();
+
+
+        return view("user.landingpage.about", compact("about", "footer"));
     }
 
     public function mading()
     {
         $data_mading = Mading::with('user')->get();
         $users = User::get();
+        $footer = Footer::get();
 
         return view('user.landingpage.mading', compact(
             "data_mading",
             'users',
+            'footer',
         ));
     }
 
@@ -72,13 +88,16 @@ class LandingpageController extends Controller
         $subkategori = SubKategori::all();
         $kategori = Kategori::all();
         $user = User::all();
+        $footer = Footer::get();
 
-        return view("user.landingpage.ebook", compact("buku", "subkategori", "kategori", "user"));
+
+        return view("user.landingpage.ebook", compact("buku", "subkategori", "kategori", "user", "footer"));
     }
 
     public function showEbookLandingPageHome($id)
     {
         $ebook = Ebook::with(['user','ebook_item_verify'])->where("id", $id)->first();
+        $footer = Footer::get();
 
         if ($ebook) {
                     foreach ($ebook->ebook_item_verify as $item) {
@@ -87,6 +106,7 @@ class LandingpageController extends Controller
                     'ebook' => $ebook,
                     'users' => User::get(),
                     'ebook_latest' => Ebook::get(),
+                    'footer' => $footer,
                 ];
                 return view('user.anggota.tampilan.detail_ebook', $data);
             }
@@ -96,6 +116,12 @@ class LandingpageController extends Controller
 
     }
 
+    public function indexfooter()
+    {
+        $footer = Footer::get();
+
+        return view('layouts_user.footer', compact('footer'));
+    }
 
     public function detailebook()
     {

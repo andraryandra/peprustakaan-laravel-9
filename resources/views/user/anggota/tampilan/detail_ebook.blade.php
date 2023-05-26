@@ -26,6 +26,12 @@
                             <img src="{{ Storage::url($ebook->cover) }}" alt="{{ $ebook->id }}"
                                 class="img-fluid rounded shadow-sm">
                             <div class="text-center">
+                                <a href="{{ Storage::url($ebook->file) }}" download="{{ $ebook->judul_buku }}"
+                                    target="_blank" class="btn btn-primary mt-4">
+                                    Download Ebook
+                                </a>
+
+
                                 <button type="button" class="btn btn-primary mt-4">Mulai Membaca</button>
                             </div>
                         </div>
@@ -219,7 +225,7 @@
                         </div>
 
 
-                        <div class="widget widget_categories">
+                        {{-- <div class="widget widget_categories">
                             <h4 class="widget-title">Categories</h4>
                             <ul>
                                 <li class="cat-item"><a href="#">Web Design</a>(4)</li>
@@ -227,9 +233,9 @@
                                 <li class="cat-item"><a href="#">Marketing</a>(24)</li>
                                 <li class="cat-item"><a href="#">Design & dev</a>(6)</li>
                             </ul>
-                        </div>
+                        </div> --}}
 
-                        <div class="widget widget_tag_cloud">
+                        {{-- <div class="widget widget_tag_cloud">
                             <h4 class="widget-title">Tags</h4>
                             <a href="#">Design</a>
                             <a href="#">Development</a>
@@ -243,7 +249,7 @@
                             <a href="#">bootstrap</a>
                             <a href="#">Tutorial</a>
                             <a href="#">Html</a>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>
