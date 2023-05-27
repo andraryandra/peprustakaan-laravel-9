@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Admin\Ebook;
+use App\Models\Admin\EbookItem;
 use App\Models\Admin\Mading;
 use Illuminate\Http\Request;
 use App\Models\Admin\Kategori;
@@ -98,6 +99,7 @@ class LandingpageController extends Controller
     {
         $ebook = Ebook::with(['user','ebook_item_verify'])->where("id", $id)->first();
         $footer = Footer::get();
+        $isi_buku = EbookItem::where('ebook_id', $id)->get();
 
         if ($ebook) {
                     foreach ($ebook->ebook_item_verify as $item) {
@@ -107,6 +109,7 @@ class LandingpageController extends Controller
                     'users' => User::get(),
                     'ebook_latest' => Ebook::get(),
                     'footer' => $footer,
+                    'isi_buku' => $isi_buku,
                 ];
                 return view('user.anggota.tampilan.detail_ebook', $data);
             }
@@ -127,6 +130,19 @@ class LandingpageController extends Controller
     {
         return view('user.anggota.tampilan.detail_ebook');
     }
+
+    public function ebookStory($id)
+    {
+        $footer = Footer::get();
+        $buku = Ebook::with(['ebook_item_verify'])->get();
+        $isi_buku = EbookItem::findOrFail($id);
+
+        $nextId = EbookItem::where('id', '>', $id)->min('id');
+        $previousId = EbookItem::where('id', '<', $id)->max('id');
+
+        return view('user.anggota.tampilan.detail_item_ebook', compact('footer', 'buku', 'isi_buku', 'nextId', 'previousId'));
+    }
+
 
     public function artikel()
     {

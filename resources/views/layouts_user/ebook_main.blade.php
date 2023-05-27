@@ -7,36 +7,42 @@
     <meta name="keywords"
         content="education,edumel,instructor,lms,online,instructor,dreambuzz,bootstrap,kindergarten,tutor,e learning">
     <meta name="author" content="dreambuzz">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo.png') }}">
 
     <title>L-Ebook</title>
 
     <!-- Mobile Specific Meta-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="assets/user/vendors/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/../../assets/user/vendors/bootstrap/bootstrap.css">
     <!-- Iconfont Css -->
-    <link rel="stylesheet" href="assets/user/vendors/awesome/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/user/vendors/flaticon/flaticon.css">
-    <link rel="stylesheet" href="assets/user/fonts/gilroy/font-gilroy.css">
-    <link rel="stylesheet" href="assets/user/vendors/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="/../../assets/user/vendors/awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/../../assets/user/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="/../../assets/user/fonts/gilroy/font-gilroy.css">
+    <link rel="stylesheet" href="/../../assets/user/vendors/magnific-popup/magnific-popup.css">
     <!-- animate.css -->
-    <link rel="stylesheet" href="assets/user/vendors/animate-css/animate.css">
-    <link rel="stylesheet" href="assets/user/vendors/animated-headline/animated-headline.css">
-    <link rel="stylesheet" href="assets/user/vendors/owl/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/user/vendors/owl/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/../../assets/user/vendors/animate-css/animate.css">
+    <link rel="stylesheet" href="/../../assets/user/vendors/animated-headline/animated-headline.css">
+    <link rel="stylesheet" href="/../../assets/user/vendors/owl/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/../../assets/user/vendors/owl/assets/owl.theme.default.min.css">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="assets/user/css/woocomerce.css">
-    <link rel="stylesheet" href="assets/user/css/style.css">
-    <link rel="stylesheet" href="assets/user/css/responsive.css">
+    <link rel="stylesheet" href="/../../assets/user/css/woocomerce.css">
+    <link rel="stylesheet" href="/../../assets/user/css/style.css">
+    <link rel="stylesheet" href="/../../assets/user/css/responsive.css">
 </head>
 
 <body id="top-header">
+
     @include('layouts_user.navbar')
 
     <div>
         @yield('container')
         @yield('landingPageHome')
+        @yield('landingPageHomeMading')
+        @yield('ebook')
     </div>
 
     @include('layouts_user.footer')

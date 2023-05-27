@@ -4,7 +4,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 <div class="site-logo">
                     <a href="index.html">
-                        <img src="assets/user/images/logo.png" alt="" class="img-fluid" />
+                        <img src="{{ asset('assets/admin/images/logo.png') }}" width="500" alt="logo"
+                            class="img-fluid" />
                     </a>
                 </div>
 

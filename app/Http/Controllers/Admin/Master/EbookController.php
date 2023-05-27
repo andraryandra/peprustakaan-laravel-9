@@ -9,6 +9,7 @@ use App\Models\Admin\Kategori;
 use App\Models\Admin\SubKategori;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\EbookItem;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\EbookItemVerify;
 use Illuminate\Support\Facades\Storage;
@@ -72,7 +73,6 @@ class EbookController extends Controller
         }
     }
 
-
     public function edit($id)
     {
 
@@ -83,58 +83,7 @@ class EbookController extends Controller
         $users = User::get();
 
         return view("admin.buku.edit", compact("buku", "subkategori", "kategori", "user",'users'));
-
-        // $buku = Ebook::get();
-        // $subkategori = SubKategori::all();
-        // $kategori = Kategori::all();
-        // $user = User::findOrFail(Auth::id());
-
-        // return view("admin.buku.edit", compact("buku", "subkategori", "kategori", "user"));
     }
-
-    // public function update(Request $request)
-    // {
-    //     $this->validate($request, [
-    //         "kategori_id"   => '',
-    //         "subkategori_id"=> '',
-    //         "cover"         => 'mimes:jpg,jpeg,png',
-    //         "judul_buku"    => '',
-    //         "penulis"       => '',
-    //         "tahun_terbit"  => '',
-    //     ]);
-
-    //     if($request->file("cover_new")) {
-    //         if ($request->gambarLama) {
-    //             Storage::delete($request->gambarLama);
-    //         }
-
-    //         $data = $request->file("cover_new")->store("cover");
-    //     }else {
-    //         $data = $request->gambarLama;
-    //     }
-
-    //     if($request->file("file_new")) {
-    //         if ($request->fileLama) {
-    //             Storage::delete($request->fileLama);
-    //         }
-
-    //         $file = $request->file("file_new")->store("buku");
-    //     }else {
-    //         $file = $request->fileLama;
-    //     }
-
-    //     Ebook::where("id", $request->id)->update([
-    //         "kategori_id"   => $request->kategori_id,
-    //         "subkategori_id"   => $request->subkategori_id,
-    //         "cover"         => $data,
-    //         // "file"          => $file,
-    //         "judul_buku"    => $request->judul_buku,
-    //         "penulis"       => $request->penulis,
-    //         "tahun_terbit"  => $request->tahun_terbit
-    //     ]);
-
-    //     return back();
-    // }
 
     public function update(Request $request, $id)
     {
@@ -201,5 +150,55 @@ class EbookController extends Controller
             return redirect()->route('buku.index')->with('gagal', 'Buku gagal dihapus');
         }
     }
+
+
+    // public function isiCerita($id)
+    // {
+    //     $buku = Ebook::findOrFail($id);
+    //     $subkategori = SubKategori::all();
+    //     $kategori = Kategori::all();
+    //     $user = User::findOrFail(Auth::id());
+    //     $users = User::get();
+
+    //     return view("admin.buku.isi_cerita", compact("buku", "user",'users', "subkategori", "kategori"));
+    // }
+
+    // public function storeIsiCerita(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         "user_id"       => "nullable",
+    //         "kategori_id"   => 'nullable',
+    //         "subkategori_id"   => 'nullable',
+    //         'ebook_id'      => 'nullable',
+    //         "judul_part"    => 'required',
+    //         'content_part'      => 'required',
+    //     ],
+    //     [
+    //         'user_id.required' => 'User harus diisi',
+    //         'kategori_id.required' => 'Kategori harus diisi',
+    //         'subkategori_id.required' => 'Subkategori harus diisi',
+    //         'ebook_id.required' => 'Ebook harus diisi',
+    //         'judul_part.required' => 'Judul part harus diisi',
+    //         'content_part.required' => 'Content part harus diisi',
+    //     ]);
+
+    //     DB::beginTransaction();
+    //     $bookItem = EbookItem::create([
+    //         "user_id"       => $request->user_id,
+    //         "kategori_id"   => $request->kategori_id,
+    //         "subkategori_id" => $request->subkategori_id,
+    //         'ebook_id'      => $request->ebook_id,
+    //         "judul_part"    => $request->judul_part,
+    //         'content_part'      => $request->content_part,
+    //     ]);
+    //     DB::commit();
+
+    //     if ($bookItem) {
+    //         return redirect()->route('buku.index')->with('berhasil', 'Buku baru telah ditambahkan');
+    //     } else {
+    //         return back()->with('gagal', 'Buku baru gagal ditambahkan');
+    //     }
+    // }
+
 
 }

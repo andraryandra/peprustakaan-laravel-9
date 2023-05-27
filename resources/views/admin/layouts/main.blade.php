@@ -10,6 +10,9 @@
     <meta name="keywords"
         content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
+    {{-- icon --}}
+    <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo.png') }}">
+
     <title>Dashboard Petugas | @yield('title')</title>
 
     <!-- Fonts -->
@@ -39,7 +42,6 @@
     <link rel="stylesheet" href="/../../assets/admin/css/dashboard/style.css">
     <!-- End layout styles -->
 
-    <link rel="shortcut icon" href="/../../assets/admin/images/favicon.png" />
 
     <link rel="stylesheet" href="/../../assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
 </head>

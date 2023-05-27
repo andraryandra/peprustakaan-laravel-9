@@ -1,5 +1,4 @@
-@extends('user.anggota.layouts.main')
-
+@extends('layouts_user.ebook_main')
 @section('landingPageHomeMading')
     <section class="page-header">
         <div class="container">
@@ -19,7 +18,6 @@
 
     <div class="page-wrapper">
         <div class="container">
-
             <div class="row">
                 <div class="col-lg-8 col-xl-8">
                     <div class="post-single">
@@ -47,16 +45,12 @@
                         </div>
 
                         <!--  Share -->
-
                         <div class="blog-footer-meta d-md-flex justify-content-between align-items-center">
                             <div class="post-tags mb-4 mb-md-0">
                                 @foreach (json_decode($data_mading->tags) as $tag)
                                     <a href="">{{ $tag->value }}</a>
                                 @endforeach
                             </div>
-
-
-
                             <div class="article-share d-md-flex align-items-center">
                                 <h6>Share: </h6>
                                 <ul class="social-icon">

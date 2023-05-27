@@ -1,8 +1,8 @@
 <div class="main-wrapper">
     <nav class="sidebar">
         <div class="sidebar-header">
-            <a href="#" class="sidebar-brand">
-                E<span>Dumel</span>
+            <a href="" class="sidebar-brand">
+                <img src="{{ asset('assets/admin/images/logo.png') }}" alt="logo" width="150">
             </a>
             <div class="sidebar-toggler not-active">
                 <span></span>

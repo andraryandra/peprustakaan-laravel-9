@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Admin\Tampilan\Footer;
 
 class LoginController extends Controller
 {
     public function index()
     {
+
+        $footer = Footer::all();
+
         if($user = Auth::user()){
             if($user->level == 'petugas'){
                 return redirect()->intended('dashboard');
@@ -17,7 +21,7 @@ class LoginController extends Controller
             }
         }
 
-        return view('user.akun.login');
+        return view('user.akun.login', compact('footer'));
     }
 
     public function proses(Request $request)

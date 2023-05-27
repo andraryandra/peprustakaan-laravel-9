@@ -4,21 +4,22 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\Admin\Akun\AnggotaController;
 use App\Http\Controllers\Admin\Akun\PetugasController;
-use App\Http\Controllers\Admin\Laporan\AnggotaController as LaporanAnggotaController;
-use App\Http\Controllers\Admin\Laporan\EbookController as LaporanEbookController;
-use App\Http\Controllers\Admin\Laporan\MadingController as LaporanMadingController;
 use App\Http\Controllers\Admin\Master\EbookController;
 use App\Http\Controllers\Admin\Master\LoginController;
 use App\Http\Controllers\Admin\Master\MadingController;
+use App\Http\Controllers\Admin\Tampilan\AboutController;
 use App\Http\Controllers\Admin\Master\KategoriController;
+use App\Http\Controllers\Admin\Tampilan\FooterController;
+use App\Http\Controllers\Admin\Master\EbookItemController;
 use App\Http\Controllers\Admin\Master\SubKategoriController;
 use App\Http\Controllers\Admin\Pengaturan\ProfileController;
-use App\Http\Controllers\Admin\Pengaturan\UbahPasswordController;
-use App\Http\Controllers\Admin\Tampilan\AboutController;
-use App\Http\Controllers\Admin\Tampilan\FooterController;
 use App\Http\Controllers\Admin\Tampilan\TampilanHomeController;
+use App\Http\Controllers\Admin\Pengaturan\UbahPasswordController;
 use App\Http\Controllers\Admin\Verifikasi\VerifikasiEbookController;
 use App\Http\Controllers\Admin\Verifikasi\VerifikasiMadingController;
+use App\Http\Controllers\Admin\Laporan\EbookController as LaporanEbookController;
+use App\Http\Controllers\Admin\Laporan\MadingController as LaporanMadingController;
+use App\Http\Controllers\Admin\Laporan\AnggotaController as LaporanAnggotaController;
 
 Route::group(['middleware' => ['guest']], function() {
     Route::controller(LoginController::class)->group(function(){
@@ -110,6 +111,12 @@ Route::group(['middleware' => ['cekUserLogin']], function() {
             // Route::get("/edit", [EbookController::class, "edit"]);
             // Route::put("/simpan", [EbookController::class, "update"]);
             Route::resource("buku", EbookController::class);
+            Route::resource("buku-isi", EbookItemController::class);
+            Route::get('/buku/{buku}/isi', [EbookItemController::class,'isiCerita'])->name('isi-buku.isiCerita');
+            Route::post('/buku/bukuisi', [EbookItemController::class,'storeIsiCerita'])->name('isi-buku.storeIsiCerita');
+            // Route::get('/buku/{buku}/isi/{isi}/edit', [EbookController::class,'editIsiCerita'])->name('buku.editIsiCerita');
+            // Route::put('/buku/{buku}/isi/{isi}', [EbookController::class,'updateIsiCerita'])->name('buku.updateIsiCerita');
+            // Route::delete('/buku/{buku}/isi/{isi}', [EbookController::class,'destroyIsiCerita'])->name('buku.destroyIsiCerita');
         // });
     });
 });

@@ -5,7 +5,8 @@
                 <div class="col-xl-3 col-sm-8 me-auto">
                     <div class="widget footer-widget mb-5 mb-lg-0">
                         <div class="footer-logo">
-                            <img src="/assets/user/images/logo-white.png" alt="" class="img-fluid">
+                            <img src="{{ asset('assets/admin/images/logo.png') }}" alt="logo"
+                                class="img-fluid bg-white rounded">
                         </div>
 
                         <p class="mt-4">Aplikasi L-Ebook menyediakan berbagai buku fiksi dan non - fiksi populer</p>

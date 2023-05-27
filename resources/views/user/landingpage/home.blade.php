@@ -307,7 +307,6 @@
                                         class="img-fluid">
                                 </div>
                             </div>
-
                             <div class="course-content">
                                 <h3 class="course-title mb-20"> <a href="">Data Competitive Strategy law &
                                         Organization </a> </h3>
@@ -331,7 +330,6 @@
                     </div>
                 @endif
             @endforelse
-
         </div>
     </div>
 

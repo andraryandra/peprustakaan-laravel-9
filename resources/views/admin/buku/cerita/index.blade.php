@@ -2,13 +2,20 @@
 @section('title', 'Buku')
 
 @section('ebook')
+
     <div class="page-content">
+        <div class="my-3">
+            <button type="button" onclick="window.location.href='{{ route('buku.index') }}'"
+                class="btn btn-primary">Kembali</button>
+        </div>
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Table</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Data Buku</li>
             </ol>
         </nav>
+
+
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
@@ -16,8 +23,7 @@
                         <h6 class="card-title">Data Buku</h6>
                         <div class="col-12 text-end">
                             <div class="mt-2 text-end">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModalTambah"
+                                <a href="{{ route('isi-buku.isiCerita', $buku->id) }}" class="btn btn-primary"
                                     class="btn btn-primary fw-bold rounded-pill px-4 shadow btn-sm">Tambah +</a>
                             </div>
                         </div>
@@ -35,60 +41,37 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No.</th>
-                                        <th class="text-center">Id Buku</th>
-                                        <th class="text-center">Cover</th>
-                                        <th class="text-center">File</th>
-                                        <th class="text-center">Kategori</th>
-                                        <th class="text-center">Sub Kategori</th>
-                                        <th class="text-center">Judul</th>
-                                        {{-- <th class="text-center">Sinopsis</th> --}}
-                                        <th class="text-center">Penulis</th>
-                                        <th class="text-center">Diposting Oleh</th>
-                                        <th class="text-center">Tahun Terbit</th>
+                                        <th class="text-center">Judul Part</th>
+                                        <th class="text-center">Isi Content</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($buku as $data)
+                                    @foreach ($isi_buku as $item)
                                         <tr>
-                                            <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td class="text-center">{{ $data->id }}</td>
-                                            <td class="text-center"><img src="{{ Storage::url($data->cover) }}"
-                                                    style="width: 50%;" style="height: 50%;"></td>
-                                            <td class="text-center">
-                                                <a href="{{ Storage::url($data->file) }}" target="__blank">
-                                                    <i class="link-icon" data-feather="file-text"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center">{{ $data->kategori->nama_kategori }}</td>
-                                            <td class="text-center">{{ $data->subkategori->subkategori }}</td>
-                                            <td class="text-center">{{ $data->judul_buku }}</td>
-                                            {{-- <td class="text-center">{!! Illuminate\Support\Str::limit($data->sinopsis, 25) !!}</td> --}}
-                                            <td class="text-center">{{ $data->user->name }}</td>
-                                            <td class="text-center">{{ $data->penulis }}</td>
-                                            <td class="text-center">
-                                                {{ \Carbon\Carbon::parse($data->tahun_terbit)->format('d/m/Y') }}</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->judul_part }}</td>
+                                            <td>{!! Illuminate\Support\Str::limit($item->content_part, 75) !!}</td>
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center">
-                                                    <button type="button" class="btn btn-warning text-white me-2"
-                                                        onclick="window.location.href='{{ route('buku-isi.show', $data->id) }}'">
-                                                        <i class="bi bi-pencil-square"></i>
-                                                        Isi Cerita
-                                                    </button>
                                                     <button type="button" class="btn btn-primary me-2"
-                                                        onclick="window.location.href='{{ route('buku.edit', $data->id) }}'">
+                                                        onclick="window.location.href='{{ route('buku-isi.edit', $item->id) }}'">
                                                         <i class="bi bi-pencil-square"></i> Edit
                                                     </button>
-                                                    <form action="{{ route('buku.destroy', $data->id) }}" method="POST">
+                                                    <form action="{{ route('buku-isi.destroy', $item->id) }}"
+                                                        method="POST">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <button type="submit" class="btn btn-danger me-2"><i
-                                                                class="bi bi-trash"></i> Hapus</button>
+                                                        <button type="submit" class="btn btn-danger me-2"
+                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                            <i class="bi bi-trash"></i> Hapus
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </td>
                                         </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>

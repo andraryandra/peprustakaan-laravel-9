@@ -28,6 +28,7 @@ Route::get('/ebook', [LandingpageController::class, 'ebookLandingPage'])->name('
 Route::get('showEbook/{showEbook}', [LandingpageController::class, 'showEbookLandingPageHome'])->name('landingPage.showEbook');
 Route::get('/about', [LandingpageController::class, 'about'])->name('landingPage.about');
 Route::get('/footer', [LandingpageController::class, 'indexfooter'])->name('landingPage.footer');
+Route::get('/ebook-story/{ebook_story}', [LandingpageController::class, 'ebookStory'])->name('landingPage.ebookStory');
 
 
 // Route::get('/about', function () {
