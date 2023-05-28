@@ -40,41 +40,46 @@ class MadingController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $this->validate($request, [
-            'user_id' => 'required',
-            'image' => 'mimes:jpg,jpeg,png',
-            'judul' => 'required',
-            'tags'  => 'required',
-            'slug' => 'required',
-            'verifikasi_mading' => 'nullable',
-        ]);
+{
+    $this->validate($request, [
+        'user_id' => 'required',
+        'image' => 'mimes:jpg,jpeg,png',
+        'judul' => 'required',
+        'tags'  => 'required',
+        'content' => 'required',
+        'verifikasi_mading' => 'nullable',
+    ]);
 
-        $madingPath = $request->file('image')->store('mading', 'public');
+    $madingPath = $request->file('image')->store('mading', 'public');
+    $slug = Str::slug($request->judul);
 
-        DB::beginTransaction();
-        $madings = Mading::create([
+    DB::beginTransaction();
+    try {
+        $mading = Mading::create([
             'user_id' => $request->user_id,
             'image' => $madingPath,
             'judul' => $request->judul,
-            'slug' => $request->slug,
+            'content' => $request->content,
             'tags' => $request->tags,
+            'slug' => $slug,
         ]);
 
         MadingItem::create([
-            'mading_id' => $madings->id,
-            'user_id' => $madings->user_id,
+            'mading_id' => $mading->id,
+            'user_id' => $mading->user_id,
             'verifikasi_mading' => 'PENDING',
         ]);
+
         DB::commit();
 
-        // return back()->with('berhasil', 'Mading telah ditambahkan');
-        if ($madings) {
-            return redirect()->route('madjing.index')->with('berhasil', 'Mading telah ditambahkan');
-        } else {
-            return redirect()->route('madjing.index')->with('gagal', 'Mading gagal ditambahkan');
-        }
+        return redirect()->route('madjing.index')->with('berhasil', 'Mading telah ditambahkan');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->route('madjing.index')->with('gagal', 'Mading gagal ditambahkan');
     }
+}
+
+
 
     public function edit($id)
     {
@@ -94,7 +99,8 @@ class MadingController extends Controller
             'image' => 'nullable|mimes:jpg,jpeg,png',
             'judul' => 'required',
             'tags' => 'required',
-            'slug' => 'required',
+            'content' => 'required',
+            'slug' => 'nullable|unique:madings',
         ]);
 
         $mading = Mading::findOrFail($id);
@@ -112,8 +118,9 @@ class MadingController extends Controller
 
         $mading->user_id = $request->user_id;
         $mading->judul = $request->judul;
-        $mading->slug = $request->slug;
+        $mading->content = $request->content;
         $mading->tags = $request->tags;
+        $mading->slug = $request->judul;
 
         $mading->save();
 

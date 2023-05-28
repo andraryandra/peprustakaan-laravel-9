@@ -71,8 +71,25 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div><!-- Row -->
+                                    </div>
+                                    {{-- <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                                <label class="slug">Slug</label>
+                                                <input type="text" name="slug" class="form-control" placeholder="Slug"
+                                                    value="{{ $buku->judul_buku }}-{{ $buku->id }}" readonly>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                     {{-- </div> --}}
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label class="file">File</label>
+                                            <input type="file" name="files[]"
+                                                class="form-control @error('files.*') is-invalid @enderror" multiple>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="mb-3">
@@ -80,8 +97,11 @@
                                                 <input type="text" name="judul_part"
                                                     class="form-control @error('judul_part') is-invalid @enderror"
                                                     placeholder="Tambahkan judul part">
+                                                @error('judul_part')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
                                             </div>
-                                        </div><!-- Col -->
+                                        </div>
                                         <div class="col-sm-12">
                                             <div class="mb-3">
                                                 <label class="content_part">Isi Cerita</label>

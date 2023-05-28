@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Master;
 
 use App\Models\User;
 use App\Models\Admin\Ebook;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Admin\Kategori;
 use App\Models\Admin\EbookItem;
@@ -11,6 +12,7 @@ use App\Models\Admin\SubKategori;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EbookItemController extends Controller
 {
@@ -50,7 +52,7 @@ class EbookItemController extends Controller
 
     public function isiCerita($id)
     {
-        $buku = Ebook::findOrFail($id);
+        $buku = Ebook::with(['ebook_items'])->findOrFail($id);
         $subkategori = SubKategori::all();
         $kategori = Kategori::all();
         $user = User::findOrFail(Auth::id());
@@ -66,38 +68,81 @@ class EbookItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    $this->validate($request, [
-        "user_id"       => "nullable",
-        "kategori_id"   => 'nullable',
-        "subkategori_id"   => 'nullable',
-        'ebook_id'      => 'required',
-        "judul_part"    => 'required',
-        'content_part'      => 'required',
-    ], [
-        'user_id.required' => 'User harus diisi',
-        'kategori_id.required' => 'Kategori harus diisi',
-        'subkategori_id.required' => 'Subkategori harus diisi',
-        'ebook_id.required' => 'Ebook harus diisi',
-        'judul_part.required' => 'Judul part harus diisi',
-        'content_part.required' => 'Content part harus diisi',
-    ]);
+    {
+        $this->validate($request, [
+            "user_id"       => "nullable",
+            "kategori_id"   => 'nullable',
+            "subkategori_id"   => 'nullable',
+            'ebook_id'      => 'required',
+            'files.*'       => 'nullable|mimes:jpeg,jpg,png,doc,docx,pdf,xls,xlsx,ppt,pptx|max:2048', // Mengizinkan multiple files dengan mimes dan max size yang ditentukan
+            "judul_part"    => 'nullable',
+            'content_part'  => 'nullable',
+            'slug'          => 'nullable',
+        ], [
+            'user_id.required' => 'User harus diisi',
+            'kategori_id.required' => 'Kategori harus diisi',
+            'subkategori_id.required' => 'Subkategori harus diisi',
+            'ebook_id.required' => 'Ebook harus diisi',
+            'files.*.mimes' => 'Format file tidak valid. Hanya diperbolehkan file dengan ekstensi jpeg, jpg, png, doc, docx, pdf, xls, xlsx, ppt, pptx',
+            'files.*.max' => 'Ukuran file terlalu besar. Maksimal ukuran file adalah 2MB',
+            'judul_part.required' => 'Judul part harus diisi',
+            'content_part.required' => 'Content part harus diisi',
+            'slug.required' => 'slug harus diisi',
+        ]);
 
-    $bookItem = EbookItem::create([
-        "user_id"       => $request->user_id,
-        "kategori_id"   => $request->kategori_id,
-        "subkategori_id" => $request->subkategori_id,
-        'ebook_id'      => $request->ebook_id,
-        "judul_part"    => $request->judul_part,
-        'content_part'  => $request->content_part,
-    ]);
+        $isi_bukuEbookPaths = [];
 
-    if ($bookItem) {
-        return redirect()->route('buku-isi.show', $bookItem->ebook_id)->with('berhasil', 'Buku baru telah ditambahkan');
+    if ($request->hasFile('files')) {
+        foreach ($request->file('files') as $file) {
+            $isi_bukuEbookPath = $file->store('isiEbook', 'public');
+            $isi_bukuEbookPaths[] = $isi_bukuEbookPath;
+        }
+    }
+
+    $bookItems = [];
+    $ebook = Ebook::findOrFail($request->ebook_id);
+
+    // Mendapatkan nomor urutan terakhir berdasarkan ebook_id
+    $lastNomor = EbookItem::where('ebook_id', $request->ebook_id)->max('nomor');
+    $nomor = $lastNomor ?? 0; // Menangani kasus ketika belum ada data
+
+    foreach ($isi_bukuEbookPaths as $isi_bukuEbookPath) {
+        $bookItem = EbookItem::create([
+            "user_id"       => $request->user_id,
+            "kategori_id"   => $request->kategori_id,
+            "subkategori_id" => $request->subkategori_id,
+            'ebook_id'      => $request->ebook_id,
+            'file'          => $isi_bukuEbookPath,
+            "judul_part"    => $request->judul_part,
+            'content_part'  => $request->content_part,
+        ]);
+
+        // Memperbarui nomor urutan
+        $nomor++;
+
+        $bookItem->slug = Str::slug($ebook->judul_buku . '-' . $nomor);
+
+        if (empty($bookItem->judul_part)) {
+            $bookItem->judul_part = $bookItem->slug;
+        }
+
+        $bookItem->nomor = $nomor;
+
+        $bookItem->save();
+
+        $bookItems[] = $bookItem;
+    }
+
+    if (count($bookItems) > 0) {
+        return redirect()->route('buku-isi.show', $bookItems[0]->ebook_id)->with('berhasil', 'Buku baru telah ditambahkan');
     } else {
         return back()->with('gagal', 'Buku baru gagal ditambahkan');
     }
+
+
+
 }
+
 
 
     /**
@@ -145,34 +190,42 @@ class EbookItemController extends Controller
         "kategori_id"   => 'nullable',
         "subkategori_id"   => 'nullable',
         'ebook_id'      => 'required',
-        "judul_part"    => 'required',
-        'content_part'      => 'required',
+        'file'          => 'nullable|mimes:doc,docx,pdf,xls,xlsx,ppt,pptx',
+        "judul_part"    => 'nullable',
+        'content_part'  => 'nullable',
     ], [
         'user_id.required' => 'User harus diisi',
         'kategori_id.required' => 'Kategori harus diisi',
         'subkategori_id.required' => 'Subkategori harus diisi',
         'ebook_id.required' => 'Ebook harus diisi',
+        'file.required' => 'File harus diisi',
         'judul_part.required' => 'Judul part harus diisi',
         'content_part.required' => 'Content part harus diisi',
     ]);
 
-    $bookItem = EbookItem::findOrFail($id);
+    $ebookItem = EbookItem::find($id);
 
-    $bookItem->update([
-        "user_id"       => $request->user_id,
-        "kategori_id"   => $request->kategori_id,
-        "subkategori_id" => $request->subkategori_id,
-        'ebook_id'      => $request->ebook_id,
-        "judul_part"    => $request->judul_part,
-        'content_part'  => $request->content_part,
-    ]);
+    if ($ebookItem) {
+        $ebookItem->user_id = $request->user_id;
+        $ebookItem->kategori_id = $request->kategori_id;
+        $ebookItem->subkategori_id = $request->subkategori_id;
+        $ebookItem->ebook_id = $request->ebook_id;
+        $ebookItem->judul_part = $request->judul_part;
+        $ebookItem->content_part = $request->content_part;
 
-    if ($bookItem) {
-        return redirect()->route('buku-isi.show', $bookItem->ebook_id)->with('berhasil', 'Buku berhasil diperbarui');
+        if ($request->hasFile('file')) {
+            $isi_bukuEbookPath = $request->file('file')->store('isiEbook', 'public');
+            $ebookItem->file = $isi_bukuEbookPath;
+        }
+
+        $ebookItem->save();
+
+        return redirect()->route('buku-isi.show', $ebookItem->ebook_id)->with('berhasil', 'Buku telah diperbarui');
     } else {
-        return back()->with('gagal', 'Buku gagal diperbarui');
+        return back()->with('gagal', 'Buku tidak ditemukan');
     }
 }
+
 
 
     /**

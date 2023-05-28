@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin\Master;
 
 use App\Models\User;
 use App\Models\Admin\Ebook;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Admin\Kategori;
+use App\Models\Admin\EbookItem;
 use App\Models\Admin\SubKategori;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\EbookItem;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\EbookItemVerify;
 use Illuminate\Support\Facades\Storage;
@@ -40,7 +41,21 @@ class EbookController extends Controller
             "penulis"       => 'required',
             "tahun_terbit"  => 'required',
             'verifikasi_ebook' => 'nullable',
-        ]);
+            'slug' => 'nullable|unique:ebooks',
+        ],
+    [
+        'user_id.required' => 'User harus diisi',
+        'kategori_id.required' => 'Kategori harus diisi',
+        'subkategori_id.required' => 'Subkategori harus diisi',
+        'cover.required' => 'Cover harus diisi',
+        'file.required' => 'File harus diisi',
+        'sinopsis.required' => 'Sinopsis harus diisi',
+        'judul_buku.required' => 'Judul buku harus diisi',
+        'penulis.required' => 'Penulis harus diisi',
+        'tahun_terbit.required' => 'Tahun terbit harus diisi',
+        'verifikasi_ebook.required' => 'Verifikasi ebook harus diisi',
+        'slug.required' => 'Slug harus diisi',
+    ]);
 
         $bukuPath = $request->file('file')->store('buku', 'public');
         $coverEbookPath = $request->file('cover')->store('coverEbook', 'public');
@@ -56,7 +71,8 @@ class EbookController extends Controller
             "sinopsis"      => $request->sinopsis,
             "judul_buku"    => $request->judul_buku,
             "penulis"       => $request->penulis,
-            "tahun_terbit"  => $request->tahun_terbit
+            "tahun_terbit"  => $request->tahun_terbit,
+            'slug' => Str::slug($request->judul_buku),
         ]);
 
         EbookItemVerify::create([
@@ -97,7 +113,20 @@ class EbookController extends Controller
             "judul_buku"    => 'required',
             "penulis"       => 'required',
             "tahun_terbit"  => 'required',
-        ]);
+            'slug' => 'nullable',
+        ],
+    [
+        'user_id.required' => 'User harus diisi',
+        'kategori_id.required' => 'Kategori harus diisi',
+        'subkategori_id.required' => 'Subkategori harus diisi',
+        'cover.required' => 'Cover harus diisi',
+        'file.required' => 'File harus diisi',
+        'sinopsis.required' => 'Sinopsis harus diisi',
+        'judul_buku.required' => 'Judul buku harus diisi',
+        'penulis.required' => 'Penulis harus diisi',
+        'tahun_terbit.required' => 'Tahun terbit harus diisi',
+        'slug.required' => 'Slug harus diisi',
+    ]);
 
         $book = Ebook::findOrFail($id);
 
@@ -108,6 +137,8 @@ class EbookController extends Controller
         $book->judul_buku = $request->judul_buku;
         $book->penulis = $request->penulis;
         $book->tahun_terbit = $request->tahun_terbit;
+
+        $book->slug = Str::slug($book->judul_buku);
 
         if ($request->hasFile('cover')) {
             // Hapus file cover yang lama jika ada

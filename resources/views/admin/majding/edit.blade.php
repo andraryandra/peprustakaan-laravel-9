@@ -62,7 +62,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="content">Content</label>
-                                            <textarea name="slug" id="slug" value="{!! $data_mading->slug !!}">{!! $data_mading->slug !!}</textarea>
+                                            <textarea name="content" id="content" value="{!! $data_mading->content !!}">{!! $data_mading->content !!}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
 
     <script>
         ClassicEditor
-            .create(document.querySelector('#slug'))
+            .create(document.querySelector('#content'))
             .then(editor => {
                 console.log(editor);
             })
@@ -118,7 +118,7 @@
     <script>
         function initCKEditor(textareaId) {
             ClassicEditor
-                .create(document.querySelector('#slug' + textareaId))
+                .create(document.querySelector('#content' + textareaId))
                 .then(editor => {
                     console.log(editor);
                 })

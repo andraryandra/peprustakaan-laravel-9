@@ -21,8 +21,12 @@ return new class extends Migration
             $table->foreignId("subkategori_id")->constrained("subkategoris")->onDelete("cascade");
             $table->foreignId('ebook_id')->constrained('ebooks')->onDelete('cascade');
 
-            $table->text("judul_part");
-            $table->longText("content_part");
+            $table->text("judul_part")->nullable();
+            $table->text("file")->nullable();
+            $table->longText("content_part")->nullable();
+            $table->mediumText('slug')->nullable();
+            $table->bigInteger('nomor')->nullable();
+
 
             $table->timestamps();
         });

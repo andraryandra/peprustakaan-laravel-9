@@ -36,6 +36,8 @@
 
 <body id="top-header">
 
+    @stack('style')
+
     @include('layouts_user.navbar')
 
     <div>
@@ -44,6 +46,8 @@
         @yield('landingPageHomeMading')
         @yield('ebook')
     </div>
+
+    @stack('script')
 
     @include('layouts_user.footer')
     <!-- Main jQuery -->

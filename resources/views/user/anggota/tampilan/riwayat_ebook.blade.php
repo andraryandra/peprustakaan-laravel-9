@@ -6,10 +6,10 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-xl-8">
                     <div class="title-block">
-                        <h1>Artikel Saya</h1>
+                        <h1>Riwayat Ebook</h1>
                         <ul class="header-bradcrumb justify-content-center">
                             <li><a href="index.html">Home</a></li>
-                            <li class="active" aria-current="page">Artikel</li>
+                            <li class="active" aria-current="page">Riwayat Ebook</li>
                         </ul>
                     </div>
                 </div>
@@ -18,17 +18,10 @@
     </section>
 
     <section class="woocommerce single page-wrapper">
-        <div class="col-11 text-end">
-            <div class="mt-2 text-end">
-                <a href="#" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalTambah"
-                    class="btn btn-primary fw-bold rounded-pill px-2 shadow btn-sm">Tambah +</a>
-            </div>
-            <br>
-        </div>
         <div class="container">
             <div class="row">
                 <div class="p-2 container card mb-5" style="width: 100%;">
-                    <div class="row row-layanan">
+                    {{-- <div class="row row-layanan">
                         <ul class="nav nav-pills nav-fill mb-3">
                             <li class="nav-item">
                                 <a class="nav-link text-success fw-bold" aria-current="page"
@@ -38,7 +31,7 @@
                                 <a class="nav-link text-dark fw-bold" href="/user/anggota/tampilan/a-mading">Mading</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-12 col-xl-12">
                         <div class="woocommerce-cart">
                             <div class="woocommerce-notices-wrapper"></div>
@@ -51,43 +44,44 @@
                                             <tr>
                                                 <th class="text-center">No</th>
                                                 <th class="text-center" style="width: 20%;">Cover</th>
-                                                <th class="text-center">File</th>
-                                                <th class="text-center">Judul</th>
-                                                <th class="text-center">Sinopsis</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Aksi</th>
+                                                <th class="text-center">Kategori</th>
+                                                <th class="text-center">Sub-Kategori</th>
+                                                <th class="text-center">Judul Ebook</th>
+                                                <th class="text-center">Halaman Terakhir Membaca Ebook</th>
+                                                <th class="text-center">Penulis Ebook</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center"><img
-                                                        src="/../../assets/user/images/ebook/jingga&senja.jpg"
-                                                        style="width: 20%; height: 35%;" alt="Cover"></td>
-                                                <td class="text-center"><i class="bi bi-file-earmark-text"></i></td>
-                                                <td class="text-center">Menari dan Tertawa</td>
-                                                <td class="text-center">Ini adalah sinopsis</td>
-                                                <td class="text-center">
-                                                    <span class="badge badge-danger"
-                                                        style="background-color: green;">Terima</span>
-                                                </td>
-                                                <td class="text-end">
-                                                    <div class="d-flex justify-content-end">
-                                                        <button onclick="" type="button" class="btn btn-warning btn-sm"
-                                                            data-bs-toggle="modal" data-bs-target="#ModalDetail">
-                                                            <i class="bi bi-list"></i>
-                                                        </button>
-                                                        <form action="" method="POST">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button onclick="return confirm('Apakah Anda Yakin ?');"
-                                                                class="btn btn-danger btn-sm" type="submit">
-                                                                <i class="bi bi-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            @foreach ($history_ebook as $item)
+                                                <tr>
+                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                    <td class="text-center">
+                                                        <img src="{{ Storage::url($item->ebook->cover) }}" width="150"
+                                                            class="rounded" alt="Cover">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $item->ebook->kategori->nama_kategori }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $item->ebook->subkategori->subkategori }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $item->ebook->judul_buku }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-info text-light"
+                                                            href="{{ route('landingPage.ebookStory', $item->slug_ebook_item) }}">
+                                                            Lanjutkan Membaca {{ $item->slug_ebook_item }}
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $item->ebook->penulis }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+
+
                                         </tbody>
                                     </table>
                                 </div>

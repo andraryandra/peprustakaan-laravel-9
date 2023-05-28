@@ -19,8 +19,9 @@ return new class extends Migration
 
             $table->string('image');
             $table->string('judul');
-            $table->longText('slug');
-            $table->longText('tags');
+            $table->mediumText('content');
+            $table->mediumText('slug')->nullable();
+            $table->longText('tags')->nullable();
 
             $table->timestamps();
         });

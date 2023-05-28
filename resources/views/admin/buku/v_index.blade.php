@@ -176,7 +176,7 @@
                                         class="form-control @error('file') is-invalid @enderror"
                                         placeholder="Tambahkan file">
                                 </div>
-                            </div><!-- Col -->
+                            </div>
                         </div><!-- Row -->
                         <div class="row">
                             <div class="col-sm-6">

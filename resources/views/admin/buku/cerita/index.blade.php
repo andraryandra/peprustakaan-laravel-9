@@ -41,6 +41,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No.</th>
+                                        <th class="text-center">File</th>
                                         <th class="text-center">Judul Part</th>
                                         <th class="text-center">Isi Content</th>
                                         <th class="text-center">Aksi</th>
@@ -50,6 +51,11 @@
                                     @foreach ($isi_buku as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ Storage::url($item->file) }}" target="__blank">
+                                                    <i class="link-icon" data-feather="file-text"></i>
+                                                </a>
+                                            </td>
                                             <td>{{ $item->judul_part }}</td>
                                             <td>{!! Illuminate\Support\Str::limit($item->content_part, 75) !!}</td>
                                             <td class="text-center">

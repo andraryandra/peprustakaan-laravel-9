@@ -22,13 +22,18 @@ require __DIR__ . '/admin.php';
 // });
 
 Route::get('/', [LandingpageController::class, 'index'])->name('landingPage.index');
-Route::get('showMading/{showMading}', [LandingpageController::class, 'showMadingLandingPageHome'])->name('landingPage.showMading');
+Route::get('showMading/{slug}', [LandingpageController::class, 'showMadingLandingPageHome'])->name('landingPage.showMading');
 Route::get('/mading', [LandingpageController::class, 'mading'])->name('landingPage.mading');
 Route::get('/ebook', [LandingpageController::class, 'ebookLandingPage'])->name('landingPage.ebook');
-Route::get('showEbook/{showEbook}', [LandingpageController::class, 'showEbookLandingPageHome'])->name('landingPage.showEbook');
+Route::get('showEbook/{slug}', [LandingpageController::class, 'showEbookLandingPageHome'])->name('landingPage.showEbook');
 Route::get('/about', [LandingpageController::class, 'about'])->name('landingPage.about');
 Route::get('/footer', [LandingpageController::class, 'indexfooter'])->name('landingPage.footer');
-Route::get('/ebook-story/{ebook_story}', [LandingpageController::class, 'ebookStory'])->name('landingPage.ebookStory');
+// Route::get('/ebook-story/{ebook_story}', [LandingpageController::class, 'ebookStory'])->name('landingPage.ebookStory');
+Route::get('/ebook-story/{slug}', [LandingpageController::class, 'ebookStory'])->name('landingPage.ebookStory');
+
+Route::get('buku-isi/{id}/pdf', [LandingpageController::class, 'showPdf'])->name('buku-isi.show-pdf');
+Route::get('/artikel', [LandingpageController::class, 'artikel'])->name('landingPage.artikel');
+Route::get('/riwayat/ebook', [LandingpageController::class, 'riwayatEbook'])->name('landingPage.riwayatEbook');
 
 
 // Route::get('/about', function () {

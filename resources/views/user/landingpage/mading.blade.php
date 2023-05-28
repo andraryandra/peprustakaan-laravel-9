@@ -66,7 +66,7 @@
                                         <div class="course-footer mt-20 d-flex align-items-center justify-content-between">
                                             <div class="course-name"></div>
 
-                                            <a href="{{ route('landingPage.showMading', $item->id) }}"
+                                            <a href="{{ route('landingPage.showMading', $item->slug) }}"
                                                 class="btn btn-main-outline btn-radius btn-sm">Selanjutnya <i
                                                     class="fa fa-long-arrow-right"></i></a>
                                         </div>

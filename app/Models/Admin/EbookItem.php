@@ -27,4 +27,9 @@ class EbookItem extends Model
     {
         return $this->hasOne(EbookItemVerify::class, 'ebook_id', 'id');
     }
+
+    public function history_ebook()
+    {
+        return $this->hasOne(HistoryEbook::class, 'ebook_item_id', 'id');
+    }
 }

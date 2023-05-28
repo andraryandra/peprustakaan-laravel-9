@@ -33,7 +33,7 @@
                                     <tr>
                                         <th class="text-center">No.</th>
                                         <th class="text-center">Gambar</th>
-                                        <th class="text-center">Slug</th>
+                                        <th class="text-center">Content</th>
                                         <th class="text-center">Judul</th>
                                         <th class="text-center">Dibuat Oleh</th>
                                         <th class="text-center">Aksi</th>
@@ -46,7 +46,7 @@
                                             <td class="text-center"><img src="{{ url('/storage/' . $item->image) }}"
                                                     style="width: 50%;"></td>
                                             <td class="text-center">
-                                                {!! Illuminate\Support\Str::limit($item->slug, 75) !!}
+                                                {!! Illuminate\Support\Str::limit($item->content, 75) !!}
                                             </td>
                                             <td class="text-center">{{ $item->judul }}</td>
                                             {{-- <td class="text-center">{{ $item->buat }}</td> --}}
@@ -118,7 +118,7 @@
 
                         <div class="form-group my-1">
                             <label for="content">Content</label>
-                            <textarea name="slug" id="slug"></textarea>
+                            <textarea name="content" id="content"></textarea>
                         </div>
 
                         <div class="form-group my-1">
@@ -157,7 +157,7 @@
 
     <script>
         ClassicEditor
-            .create(document.querySelector('#slug'))
+            .create(document.querySelector('#content'))
             .then(editor => {
                 console.log(editor);
             })

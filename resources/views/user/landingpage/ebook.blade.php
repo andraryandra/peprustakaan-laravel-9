@@ -71,7 +71,7 @@
                                         <div class="col-xl-7">
                                             <div class="course-content py-4 pt-xl-0">
                                                 <h3 class="course-title"> <a
-                                                        href="{{ route('landingPage.showEbook', $item->id) }}">{{ $item->judul_buku }}</a>
+                                                        href="{{ route('landingPage.showEbook', $item->slug) }}">{{ $item->judul_buku }}</a>
                                                 </h3>
                                                 <div class="course-meta d-flex align-items-center">
                                                     <div class="author">

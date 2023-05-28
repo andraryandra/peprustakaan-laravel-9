@@ -69,161 +69,176 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2 mb-20">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon1.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Ensiklopedia</a>
-                            </h4>
+                @forelse ($kategori as $item)
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">{{ $item->nama_kategori }}</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @empty
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2 mb-20">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon1.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Ensiklopedia</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Web Development</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Web Development</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon3.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Kesenian dan Olahraga</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon3.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Kesenian dan Olahraga</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon2.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Ilmu Terapan</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon2.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Ilmu Terapan</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2 ">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon3.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Kesusastraan</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2 ">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon3.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Kesusastraan</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Sejarah dan Geografi</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Sejarah dan Geografi</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon1.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Ilmu Sosial</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon1.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Ilmu Sosial</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon1.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Ilmu Murni</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon1.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Ilmu Murni</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon1.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Bahasa</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon1.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Bahasa</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Karya Umum</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Karya Umum</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Filsafat</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon6.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Filsafat</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="single-course-category style-2 ">
-                        <div class="course-cat-icon">
-                            <img src="assets/user/images/icon/icon3.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="course-cat-content">
-                            <h4 class="course-cat-title">
-                                <a href="#">Novel</a>
-                            </h4>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-course-category style-2 ">
+                            <div class="course-cat-icon">
+                                <img src="assets/user/images/icon/icon3.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="course-cat-content">
+                                <h4 class="course-cat-title">
+                                    <a href="#">Novel</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -284,7 +299,7 @@
                                         <div class="course-footer mt-20 d-flex align-items-center justify-content-between">
                                             <div class="course-name"></div>
 
-                                            <a href="{{ route('landingPage.showMading', $item->id) }}"
+                                            <a href="{{ route('landingPage.showMading', $item->slug) }}"
                                                 class="btn btn-main-outline btn-radius btn-sm">Selanjutnya <i
                                                     class="fa fa-long-arrow-right"></i></a>
                                         </div>

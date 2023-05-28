@@ -26,6 +26,8 @@ return new class extends Migration
             $table->longText("sinopsis");
             $table->string("penulis");
             $table->date("tahun_terbit");
+            $table->mediumText('slug')->nullable();
+
 
             $table->timestamps();
         });

@@ -39,7 +39,7 @@
                                 {{ $data_mading->judul }}
                             </h3>
                             <p class="text-justify">
-                                {!! $data_mading->slug !!}
+                                {!! $data_mading->content !!}
                             </p>
 
                         </div>
@@ -191,13 +191,13 @@
                                     @if ($postCount < 5)
                                         <div class="single-latest-post">
                                             <div class="widget-thumb">
-                                                <a href="{{ route('landingPage.showMading', $mading->id) }}"><img
+                                                <a href="{{ route('landingPage.showMading', $mading->slug) }}"><img
                                                         src="{{ Storage::url($mading->image) }}" alt=""
                                                         class="img-fluid"></a>
                                             </div>
                                             <div class="widget-content">
                                                 <h5><a
-                                                        href="{{ route('landingPage.showMading', $mading->id) }}">{{ $mading->judul }}</a>
+                                                        href="{{ route('landingPage.showMading', $mading->slug) }}">{{ $mading->judul }}</a>
                                                 </h5>
                                                 <span><i
                                                         class="fa fa-calendar-times"></i>{{ $mading->created_at->format('d F Y') }}</span>
