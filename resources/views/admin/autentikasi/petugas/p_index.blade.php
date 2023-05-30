@@ -27,6 +27,10 @@
                                 <div class="alert alert-success">
                                     {{ session('berhasil') }}
                                 </div>
+                            @elseif (session('gagal'))
+                                <div class="alert alert-danger">
+                                    {{ session('gagal') }}
+                                </div>
                             @endif
                             <table id="dataTableExample" class="table">
                                 <thead>
@@ -97,15 +101,18 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="photo"> Foto </label>
-                                    <input type="file" class="form-control" name="photo" id="photo">
+                                    <input type="file" class="form-control" name="photo" id="photo" required>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="mb-3">
                                     <label class="nama">Nama</label>
                                     <input type="text" name="name"
-                                        class="form-control @error('nama') is-invalid @enderror"
-                                        placeholder="Masukkan nama">
+                                        class="form-control @error('nama') is-invalid @enderror" placeholder="Masukkan nama"
+                                        required>
+                                    @error('nama')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
                             <div class="col-sm-12">
@@ -113,7 +120,10 @@
                                     <label class="username">Username</label>
                                     <input type="text" name="username"
                                         class="form-control @error('username') is-invalid @enderror"
-                                        placeholder="Masukkan username">
+                                        placeholder="Masukkan username" required>
+                                    @error('username')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
                         </div><!-- Row -->
@@ -123,15 +133,34 @@
                                     <label class="form-label">email</label>
                                     <input type="email" name="email"
                                         class="form-control @error('email') is-invalid @enderror"
-                                        placeholder="Masukkan email">
+                                        placeholder="Masukkan email" required>
+                                    @error('email')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
+                            <div class="mb-3">
+                                <label>Level</label>
+                                <div>
+                                    <select class="form-select mb-3" name="keterangan" required>
+                                        <option value="" selected>-- Pilih saja --</option>
+                                        <option value="TU">TU</option>
+                                        <option value="SISWA">Siswa</option>
+                                    </select>
+                                    @error('keterangan')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
                                     <input type="password" name="password"
                                         class="form-control @error('password') is-invalid @enderror"
-                                        placeholder="Masukkan password">
+                                        placeholder="Masukkan password" required>
+                                    @error('password')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
                         </div><!-- Row -->

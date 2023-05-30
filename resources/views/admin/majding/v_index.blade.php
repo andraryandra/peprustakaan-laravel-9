@@ -27,6 +27,10 @@
                                 <div class="alert alert-success">
                                     {{ session('berhasil') }}
                                 </div>
+                            @elseif (session('gagal'))
+                                <div class="alert alert-danger">
+                                    {{ session('gagal') }}
+                                </div>
                             @endif
                             <table id="dataTableExample" class="table">
                                 <thead>
@@ -99,12 +103,18 @@
                                             <option value="{{ $sdata->id }}">{{ $sdata->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('user_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="form-group my-1">
                             <label for="image"> Gambar </label>
                             <input type="file" class="form-control" name="image" id="image">
+                            @error('image')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group my-1">
                             <label for="judul">Judul</label>
@@ -119,6 +129,9 @@
                         <div class="form-group my-1">
                             <label for="content">Content</label>
                             <textarea name="content" id="content"></textarea>
+                            @error('content')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group my-1">

@@ -89,9 +89,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('landingPage.ebook') }}">Ebook</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('landingPage.artikel') }}">Artikel</a>
-                </li>
+                @if (Auth::check())
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtikel" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Artikel
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtikel">
+                            <li><a class="dropdown-item" href="{{ route('anggota-mading.index') }}">Tambah Mading</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('anggota-ebook.index') }}">Tambah Ebook</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+
                 <li class="nav-item dropdown">
                     @auth
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -105,14 +118,15 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ url('logout') }}" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
                             </li>
                         </ul>
                     @else
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
                     @endauth
                 </li>
             </ul>

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->tinyInteger('level')->default(0);
             /* Users: 0=>User, 1=>Admin, 2=>Manager */
             $table->enum('status', ["ACTIVE", "INACTIVE"])->default("ACTIVE");
-            $table->string("no_telp", 30)->nullable();
+            $table->bigInteger("no_telp")->nullable();
             $table->date("tgl_lahir")->nullable();
             $table->string("photo")->nullable();
             $table->string("tmpt_lahir")->nullable();
@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('alamat', 100)->nullable();
             $table->string('kelurahan')->nullable();
 		    $table->integer('id_kodepos')->nullable();
-            $table->enum('keterangan', ["TU", "SISWA"])->nullable();
+            $table->enum('keterangan', ["TU", "SISWA"])->default('SISWA')->nullable();
             $table->timestamp('last_seen')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -43,7 +43,7 @@ class EbookController extends Controller
             'verifikasi_ebook' => 'nullable',
             'slug' => 'nullable|unique:ebooks',
         ],
-    [
+        [
         'user_id.required' => 'User harus diisi',
         'kategori_id.required' => 'Kategori harus diisi',
         'subkategori_id.required' => 'Subkategori harus diisi',
@@ -57,8 +57,19 @@ class EbookController extends Controller
         'slug.required' => 'Slug harus diisi',
     ]);
 
-        $bukuPath = $request->file('file')->store('buku', 'public');
-        $coverEbookPath = $request->file('cover')->store('coverEbook', 'public');
+        if ($request->hasFile('file')) {
+            $bukuPath = $request->file('file')->store('buku', 'public');
+        } else {
+            // Tangani situasi jika tidak ada file yang diunggah
+            return back()->with(['gagal' => 'Tidak ada file yang diunggah!']);
+        }
+
+        if ($request->hasFile('cover')) {
+            $coverEbookPath = $request->file('cover')->store('coverEbook', 'public');
+        } else {
+            // Tangani situasi jika tidak ada file yang diunggah
+            return back()->with(['gagal' => 'Tidak ada file yang diunggah!']);
+        }
 
         DB::beginTransaction();
 
@@ -78,7 +89,7 @@ class EbookController extends Controller
         EbookItemVerify::create([
             'ebook_id' => $book->id,
             'user_id' => $book->user_id,
-            'verifikasi_ebook' => 'PENDING',
+            'verifikasi_ebook' => 'ACTIVE',
         ]);
         DB::commit();
 

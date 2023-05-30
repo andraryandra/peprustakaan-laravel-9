@@ -190,7 +190,7 @@ class EbookItemController extends Controller
         "kategori_id"   => 'nullable',
         "subkategori_id"   => 'nullable',
         'ebook_id'      => 'required',
-        'file'          => 'nullable|mimes:doc,docx,pdf,xls,xlsx,ppt,pptx',
+        'file'          => 'nullable|mimes:pdf',
         "judul_part"    => 'nullable',
         'content_part'  => 'nullable',
     ], [

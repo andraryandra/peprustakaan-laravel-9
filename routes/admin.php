@@ -27,10 +27,13 @@ Route::group(['middleware' => ['guest']], function() {
         Route::post('admin/login/proses', 'proses');
     });
 });
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => ['cekUserLogin']], function() {
+
+// Route::group(['middleware' => ['cekUserLogin']], function() {
+Route::middleware(['auth', 'user-access:petugas'])->group(function () {
+
     Route::resource('dashboard', BerandaController::class);
-    Route::get('logout', [LoginController::class, 'logout']);
 
     Route::prefix("admin")->group(function() {
         Route::prefix("autentikasi")->group(function() {
@@ -86,6 +89,11 @@ Route::group(['middleware' => ['cekUserLogin']], function() {
             });
             // Route::prefix("datamading")->group(function() {
                 Route::resource("data-mading", LaporanMadingController::class);
+                Route::match(['get', 'post'], 'export/mading', [LaporanMadingController::class, 'export'])->name('export.mading');
+                Route::post('exportCustomCSV/mading', [LaporanMadingController::class, 'exportCustom'])->name('exportCustom.mading');
+                Route::post('exportCustomPDF/mading', [LaporanMadingController::class, 'printCustom'])->name('printCustom.mading');
+                Route::get('laporan-mading/print', [LaporanMadingController::class, 'print'])->name('print.mading');
+
             // });
         });
 
@@ -123,8 +131,8 @@ Route::group(['middleware' => ['cekUserLogin']], function() {
 
 
 Route::controller(profileController::class)->group(function(){
-    Route::get('/admin/pengaturan/profile','index');
-    Route::patch('/profile/index/{id}','update')->name('profile.update');
+    Route::get('/pengaturan/profile','index')->name('profile.index');
+    Route::put('/profile/index/{id}','update')->name('profile.update');
 });
 
 // Route::get('/contohs', [ContohController::class, 'index'])->name('contohs.index');

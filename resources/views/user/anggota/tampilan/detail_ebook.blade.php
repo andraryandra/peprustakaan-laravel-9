@@ -42,9 +42,6 @@
                                 @else
                                     <a href="{{ $buttonLink }}" class="btn btn-primary mt-4">{{ $buttonText }}</a>
                                 @endif
-
-
-
                             </div>
                         </div>
 
@@ -194,8 +191,8 @@
                 <div class="col-lg-4 col-xl-4">
                     <div class="blog-sidebar mt-5 mt-lg-0">
                         <div class="widget widget-search">
-                            <form role="search" class="search-form">
-                                <input type="text" class="form-control" placeholder="Search">
+                            <form action="{{ route('landingPage.ebookSearch') }}" class="search-form" method="GET">
+                                <input type="text" class="form-control"name="keyword" placeholder="Cari buku...">
                                 <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>

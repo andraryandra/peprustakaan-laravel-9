@@ -55,14 +55,6 @@
                         </div>
                     </div>
                     <hr>
-                    {{-- <div class="single-post-content">
-                        <h3 class="post-title">
-                            {{ $isi_buku->judul_part }}
-                        </h3>
-                        <p class="text-md-start">
-                            {!! $isi_buku->content_part !!}
-                        </p>
-                    </div> --}}
                     <div class="single-post-content">
                         <h3 class="post-title">
                             {{ $isi_buku->judul_part }}
@@ -79,6 +71,9 @@
                                 @endif
                             </div>
                         @endif
+                        <div class="">
+                            {!! $isi_buku->content_part !!}
+                        </div>
                     </div>
 
                     <hr>
@@ -117,33 +112,8 @@
 @endpush
 
 @push('script')
-    {{-- @if ($isi_buku->file)
-        <script>
-            var url = "{{ Storage::url($isi_buku->file) }}";
-            var pdfViewer = document.getElementById("pdfViewer");
-            PDFJS.getDocument(url).promise.then(function(pdf) {
-                pdf.getPage(1).then(function(page) {
-                    var scale = 1.5;
-                    var viewport = page.getViewport({
-                        scale: scale
-                    });
-                    var canvas = document.createElement("canvas");
-                    var context = canvas.getContext("2d");
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    pdfViewer.appendChild(canvas);
-                    page.render({
-                        canvasContext: context,
-                        viewport: viewport
-                    });
-                });
-            });
-        </script>
-    @endif --}}
-
-
     @if (Str::endsWith($isi_buku->file, ['.pdf']))
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+        <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 const flipbook = $('#flipbook');

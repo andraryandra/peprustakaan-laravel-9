@@ -18,7 +18,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @if (Auth::check() && Auth::user()->photo)
-                        <img src="{{ asset('storage/photos/' . Auth::user()->photo) }}" alt="User Photo"
+                        <img src="{{ Storage::url(Auth::user()->photo) }}" alt="User Photo"
                             class="wd-30 ht-30 rounded-circle img-thumbnail mx-auto d-block">
                     @else
                         <img src="{{ asset('assets/admin/images/profile.png') }}" alt="Default Photo"
@@ -29,7 +29,7 @@
                     <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
                         <div class="mb-3">
                             @if (Auth::check() && Auth::user()->photo)
-                                <img src="{{ asset('storage/photos/' . Auth::user()->photo) }}" alt="User Photo"
+                                <img src="{{ Storage::url(Auth::user()->photo) }}" alt="User Photo"
                                     class="wd-30 ht-30 rounded-circle img-thumbnail mx-auto d-block">
                             @else
                                 <img src="{{ asset('assets/admin/images/profile.png') }}" alt="Default Photo"
@@ -44,22 +44,20 @@
 
                     <ul class="list-unstyled p-1">
                         <li class="dropdown-item py-2">
-                            <a href="{{ url('/admin/pengaturan/profile') }}" class="text-body ms-0">
+                            <a href="{{ route('profile.index') }}" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="user"></i>
                                 <span>Profile</span>
                             </a>
                         </li>
-
-
-                        <li class="dropdown-item py-2">
+                        {{-- <li class="dropdown-item py-2">
                             <a href="{{ url('/admin/pengaturan/ubahpassword') }}" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="lock"></i>
                                 <span>Ubah Password</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="dropdown-item py-2">
-                            <a href="/logout" class="text-body ms-0">
+                            <a href="{{ route('logout') }}" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="log-out"></i>
                                 <span>Log Out</span>
                             </a>

@@ -32,7 +32,7 @@
                             </li>
                         </ul>
                     </div> --}}
-                    <div class="col-lg-12 col-xl-12">
+                    {{-- <div class="col-lg-12 col-xl-12">
                         <div class="woocommerce-cart">
                             <div class="woocommerce-notices-wrapper"></div>
                             <form class="woocommerce-cart-form" action="" method="">
@@ -88,7 +88,42 @@
 
                             </form>
                         </div>
+                    </div> --}}
+
+
+                    @forelse ($history_ebook as $item)
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ Storage::url($item->ebook->cover) }}" class="img-fluid rounded-start"
+                                        alt="Cover">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $item->ebook->judul_buku }}</h5>
+                                        <p class="card-text">Penulis Ebook: {{ $item->ebook->penulis }}</p>
+                                        <p class="card-text">
+                                            Halaman Terakhir Dibaca: {{ $item->slug_ebook_item }} ||
+                                            {{ \Carbon\Carbon::parse($item->accessed_ebook_item_at)->format('d M Y, H:i:s') }}
+                                        </p>
+
+                                        <a href="{{ route('landingPage.ebookStory', $item->slug_ebook_item) }}"
+                                            class="btn btn-info text-light">Lanjutkan Membaca</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="alert alert-warning" role="alert">
+                            Tidak ada riwayat ebook
+                        </div>
+                    @endforelse
+                    <!-- Pagination -->
+                    <div class="text-center">
+                        {{ $history_ebook->links() }}
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -240,7 +275,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+    <script src="{{ url('https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js') }}"></script>
 
     <script>
         ClassicEditor

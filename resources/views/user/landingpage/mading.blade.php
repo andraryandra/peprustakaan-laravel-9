@@ -19,14 +19,28 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
-                        <p>Showing 1-6 of 8 results</p>
+
+                        @php
+                            $activeMadingCount = $data_mading
+                                ->flatMap(function ($mading) {
+                                    return $mading->mading_items->filter(function ($item) {
+                                        return $item->verifikasi_mading == 'ACTIVE';
+                                    });
+                                })
+                                ->count();
+                        @endphp
+                        <p>Menampilkan {{ $activeMadingCount }} dari {{ $data_mading->total() }} ebook</p>
+
                     </div>
 
                     <div class="col-lg-4">
                         <div class="topbar-search">
-                            <form method="get" action="#">
-                                <input type="text" placeholder="Search our courses" class="form-control">
-                                <label><i class="fa fa-search"></i></label>
+                            <form action="{{ route('landingPage.madingSearch') }}" method="GET">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="search" placeholder="Cari mading..."
+                                        value="{{ request('search') }}">
+                                    <button class="btn btn-primary" type="submit">Cari</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -43,26 +57,27 @@
                                 <div class="course-grid course-style-3">
                                     <div class="course-header">
                                         <div class="course-thumb">
-                                            <img src="{{ Storage::url($item->image) }}" alt="{{ $item->id }}"
-                                                class="img-fluid">
+                                            <a href="{{ route('landingPage.showMading', $item->slug) }}">
+                                                <img src="{{ Storage::url($item->image) }}" alt="{{ $item->id }}"
+                                                    class="img-fluid">
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="course-content">
                                         <h3 class="course-title mb-20">
-                                            <a href="#">
+                                            <a href="{{ route('landingPage.showMading', $item->slug) }}">
                                                 {{ $item->judul }}
                                             </a>
                                         </h3>
 
                                         <div class="course-meta-info">
                                             <div class="d-flex align-items-center">
-                                                <div class="author me-3">
+                                                <div class="author me-3 text-capitalize">
                                                     <i class="far fa-user-alt me-2"></i>
-                                                    By <a href="#">{{ $item->user->name }}</a>
+                                                    By {{ $item->user->name }}
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="course-footer mt-20 d-flex align-items-center justify-content-between">
                                             <div class="course-name"></div>
 
@@ -95,10 +110,13 @@
                         </div>
                     </div>
                 @endforelse
-
                 <!-- COURSE END -->
-
             </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination justify-content-center">
+            {{ $data_mading->links() }}
         </div>
         <!--course-->
     </section>

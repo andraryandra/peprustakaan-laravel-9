@@ -48,7 +48,7 @@ class LandingpageController extends Controller
                     $data = [
                         "data_mading" => $data_mading,
                         "users" => User::get(),
-                        "mading_latest" => Mading::get(),
+                        "mading_latest" => Mading::with(['mading_items'])->get(),
                         'footer' => $footer,
                     ];
 
@@ -72,7 +72,7 @@ class LandingpageController extends Controller
 
     public function mading()
     {
-        $data_mading = Mading::with('user')->get();
+        $data_mading = Mading::with('user')->paginate(15);
         $users = User::get();
         $footer = Footer::get();
 
@@ -83,22 +83,73 @@ class LandingpageController extends Controller
         ));
     }
 
+    public function madingSearch(Request $request)
+{
+    $search = $request->input('search');
+
+    $query = Mading::with('user');
+
+    if ($search) {
+        $query->where('judul', 'LIKE', "%$search%");
+    }
+
+    $data_mading = $query->paginate(15);
+    $users = User::get();
+    $footer = Footer::get();
+
+    return view('user.anggota.tampilan.search.mading_search', compact(
+        'data_mading',
+        'users',
+        'footer',
+        'search'
+    ));
+}
+
+
+
     public function detailmading()
     {
         return view("user.anggota.tampilan.detail_mading");
     }
 
-    public function ebookLandingPage()
+    public function ebookLandingPage(Request $request)
     {
-        $buku = Ebook::with(['user'])->get();
         $subkategori = SubKategori::all();
         $kategori = Kategori::all();
         $user = User::all();
         $footer = Footer::get();
 
+        // Mengambil data buku berdasarkan pencarian query
+        $buku = Ebook::with(['user'])
+            ->paginate(5);
 
         return view("user.landingpage.ebook", compact("buku", "subkategori", "kategori", "user", "footer"));
     }
+
+    public function ebookSearch(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $buku = Ebook::with(['user', 'ebook_items'])
+            ->where('judul_buku', 'LIKE', "%$keyword%")
+            ->orWhere('penulis', 'LIKE', "%$keyword%")
+            ->orWhereHas('ebook_items', function ($query) use ($keyword) {
+                $query->where('judul_part', 'LIKE', "%$keyword%")
+                    ->orWhere('content_part', 'LIKE', "%$keyword%");
+            })
+            ->paginate(15);
+
+        $subkategori = SubKategori::all();
+        $kategori = Kategori::all();
+        $user = User::all();
+        $footer = Footer::get();
+
+        return view('user.anggota.tampilan.search.ebook_search', compact('buku', 'subkategori', 'kategori', 'user', 'footer'))->with('keyword', $keyword);
+    }
+
+
+
+
 
     public function showEbookLandingPageHome($slug)
 {
@@ -134,11 +185,19 @@ class LandingpageController extends Controller
                     $data['buttonLink'] = route('landingPage.ebookStory', $slugEbookItem);
                     $data['buttonText'] = 'Lanjutkan Membaca';
                 } else {
-                    $data['buttonLink'] = route('landingPage.ebookStory', $isi_buku->first()->slug);
+                    if ($isi_buku->isNotEmpty()) { // Check if $isi_buku is not empty
+                        $data['buttonLink'] = route('landingPage.ebookStory', $isi_buku->first()->slug);
+                    } else {
+                        $data['buttonLink'] = route('landingPage.ebook');
+                    }
                     $data['buttonText'] = 'Mulai Membaca';
                 }
             } else {
-                $data['buttonLink'] = route('landingPage.ebookStory', $isi_buku->first()->slug);
+                if ($isi_buku->isNotEmpty()) { // Check if $isi_buku is not empty
+                    $data['buttonLink'] = route('landingPage.ebookStory', $isi_buku->first()->slug);
+                } else {
+                    $data['buttonLink'] = route('landingPage.ebook');
+                }
                 $data['buttonText'] = 'Mulai Membaca';
             }
 
@@ -148,6 +207,7 @@ class LandingpageController extends Controller
 
     return redirect()->route('landingPage.ebook')->with('error', 'Ebook tidak tersedia');
 }
+
 
 
 
@@ -212,13 +272,13 @@ class LandingpageController extends Controller
 
 
 
-    public function artikel()
-    {
+    // public function artikel()
+    // {
 
-        $footer = Footer::get();
+    //     $footer = Footer::get();
 
-        return view('user.anggota.tampilan.artikel', compact('footer'));
-    }
+    //     return view('user.anggota.tampilan.artikel', compact('footer'));
+    // }
 
     public function riwayatEbook()
 {
@@ -230,7 +290,7 @@ class LandingpageController extends Controller
 
     $history_ebook = HistoryEbook::whereIn('id', $subquery)
         ->with(['ebook', 'ebook_item'])
-        ->get();
+        ->paginate(10);
 
     $footer = Footer::get();
 

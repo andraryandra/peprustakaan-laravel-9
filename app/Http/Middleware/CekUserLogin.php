@@ -15,23 +15,13 @@ class CekUserLogin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $guard = NULL)
+    public function handle(Request $request, Closure $next, $userLevel)
     {
-        // if(Auth::check()) {
-        //     return redirect('login');
-        // }
-
-        // $user = Auth::user();
-        // if($user->level == $rules) {
-        //     return $next($request);
-        // }
-
-        // return redirect('login')->with('error', 'Anda tidak ada akses');
-
-        if (Auth::guard($guard)->check()){
+        if(auth()->user()->level == $userLevel){
             return $next($request);
         }
 
-        return redirect('/login');
+        return response()->json(['You do not have permission to access for this page.']);
+        /* return response()->view('errors.check-permission'); */
     }
 }

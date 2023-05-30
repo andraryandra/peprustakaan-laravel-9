@@ -2,234 +2,288 @@
 @section('title', 'Profile')
 
 @section('content')
-<div class="page-content">
-    <nav class="page-breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Data</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Profile</li>
-        </ol>
-    </nav>
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title">Profile Petugas | {{ Auth::user()->name }}</h6>
-                </div>
-                <div class="main">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status')}}
+    <div class="page-content">
+        <nav class="page-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Data</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Profile Petugas | {{ Auth::user()->name }}</h6>
+                    </div>
+                    <div class="main">
+                        <div class="">
+                            @if (session('berhasil'))
+                                <div class="alert alert-success">
+                                    {{ session('berhasil') }}
+                                </div>
+                            @elseif (session('gagal'))
+                                <div class="alert alert-danger">
+                                    {{ session('gagal') }}
+                                </div>
+                            @endif
                         </div>
-                    @endif
 
-                    <div class="card">
-                        <div class="container-fluid mt-4">
-                            {{-- Card User Profile --}}
-                            <div class="row g-3" data-aos="fade-up" data-aos-offset="200" data-aos-delay="50"
-                                data-aos-duration="1000">
-                                <div class="col-lg-4 col-md-6 mt-4 pe-2">
-                                    <div class="card-profile d-flex justify-content-center align-items-center py-3 rounded-lg flex-column">
-                                        <div class="col-md-15">
-                                            @if($user->photo)
-                                                <img src="{{ asset("storage/photos/".$user->photo) }}" alt="" style="width: 130px; height:130px" class="img-thumbnail rounded-circle mx-auto d-block">
-                                            @else
-                                                <img src="/../../assets/admin/images/profile.png" alt="" style="width: 130px; height:130px" class="img-thumbnail rounded-circle mx-auto d-block">
-                                            @endif
-                                        </div>
 
-                                        <div class="person-name">
-                                            <h2 class="text-center fs-4 my-2">{{ Auth::user()->name }}</h2>
-                                        </div>
-                                        <div class="person-email">
-                                            <h3 class="text-center fs-5 fw-normal mb-3">{{ Auth::user()->email }}</h3>
-                                        </div>
-                                        <div class="bt">
-                                            {{-- <button class="btn btn-outline-thema"> Edit </button> --}}
-                                            <button onclick="" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" class="btn btn-primary fw-bold rounded-pill px-4 shadow float-end">
-                                                <i class="bi bi-pencil-square"></i> Update
-                                            </button>
+                        <div class="card">
+                            <div class="container-fluid mt-4">
+                                {{-- Card User Profile --}}
+                                <div class="row g-3" data-aos="fade-up" data-aos-offset="200" data-aos-delay="50"
+                                    data-aos-duration="1000">
+                                    <div class="col-lg-4 col-md-6 mt-4 pe-2">
+                                        <div
+                                            class="card-profile d-flex justify-content-center align-items-center py-3 rounded-lg flex-column">
+                                            <div class="col-md-15">
+                                                @if ($user->photo)
+                                                    <img src="{{ Storage::url($user->photo) }}" alt="{{ $user->id }}"
+                                                        style="width: 130px; height:130px"
+                                                        class="img-thumbnail rounded-circle mx-auto d-block">
+                                                @else
+                                                    <img src="/../../assets/admin/images/profile.png" alt=""
+                                                        style="width: 130px; height:130px"
+                                                        class="img-thumbnail rounded-circle mx-auto d-block">
+                                                @endif
+                                            </div>
+
+                                            <div class="person-name">
+                                                <h2 class="text-center fs-4 my-2">{{ Auth::user()->name }}</h2>
+                                            </div>
+                                            <div class="person-email">
+                                                <h3 class="text-center fs-5 fw-normal mb-3">{{ Auth::user()->email }}</h3>
+                                            </div>
+                                            <div class="bt">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#updateModal{{ $user->id }}">
+                                                    Edit Profile
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-lg-8 col-md-6 mt-4 pe-2 ps-2 mb-1">
-                                    <div class="card-profile d-flex flex-column px-0 py-4">
-                                        <div class=" p-3">
-                                            <div class="row">
-                                                <div class="col-md-12 stretch-card">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <form action="" method="POST" class="row g-3 fw-bold">
-                                                                @method("PATCH")
-                                                                @csrf
-                                                                <div class="row">
-                                                                    <div class="col-sm-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label">Username</label>
-                                                                            <input type="text" name="username" class="form-control" value="{{ old("username", Auth::user()->username) }}">
-                                                                        </div>
-                                                                    </div><!-- Col -->
-
-                                                                    <div class="col-sm-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label">Email</label>
-                                                                            <input type="email" name="email" class="form-control" value="{{ old("email", Auth::user()->email) }}">
-                                                                        </div>
-                                                                    </div><!-- Col -->
-                                                                </div><!-- Row -->
-
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label">Nama</label>
-                                                                            <input type="text" name="name" class="form-control" value="{{ old("name", Auth::user()->name) }}">
-                                                                        </div>
-                                                                    </div><!-- Col -->
-
-                                                                    <div class="col-sm-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label">Tanggal lahir</label>
-                                                                            <input type="text" class="form-control" placeholder="Tambahkan tempat & tanggal lahir" value="{{ old("tgl_lahir", Auth::user()->tgl_lahir) }}">
-                                                                        </div>
-                                                                    </div><!-- Col -->
-
-                                                                    <div class="col-sm-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label">No Telepon</label>
-                                                                            <input type="text" class="form-control" autocomplete="off" placeholder="Tambahkan no telepon" value="{{ old("no_telp", Auth::user()->no_telp) }}">
-                                                                        </div>
-                                                                    </div><!-- Col -->
-                                                                </div><!-- Row -->
-
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label">Alamat</label>
-                                                                            <input type="text" class="form-control" placeholder="Tambahkan alamat" value="{{ old("alamat", Auth::user()->alamat) }}">
-                                                                        </div>
-                                                                    </div><!-- Col -->
-                                                                </div><!-- Row -->
-                                                            </form>
-                                                        </div>
-                                                    </div>
+                                    <div class="col-lg-8 col-md-6 mt-4 mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Data Pengguna</h5>
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Username</label>
+                                                    <input type="text" class="form-control" id="username"
+                                                        value="{{ $user->username }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" class="form-control" id="email"
+                                                        value="{{ $user->email }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="name" class="form-label">Nama</label>
+                                                    <input type="text" class="form-control" id="name"
+                                                        value="{{ $user->name }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="keterangan" class="form-label">Keterangan Identitas</label>
+                                                    <input type="text" class="form-control" id="keterangan"
+                                                        value="{{ $user->keterangan }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                                                    <input type="text" class="form-control" id="tgl_lahir"
+                                                        value="{{ $user->tgl_lahir }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="tmpt_lahir" class="form-label">Tempat Lahir</label>
+                                                    <input type="text" class="form-control" id="tmpt_lahir"
+                                                        value="{{ $user->tmpt_lahir }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="no_telp" class="form-label">No Telepon</label>
+                                                    <input type="text" class="form-control" id="no_telp"
+                                                        value="{{ $user->no_telp }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="alamat" class="form-label">Alamat</label>
+                                                    <textarea class="form-control" id="alamat" rows="3" readonly>{{ $user->alamat }}</textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="kelurahan" class="form-label">Kelurahan</label>
+                                                    <input type="text" class="form-control" id="kelurahan"
+                                                        value="{{ $user->kelurahan }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="id_kodepos" class="form-label">Kode Pos</label>
+                                                    <input type="text" class="form-control" id="id_kodepos"
+                                                        value="{{ $user->id_kodepos }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="kecamatan" class="form-label">Kecamatan</label>
+                                                    <input type="text" class="form-control" id="kecamatan"
+                                                        value="{{ $user->kecamatan }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="kota_kab" class="form-label">Kabupaten</label>
+                                                    <input type="text" class="form-control" id="kota_kab"
+                                                        value="{{ $user->kota_kab }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="provinsi" class="form-label">Provinsi</label>
+                                                    <input type="text" class="form-control" id="provinsi"
+                                                        value="{{ $user->provinsi }}" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    {{-- End Form Edit User Profile --}}
                                 </div>
-                                {{-- End Form Edit User Profile --}}
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
- <!-- Modal Edit Photo-->
- <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="width: 50%">
-        <div class="modal-content">
-            <div class="modal-header hader">
-                <h3 class="modal-title" id="exampleModalLabel">
-                    Edit Profile
-                </h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Modal -->
+    <div class="modal fade" id="updateModal{{ $user->id }}" tabindex="-1" aria-labelledby="updateModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form -->
+                    <form action="{{ route('profile.update', $user->id) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <!-- Nama -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="{{ $user->name }}">
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                value="{{ $user->username }}" disabled>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="{{ $user->email }}">
+                        </div>
+
+                        <!-- Alamat -->
+                        <div class="mb-3">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3" value="{{ $user->alamat }}"
+                                placeholder="Tuliskan Alamat...">{{ $user->alamat }}</textarea>
+                        </div>
+
+                        <!-- No Telepon -->
+                        <div class="mb-3">
+                            <label for="no_telp" class="form-label">No Telepon</label>
+                            <input type="text" class="form-control" id="no_telp" name="no_telp"
+                                placeholder="08xxxxxxxxxx" value="{{ $user->no_telp }}">
+                        </div>
+
+                        <!-- Tanggal Lahir -->
+                        <div class="mb-3">
+                            <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                            <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir"
+                                value="{{ $user->tgl_lahir }}">
+                        </div>
+
+                        {{-- Tempat Lahir --}}
+                        <div class="mb-3">
+                            <label for="tmpt_lahir" class="form-label">Tempat Lahir</label>
+                            <input type="text" class="form-control" id="tmpt_lahir" name="tmpt_lahir"
+                                placeholder="Tempat Lahir" value="{{ $user->tmpt_lahir }}">
+                        </div>
+
+                        <!-- Kelurahan -->
+                        <div class="mb-3">
+                            <label for="kelurahan" class="form-label">Kelurahan</label>
+                            <input type="text" class="form-control" id="kelurahan" name="kelurahan"
+                                placeholder="Kelurahan" value="{{ $user->kelurahan }}">
+                        </div>
+
+                        <!-- Kecamatan -->
+                        <div class="mb-3">
+                            <label for="kecamatan" class="form-label">Kecamatan</label>
+                            <input type="text" class="form-control" id="kecamatan" name="kecamatan"
+                                placeholder="Kecamatan" value="{{ $user->kecamatan }}">
+                        </div>
+
+                        <!-- Kota/Kabupaten -->
+                        <div class="mb-3">
+                            <label for="kota_kab" class="form-label">Kota/Kabupaten</label>
+                            <input type="text" class="form-control" id="kota_kab" name="kota_kab"
+                                placeholder="Kota/Kabupaten" value="{{ $user->kota_kab }}">
+                        </div>
+
+                        <!-- Provinsi -->
+                        <div class="mb-3">
+                            <label for="provinsi" class="form-label">Provinsi</label>
+                            <input type="text" class="form-control" id="provinsi" name="provinsi"
+                                placeholder="Provinsi" value="{{ $user->provinsi }}">
+                        </div>
+
+                        <!-- Kode Pos -->
+                        <div class="mb-3">
+                            <label for="id_kodepos" class="form-label">Kode Pos</label>
+                            <input type="text" class="form-control" id="id_kodepos" name="id_kodepos"
+                                placeholder="Kode Pos" value="{{ $user->id_kodepos }}">
+                        </div>
+
+                        <!-- Keterangan -->
+                        <div class="mb-3">
+                            <label for="keterangan" class="form-label">Keterangan</label>
+                            <select class="form-control mb-3" name="keterangan" required>
+                                <option value="" selected>-- Pilih saja --</option>
+                                @if ($user->keterangan == 'TU')
+                                    <option value="TU" selected>TU</option>
+                                    <option value="SISWA">Siswa</option>
+                                @elseif($user->keterangan == 'SISWA')
+                                    <option value="TU">TU</option>
+                                    <option value="SISWA" selected>Siswa</option>
+                                @else
+                                    <option value="TU">TU</option>
+                                    <option value="SISWA">Siswa</option>
+                                @endif
+                            </select>
+                            @error('keterangan')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <!-- Foto -->
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Foto</label>
+                            <input type="file" class="form-control" id="photo" name="photo">
+                            <img src="{{ Storage::url($user->photo) }}" alt="{{ $user->id }}"
+                                style="width: 130px; height:130px" class="img-thumbnail rounded-circle mx-auto d-block">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <form action="{{ route("profile.update", $user->id) }}" method="POST" enctype="multipart/form-data">
-                @method('PATCH')
-                {{-- PERBEDAAN
-                    PUT digunakan untuk melakukan update resource ke sebuah server.
-                    dengan PUT method bisa mengirimkan secara keseluruhan data atau replace total
-                    PATCH digunakan untuk melakukan update resource ke sebuah server.
-                    melakukan update secara partial atau hanya separuh data yang di inginkan untuk diupdate
-                --}}
-                @csrf
-                {{-- <div class="card-header card-header-primary">
-                <h4 class="card-title">Edit Profile</h4>
-                <p class="card-category">User information</p>
-                </div> --}}
-                <div class="modal-body" id="modal-content-edit">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label>Username</label>
-                                <input type="text" name="username" class="form-control"  value="{{ $user->username }}">
-                                @error('username')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div><!-- Col -->
-
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control"  value="{{ $user->email }}">
-                                @error('email')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div><!-- Col -->
-                    </div><!-- Row -->
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="mb-3">
-                                <label>Nama</label>
-                                <input type="text" name="name" class="form-control"  value="{{ $user->name }}">
-                                @error('name')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label>Tanggal lahir</label>
-                                <input type="date" name="tgl_lahir" class="form-control"  value="{{ $user->tgl_lahir }}">
-                                @error('tgl_lahir')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label>No Telepon</label>
-                                <input type="number" name="no_telp" class="form-control"  value="{{ $user->no_telp }}" placeholder="Masukaan no telepon">
-                                @error('no_telp')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="mb-3">
-                                <label>Alamat</label>
-                                <input type="text" name="alamat" class="form-control"  value="{{ $user->alamat }}" placeholder="Masukkan alamat">
-                                @error('alamat')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col mb-12">
-                            <label for="password-confirm" class="col-sm-2 col-form-label">Foto Profile</label>
-                                <img src="{{ asset('storage/photos/'.$user->photo) }}" alt="" style="width: 20%;" class="img-thumbnail rounded mx-auto d-block">
-                                <br>
-                            <div class="col mb-6">
-                                <input id="photo" type="file" class="form-control" name="photo">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer d-md-block mt-2">
-                    <button type="submit" class="btn btn-success btn-sm">Update</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
 @endsection

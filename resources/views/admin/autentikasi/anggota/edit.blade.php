@@ -62,7 +62,7 @@
                                 <div class="mb-3">
                                     <label>Keterangan</label>
                                     <div>
-                                        <select class="form-control mb-3" name="keterangan">
+                                        <select class="form-select mb-3" name="keterangan" required>
                                             <option>-- Pilih saja --</option>
                                             @if ($item->keterangan == 'TU')
                                                 <option value="TU" selected>TU</option>
@@ -85,7 +85,7 @@
                                 <div class="mb-3">
                                     <label>Level</label>
                                     <div>
-                                        <select class="form-control mb-3" name="level">
+                                        <select class="form-select mb-3" name="level">
                                             <option>-- Pilih saja --</option>
                                             @if ($item->level == 'petugas')
                                                 <option value="0" selected>Petugas</option>

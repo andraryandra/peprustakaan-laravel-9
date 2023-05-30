@@ -175,8 +175,10 @@
                 <div class="col-lg-4 col-xl-4">
                     <div class="blog-sidebar mt-5 mt-lg-0">
                         <div class="widget widget-search">
-                            <form role="search" class="search-form">
-                                <input type="text" class="form-control" placeholder="Search">
+                            <form role="search" class="search-form" action="{{ route('landingPage.madingSearch') }}"
+                                method="GET">
+                                <input type="text" class="form-control" name="search" placeholder="Cari mading..."
+                                    value="{{ request('search') }}">
                                 <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
@@ -188,68 +190,75 @@
                                     $postCount = 0;
                                 @endphp
                                 @foreach ($mading_latest as $mading)
-                                    @if ($postCount < 5)
-                                        <div class="single-latest-post">
-                                            <div class="widget-thumb">
-                                                <a href="{{ route('landingPage.showMading', $mading->slug) }}"><img
-                                                        src="{{ Storage::url($mading->image) }}" alt=""
-                                                        class="img-fluid"></a>
-                                            </div>
-                                            <div class="widget-content">
-                                                <h5><a
-                                                        href="{{ route('landingPage.showMading', $mading->slug) }}">{{ $mading->judul }}</a>
-                                                </h5>
-                                                <span><i
-                                                        class="fa fa-calendar-times"></i>{{ $mading->created_at->format('d F Y') }}</span>
-                                            </div>
-                                        </div>
+                                    @foreach ($mading->mading_items as $item2)
+                                        @if ($item2->verifikasi_mading == 'ACTIVE')
+                                            @if ($postCount < 5)
+                                                <div class="single-latest-post">
+                                                    <div class="widget-thumb">
+                                                        <a href="{{ route('landingPage.showMading', $mading->slug) }}">
+                                                            <img src="{{ Storage::url($mading->image) }}" alt=""
+                                                                class="img-fluid">
+                                                        </a>
+                                                    </div>
+                                                    <div class="widget-content">
+                                                        <h5>
+                                                            <a
+                                                                href="{{ route('landingPage.showMading', $mading->slug) }}">
+                                                                {{ $mading->judul }}
+                                                            </a>
+                                                        </h5>
+                                                        <span>
+                                                            <i class="fa fa-calendar-times"></i>
+                                                            {{ $mading->created_at->format('d F Y') }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @php
+                                                $postCount++;
+                                            @endphp
+                                        @break
                                     @endif
-                                    @php
-                                        $postCount++;
-                                    @endphp
                                 @endforeach
+                            @endforeach
+                        </div>
+
+                        @if (count($mading_latest) > 5)
+                            <div class="post-tags mb-4 mb-md-0">
+                                <a href="{{ route('landingPage.mading') }}" class="mt-5">Load More</a>
                             </div>
-
-                            @if (count($mading_latest) > 5)
-                                <div class="post-tags mb-4 mb-md-0">
-                                    <a href="{{ route('landingPage.mading') }}" class="mt-5">Load More</a>
-                                </div>
-                            @endif
-                        </div>
-
-
-
-
-
-                        <div class="widget widget_categories">
-                            <h4 class="widget-title">Categories</h4>
-                            <ul>
-                                <li class="cat-item"><a href="#">Web Design</a>(4)</li>
-                                <li class="cat-item"><a href="#">Wordpress</a>(14)</li>
-                                <li class="cat-item"><a href="#">Marketing</a>(24)</li>
-                                <li class="cat-item"><a href="#">Design & dev</a>(6)</li>
-                            </ul>
-                        </div>
-
-                        <div class="widget widget_tag_cloud">
-                            <h4 class="widget-title">Tags</h4>
-                            <a href="#">Design</a>
-                            <a href="#">Development</a>
-                            <a href="#">UX</a>
-                            <a href="#">Marketing</a>
-                            <a href="#">Tips</a>
-                            <a href="#">Tricks</a>
-                            <a href="#">Ui</a>
-                            <a href="#">Free</a>
-                            <a href="#">Wordpress</a>
-                            <a href="#">bootstrap</a>
-                            <a href="#">Tutorial</a>
-                            <a href="#">Html</a>
-                        </div>
-
+                        @endif
                     </div>
+
+                    <div class="widget widget_categories">
+                        <h4 class="widget-title">Categories</h4>
+                        <ul>
+                            <li class="cat-item"><a href="#">Web Design</a>(4)</li>
+                            <li class="cat-item"><a href="#">Wordpress</a>(14)</li>
+                            <li class="cat-item"><a href="#">Marketing</a>(24)</li>
+                            <li class="cat-item"><a href="#">Design & dev</a>(6)</li>
+                        </ul>
+                    </div>
+
+                    <div class="widget widget_tag_cloud">
+                        <h4 class="widget-title">Tags</h4>
+                        <a href="#">Design</a>
+                        <a href="#">Development</a>
+                        <a href="#">UX</a>
+                        <a href="#">Marketing</a>
+                        <a href="#">Tips</a>
+                        <a href="#">Tricks</a>
+                        <a href="#">Ui</a>
+                        <a href="#">Free</a>
+                        <a href="#">Wordpress</a>
+                        <a href="#">bootstrap</a>
+                        <a href="#">Tutorial</a>
+                        <a href="#">Html</a>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

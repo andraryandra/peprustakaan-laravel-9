@@ -21,56 +21,69 @@ class ProfileController extends Controller
 
     public function update(Request $request, $id)
     {
-        request()->validate([
-            'name'       => 'required|string|min:2|max:100',
-            'email'      => 'required|email|unique:users,email, ' . $id . ',id',
-            'old_password' => 'nullable|string',
-            'password' => 'nullable|required_with:old_password|string|confirmed|min:6',
-            'no_telp' => ['string', 'min:11', 'max:12', 'required'],
-            'tgl_lahir' => ['date', 'required'],
-            'alamat' => ['string', 'min:3', 'max:191'],
-            'kelurahan' => ['string', 'min:3', 'max:191'],
-            'kecamatan' => ['string', 'min:3', 'max:191'],
-            'kota_kab' => ['string', 'min:3', 'max:191'],
+        $user = User::findOrFail($id);
+
+        $userPath = $user->photo; // Menyimpan path foto pengguna sebelumnya
+
+        // Validasi data yang diperlukan untuk update
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'alamat' => 'nullable',
+            'no_telp' => 'nullable|integer',
+            'tgl_lahir' => 'nullable',
+            'tmpt_lahir' => 'nullable',
+            'kelurahan' => 'nullable',
+            'kecamatan' => 'nullable',
+            'kota_kab' => 'nullable',
+            'provinsi' => 'nullable',
+            'id_kodepos' => 'nullable',
+            'keterangan' => 'nullable',
+    ],
+    [
+            'name.required' => 'Nama tidak boleh kosong!',
+            'email.required' => 'Email tidak boleh kosong!',
+            'email.email' => 'Email tidak valid!',
+            'no_telp.integer' => 'No Telp tidak valid!',
         ]);
 
-        $user = User::find($id);
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->no_telp = $request->no_telp;
-        $user->tgl_lahir = $request->tgl_lahir;
-        $user->alamat = $request->alamat;
-        $user->kelurahan = $request->kelurahan;
-        $user->kecamatan = $request->kecamatan;
-        $user->kota_kab = $request->kota_kab;
-
-        if ($request->filled('old_password')) { //update password lama ke baru
-            if (Hash::check($request->old_password, $user->password)) {
-                $user->update([
-                    'password' => Hash::make($request->password)
-                ]);
-            }else {
-                return back()
-                    ->withErrors(['old_password' => __('Please enter the correct password')])
-                    ->withInput();
-            }
-        }
-
-        if(request()->hasFile('photo')) {
-            if($user->photo && file_exists(storage_path('app/public/photos/' . $user->photo))){
-                Storage::delete('app/public/photos/'.$user->photo);
+        // Mengambil foto baru jika ada
+        if ($request->hasFile('photo')) {
+            // Menghapus foto pengguna sebelumnya jika ada
+            if (!empty($userPath)) {
+                Storage::disk('public')->delete($userPath);
             }
 
-            $file = $request->file('photo');
-            $fileName = $file->hashName() . '.' . $file->getClientOriginalExtension();
-            $request->photo->move(storage_path('app/public/photos'), $fileName);
-            //foto yang sudah diupload akan masuk ke folder storage/public/photos
-            $user->photo = $fileName;
+            // Menyimpan foto baru
+            $userPath = $request->file('photo')->store('profile', 'public');
         }
 
-        $user->save();
+        // Mengupdate data pengguna
+        $userData = [
+            'name' => $request->name,
+            'photo' => $userPath,
+            'email' => $request->email,
+            'alamat' => $request->alamat,
+            'no_telp' => $request->no_telp,
+            'tgl_lahir' => $request->tgl_lahir,
+            'tmpt_lahir' => $request->tmpt_lahir,
+            'kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
+            'kota_kab' => $request->kota_kab,
+            'provinsi' => $request->provinsi,
+            'id_kodepos' => $request->id_kodepos,
+            'keterangan' => $request->keterangan,
+        ];
 
-        return back()->with('status', 'Profile berhasil di updated!');
+        $user->update($userData);
+
+        if ($user) {
+            // Redirect dengan pesan sukses
+            return back()->with(['berhasil' => 'Profile berhasil di updated!!']);
+        } else {
+            // Redirect dengan pesan error
+            return back()->with(['error' => 'Data Gagal Diperbarui!']);
+        }
     }
+
 }

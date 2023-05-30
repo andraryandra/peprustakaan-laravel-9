@@ -52,6 +52,29 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="mb-3">
+                                    <label>Keterangan</label>
+                                    <div>
+                                        <select class="form-select mb-3" name="keterangan" required>
+                                            <option>-- Pilih saja --</option>
+                                            @if ($item->keterangan == 'TU')
+                                                <option value="TU" selected>TU</option>
+                                                <option value="SISWA">Siswa</option>
+                                            @elseif($item->keterangan == 'SISWA')
+                                                <option value="TU">TU</option>
+                                                <option value="SISWA" selected>Siswa</option>
+                                            @else
+                                                <option value="TU">TU</option>
+                                                <option value="SISWA">Siswa</option>
+                                            @endif
+                                        </select>
+                                        @error('keterangan')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="mb-3">
                                     <label>Level</label>
                                     <div>
                                         <select class="form-select mb-3" name="level">

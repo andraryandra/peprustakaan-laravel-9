@@ -27,6 +27,10 @@
                                 <div class="alert alert-success">
                                     {{ session('berhasil') }}
                                 </div>
+                            @elseif (session('gagal'))
+                                <div class="alert alert-danger">
+                                    {{ session('gagal') }}
+                                </div>
                             @endif
                             <table id="dataTableExample" class="table">
                                 <thead>
@@ -105,7 +109,11 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="photo"> Foto </label>
-                                    <input type="file" class="form-control" name="photo" id="photo">
+                                    <input type="file" class="form-control  @error('email') is-invalid @enderror"
+                                        name="photo" id="photo" required>
+                                    @error('photo')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -113,15 +121,21 @@
                                     <label class="email">Email</label>
                                     <input type="text" name="email"
                                         class="form-control @error('email') is-invalid @enderror"
-                                        placeholder="Masukkan email">
+                                        value="{{ old('email') }}" placeholder="Masukkan email" required>
+                                    @error('email')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label class="nama">Nama</label>
                                     <input type="text" name="name"
-                                        class="form-control @error('nama') is-invalid @enderror"
-                                        placeholder="Masukkan nama">
+                                        class="form-control @error('name') is-invalid @enderror"
+                                        value="{{ old('name') }}" placeholder="Masukkan nama" required>
+                                    @error('name')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
                         </div><!-- Row -->
@@ -131,7 +145,10 @@
                                     <label class="username">NIS</label>
                                     <input type="text" name="username"
                                         class="form-control @error('username') is-invalid @enderror"
-                                        placeholder="Masukkan username">
+                                        value="{{ old('username') }}" placeholder="Masukkan username" required>
+                                    @error('username')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
                             <div class="col-sm-6">
@@ -139,7 +156,10 @@
                                     <label class="alamat">Alamat</label>
                                     <input type="text" name="alamat"
                                         class="form-control @error('alamat') is-invalid @enderror"
-                                        placeholder="Masukkan Alamat">
+                                        value="{{ old('alamat') }}" placeholder="Masukkan Alamat" required>
+                                    @error('alamat')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
                         </div><!-- Row -->
@@ -148,8 +168,8 @@
                                 <div class="mb-3">
                                     <label>Keterangan</label>
                                     <div>
-                                        <select class="form-control mb-3" name="keterangan">
-                                            <option>-- Pilih saja --</option>
+                                        <select class="form-control mb-3" name="keterangan" required>
+                                            <option value="" selected>-- Pilih saja --</option>
                                             <option value="TU">TU</option>
                                             <option value="Siswa">Siswa</option>
                                         </select>
@@ -164,7 +184,10 @@
                                     <label class="form-label">Password</label>
                                     <input type="password" name="password"
                                         class="form-control @error('password') is-invalid @enderror"
-                                        placeholder="Masukkan password">
+                                        placeholder="Masukkan password" required>
+                                    @error('password')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div><!-- Col -->
                         </div><!-- Row -->
@@ -179,31 +202,6 @@
     </div>
     <!-- END -->
 
-    <!-- Form Edit -->
-    {{-- <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" style="width: 50%">
-            <div class="modal-content">
-                <div class="modal-header hader">
-                    <h3 class="modal-title" id="exampleModalLabel">
-                        Edit Anggota
-                    </h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <form action="{{ url('/admin/autentikasi/anggota') }}" method="POST">
-                    @method('PUT')
-                    {{ csrf_field() }}
-                    <div class="modal-body" id="modal-content-edit">
-                    </div>
-                    <div class="modal-footer d-md-block">
-                        <button type="submit" class="btn btn-success btn-sm">Simpan</button>
-                        <button type="button" class="btn btn-danger btn-sm">Batal</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 
 @push('style')

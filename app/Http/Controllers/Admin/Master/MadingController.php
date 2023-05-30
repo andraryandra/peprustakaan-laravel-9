@@ -48,6 +48,14 @@ class MadingController extends Controller
         'tags'  => 'required',
         'content' => 'required',
         'verifikasi_mading' => 'nullable',
+    ],
+    [
+        'user_id.required' => 'User harus diisi',
+        'image.mimes' => 'File harus berupa gambar',
+        'judul.required' => 'Judul harus diisi',
+        'tags.required' => 'Tags harus diisi',
+        'content.required' => 'Content harus diisi',
+        'verifikasi_mading.required' => 'Verifikasi harus diisi',
     ]);
 
     $madingPath = $request->file('image')->store('mading', 'public');
@@ -67,7 +75,7 @@ class MadingController extends Controller
         MadingItem::create([
             'mading_id' => $mading->id,
             'user_id' => $mading->user_id,
-            'verifikasi_mading' => 'PENDING',
+            'verifikasi_mading' => 'ACTIVE',
         ]);
 
         DB::commit();
@@ -101,6 +109,14 @@ class MadingController extends Controller
             'tags' => 'required',
             'content' => 'required',
             'slug' => 'nullable|unique:madings',
+        ],
+        [
+            'user_id.required' => 'User harus diisi',
+            'image.mimes' => 'File harus berupa gambar',
+            'judul.required' => 'Judul harus diisi',
+            'tags.required' => 'Tags harus diisi',
+            'content.required' => 'Content harus diisi',
+            'slug.unique' => 'Slug sudah ada',
         ]);
 
         $mading = Mading::findOrFail($id);

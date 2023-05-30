@@ -20,6 +20,10 @@
                                 <div class="alert alert-success">
                                     {{ session('berhasil') }}
                                 </div>
+                            @elseif (session('gagal'))
+                                <div class="alert alert-danger">
+                                    {{ session('gagal') }}
+                                </div>
                             @endif
                             <table id="dataTableExample" class="table">
                                 <thead>
