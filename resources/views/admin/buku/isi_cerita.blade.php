@@ -137,10 +137,10 @@
 @endpush
 
 @push('javascript')
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
+    <script src="{{ url('https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js') }}"></script>
 
     <script>
         ClassicEditor

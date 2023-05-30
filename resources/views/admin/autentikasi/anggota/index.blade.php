@@ -178,7 +178,22 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div><!-- Col -->
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label>Jenis Kelamin</label>
+                                    <div>
+                                        <select class="form-select mb-3" name="jenis_kelamin" required>
+                                            <option value="" selected>-- Pilih saja --</option>
+                                            <option value="Laki-laki">Laki-laki</option>
+                                            <option value="Perempuan">Perempuan</option>
+                                        </select>
+                                        @error('jenis_kelamin')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
@@ -205,15 +220,16 @@
 @endsection
 
 @push('style')
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="{{ url('https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css') }}"
+        rel="stylesheet">
 @endpush
 
 @section('js')
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="{{ url('https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js') }}"></script>
 
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
 
     <script type="text/javascript">
         function editAnggota(id) {

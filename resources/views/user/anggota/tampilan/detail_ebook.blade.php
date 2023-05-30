@@ -209,9 +209,8 @@
                                             @if ($ebookCount < 5)
                                                 <div class="single-latest-post">
                                                     <div class="widget-thumb">
-                                                        <a href="{{ route('landingPage.showEbook', $ebok->id) }}"><img
-                                                                src="{{ Storage::url($ebok->cover) }}" alt=""
-                                                                class="img-fluid"></a>
+                                                        <img src="{{ Storage::url($ebok->cover) }}" alt="image"
+                                                            class="img-fluid">
                                                     </div>
                                                     <div class="widget-content">
                                                         <h5><a

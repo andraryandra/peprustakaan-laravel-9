@@ -4,7 +4,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">Detail Ebook Verifikasi</h5>
+                    <h5 class="modal-title" id="exampleModalToggleLabel">Detail Ebook Verifikasi {{ $item->judul_buku }}
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -69,7 +70,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="text-center">Yakin Verifikasi Ebook?</h5>
+                    <h5 class="text-center">Yakin Verifikasi Ebook {{ $item->judul_buku }}?</h5>
                     <div class="row mt-3">
                         @foreach ($item->ebook_item_verify as $item2)
                             <form action="{{ route('verifikasiEbook.update', $item2->id) }}" method="POST"
@@ -114,7 +115,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="text-center">Alasan Menolak Pengguna ?</h5>
+                    <h5 class="text-center">Alasan Menolak Ebook Pengguna {{ $item->judul_buku }} ?</h5>
                     <div class="row mt-3">
                         @foreach ($item->ebook_item_verify as $item2)
                             <form action="{{ route('verifikasiEbook.update', $item2->id) }}" method="POST"

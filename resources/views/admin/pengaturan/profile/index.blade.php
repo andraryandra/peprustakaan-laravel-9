@@ -268,6 +268,27 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
+
+                        <!-- Jenis Kelamin -->
+                        <div class="mb-3">
+                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                            <select class="form-control mb-3" name="jenis_kelamin" required>
+                                <option value="" selected>-- Pilih saja --</option>
+                                @if ($user->jenis_kelamin == 'Laki-laki')
+                                    <option value="Laki-laki" selected>Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                @elseif($user->jenis_kelamin == 'Perempuan')
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan" selected>Perempuan</option>
+                                @else
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                @endif
+                            </select>
+                            @error('jenis_kelamin')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <!-- Foto -->
                         <div class="mb-3">
                             <label for="photo" class="form-label">Foto</label>

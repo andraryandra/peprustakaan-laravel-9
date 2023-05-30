@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">Detail Mading Verifikasi</h5>
+                    <h5 class="modal-title" id="exampleModalToggleLabel">Detail Mading Verifikasi {{ $item->judul }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -69,7 +69,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="text-center">Yakin Verifikasi Mading?</h5>
+                    <h5 class="text-center">Yakin Verifikasi Mading {{ $item->judul }}?</h5>
                     <div class="row mt-3">
                         @foreach ($item->mading_items as $item2)
                             <form action="{{ route('verifikasiMading.update', $item2->id) }}" method="POST"
@@ -114,7 +114,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="text-center">Alasan Menolak Pengguna ?</h5>
+                    <h5 class="text-center">Alasan Menolak Mading Pengguna {{ $item->judul }} ?</h5>
                     <div class="row mt-3">
                         @foreach ($item->mading_items as $item2)
                             <form action="{{ route('verifikasiMading.update', $item2->id) }}" method="POST"

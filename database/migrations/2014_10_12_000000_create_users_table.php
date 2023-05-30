@@ -24,6 +24,7 @@ return new class extends Migration
             $table->tinyInteger('level')->default(0);
             /* Users: 0=>User, 1=>Admin, 2=>Manager */
             $table->enum('status', ["ACTIVE", "INACTIVE"])->default("ACTIVE");
+            $table->enum('jenis_kelamin', ["Laki-laki", "Perempuan"])->default("Laki-laki");
             $table->bigInteger("no_telp")->nullable();
             $table->date("tgl_lahir")->nullable();
             $table->string("photo")->nullable();

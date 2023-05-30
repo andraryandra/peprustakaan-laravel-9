@@ -28,6 +28,7 @@ class AnggotaController extends Controller
         'email' => 'required|email',
         'alamat' => 'required',
         'keterangan' => 'required',
+        'jenis_kelamin' => 'required',
         'password' => 'required',
     ], [
         'photo.required' => 'Foto harus diunggah.',
@@ -38,6 +39,7 @@ class AnggotaController extends Controller
         'email.email' => 'Format email tidak valid.',
         'alamat.required' => 'Alamat harus diisi.',
         'keterangan.required' => 'Keterangan harus diisi.',
+        'jenis_kelamin.required' => 'Jenis kelamin harus diisi.',
         'password.required' => 'Password harus diisi.',
     ]);
 
@@ -55,6 +57,7 @@ class AnggotaController extends Controller
         'email' => $request->email,
         'alamat' => $request->alamat,
         'keterangan' => $request->keterangan,
+        'jenis_kelamin' => $request->jenis_kelamin,
         'password' => bcrypt($request->password),
         'level' => 1,
         'status' => 'ACTIVE',

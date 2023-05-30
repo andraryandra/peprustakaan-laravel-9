@@ -1,12 +1,12 @@
 @extends('admin.layouts.main')
-@section('title', 'Laporan Anggota')
+@section('title', 'Laporan History Users')
 
 @section('content')
     <div class="page-content">
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Laporan</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data Laporan Anggota</li>
+                <li class="breadcrumb-item active" aria-current="page">Data Laporan History Users</li>
             </ol>
         </nav>
         <div class="row">
@@ -35,11 +35,11 @@
                                     <div class="mx-3 my-3">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#exportCustom">
-                                            Export Laporan Anggota Excel .CSV
+                                            Export Laporan History Users Excel .CSV
                                         </button>
                                         <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
                                             data-bs-target="#pdfCustom">
-                                            PDF Laporan Anggota
+                                            PDF Laporan History Users
                                         </button>
                                     </div>
                                 </div>
@@ -53,13 +53,14 @@
                                         </h6>
                                     </div>
                                     <div class="mt-3 mx-3">
-                                        <button type="button" onclick="window.location.href='{{ route('export.mading') }}'"
+                                        <button type="button"
+                                            onclick="window.location.href='{{ route('export.historyEbookUser') }}'"
                                             class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0">
                                             <i class="btn-icon-prepend" data-feather="download"></i>
-                                            Export to All Data Anggota
+                                            Export to All Data History Users
                                         </button>
 
-                                        <a href="{{ route('print.mading') }}" target="__blank"
+                                        <a href="{{ route('print.historyEbookUser') }}" target="__blank"
                                             class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0"> <i
                                                 class="btn-icon-prepend" data-feather="printer"></i>
                                             Print</a>
@@ -72,18 +73,22 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">No.</th>
-                                                        <th class="text-center">Nama</th>
-                                                        <th class="text-center">Status User</th>
-                                                        <th class="text-center">Tanggal</th>
+                                                        <th class="text-center">User</th>
+                                                        <th class="text-center">Keterangan User</th>
+                                                        <th class="text-center">Judul Buku</th>
+                                                        <th class="text-center">Penulis Ebook</th>
+                                                        <th class="text-center">Tahun Terbit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($users as $item)
+                                                    @foreach ($historyEbooks as $item)
                                                         <tr>
                                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                                            <td class="text-center">{{ $item->name }}</td>
-                                                            <td class="text-center">{{ $item->status }}</td>
-                                                            <td class="text-center">{{ $item->created_at }}</td>
+                                                            <td class="text-center">{{ $item->user->name }}</td>
+                                                            <td class="text-center">{{ $item->user->keterangan }}</td>
+                                                            <td class="text-center">{{ $item->ebook->judul_buku }}</td>
+                                                            <td class="text-center">{{ $item->ebook->penulis }}</td>
+                                                            <td class="text-center">{{ $item->ebook->tahun_terbit }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -110,7 +115,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('exportCustom.mading') }}" method="POST">
+                    <form action="{{ route('exportCustom.historyEbookUser') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -142,11 +147,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">PDF Laporan Mading</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">PDF Laporan History Users</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('printCustom.mading') }}" method="POST">
+                    <form action="{{ route('printCustom.historyEbookUser') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -176,8 +181,8 @@
 
 @section('js')
 
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
 
 @endsection

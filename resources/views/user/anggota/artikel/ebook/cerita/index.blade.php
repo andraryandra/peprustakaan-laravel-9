@@ -20,7 +20,7 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Data Buku Anggota</h6>
+                        <h6 class="card-title">Data Buku -- {{ $buku->judul_buku }}</h6>
                         <div class="col-12 text-end">
                             <div class="mt-2 text-end">
                                 <a href="{{ route('anggota-ebook.isiCerita', $buku->id) }}" class="btn btn-primary"

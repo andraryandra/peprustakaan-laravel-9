@@ -83,10 +83,19 @@ Route::middleware(['auth', 'user-access:petugas'])->group(function () {
         Route::prefix("laporan")->group(function() {
             // Route::prefix("dataanggota")->group(function() {
                 Route::resource("data-user", LaporanAnggotaController::class);
+                Route::match(['get', 'post'], 'export/historyEbookUser', [LaporanAnggotaController::class, 'export'])->name('export.historyEbookUser');
+                Route::get('laporan-historyEbookUser/print', [LaporanAnggotaController::class, 'print'])->name('print.historyEbookUser');
+                Route::post('exportCustom/historyEbookUser', [LaporanAnggotaController::class, 'exportCustom'])->name('exportCustom.historyEbookUser');
+                Route::post('exportCustomPDF/historyEbookUser', [LaporanAnggotaController::class, 'printCustom'])->name('printCustom.historyEbookUser');
+                // });
+            // Route::prefix("dataebook")->group(function() {
+                Route::resource("data-ebook", LaporanEbookController::class);
+                Route::match(['get', 'post'], 'export/ebook', [LaporanEbookController::class, 'export'])->name('export.ebook');
+                Route::get('laporan-ebook/print', [LaporanEbookController::class, 'print'])->name('print.ebook');
+                Route::post('exportCustom/ebook', [LaporanEbookController::class, 'exportCustom'])->name('exportCustom.ebook');
+                Route::post('exportCustomPDF/ebook', [LaporanEbookController::class, 'printCustom'])->name('printCustom.ebook');
+
             // });
-            Route::prefix("dataebook")->group(function() {
-                Route::resource("/", LaporanEbookController::class);
-            });
             // Route::prefix("datamading")->group(function() {
                 Route::resource("data-mading", LaporanMadingController::class);
                 Route::match(['get', 'post'], 'export/mading', [LaporanMadingController::class, 'export'])->name('export.mading');

@@ -42,8 +42,8 @@
                                         <th class="text-center">Sub Kategori</th>
                                         <th class="text-center">Judul</th>
                                         <th class="text-center">Status</th>
-                                        <th class="text-center">Penulis</th>
                                         <th class="text-center">Pesan</th>
+                                        <th class="text-center">Penulis Ebook</th>
                                         <th class="text-center">Diposting Oleh</th>
                                         <th class="text-center">Tahun Terbit</th>
                                         <th class="text-center">Aksi</th>
@@ -84,8 +84,8 @@
                                                     @endif
                                                 </td>
                                             @endforeach
-                                            <td class="text-center">{{ $data->user->name }}</td>
                                             <td class="text-center">{{ $data->penulis }}</td>
+                                            <td class="text-center">{{ $data->user->name }}</td>
                                             <td class="text-center">
                                                 {{ \Carbon\Carbon::parse($data->tahun_terbit)->format('d/m/Y') }}</td>
                                             <td class="text-center">

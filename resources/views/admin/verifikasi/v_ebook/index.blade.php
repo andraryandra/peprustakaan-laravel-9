@@ -20,28 +20,54 @@
                                 <div class="alert alert-success">
                                     {{ session('berhasil') }}
                                 </div>
+                            @elseif (session('gagal'))
+                                <div class="alert alert-danger">
+                                    {{ session('gagal') }}
+                                </div>
                             @endif
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <tr>
+                                        <th class="text-center">Aksi</th>
                                         <th class="text-center">No.</th>
                                         <th class="text-center">Username</th>
+                                        <th class="text-center">Kategori</th>
+                                        <th class="text-center">Sub Kategori</th>
                                         <th class="text-center">Judul Ebook</th>
                                         <th class="text-center">File</th>
+                                        <th class="text-center">Penulis</th>
+                                        <th class="text-center">Tahun Terbit</th>
                                         <th class="text-center">Status</th>
-                                        <th class="text-center">Aksi</th>
+                                        <th class="text-center">Pesan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data_ebook as $item)
                                         <tr>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a class="btn btn-primary mx-2" data-bs-toggle="modal"
+                                                        href="#exampleModalEdit{{ $item->id }}" role="button"><i
+                                                            class="bi bi-pencil-square"></i>
+                                                        Verifikasi
+                                                    </a>
+                                                </div>
+                                            </td>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center text-capitalize">{{ $item->user->name }}</td>
+                                            <td class="text-center text-capitalize">{{ $item->kategori->nama_kategori }}
+                                            </td>
+                                            <td class="text-center text-capitalize">{{ $item->subkategori->subkategori }}
+                                            </td>
                                             <td class="text-center text-capitalize">{{ $item->judul_buku }}</td>
                                             <td class="text-center">
                                                 <a href="{{ Storage::url($item->file) }}" target="__blank">
                                                     <i class="link-icon" data-feather="file-text"></i>
                                                 </a>
+                                            </td>
+                                            <td class="text-center text-capitalize">{{ $item->penulis }}</td>
+                                            <td class="text-center">
+                                                {{ \Carbon\Carbon::parse($item->tahun_terbit)->format('d-m-Y') }}
                                             </td>
                                             @foreach ($item->ebook_item_verify as $item2)
                                                 <td class="text-center">
@@ -54,15 +80,15 @@
                                                     @endif
                                                 </td>
                                             @endforeach
-                                            <td class="text-center">
-                                                <div class="d-flex justify-content-center">
-                                                    <a class="btn btn-primary mx-2" data-bs-toggle="modal"
-                                                        href="#exampleModalEdit{{ $item->id }}" role="button"><i
-                                                            class="bi bi-pencil-square"></i>
-                                                        Verifikasi
-                                                    </a>
-                                                </div>
-                                            </td>
+                                            @foreach ($item->ebook_item_verify as $item2)
+                                                <td class="text-center">
+                                                    @if ($item2->description == null)
+                                                        <span class="badge rounded-pill bg-warning">Tidak Ada Pesan</span>
+                                                    @else
+                                                        {{ $item2->description }}
+                                                    @endif
+                                                </td>
+                                            @endforeach
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -143,8 +169,7 @@
 
 @section('js')
 
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
-    <script type="text/javascript"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
 @endsection

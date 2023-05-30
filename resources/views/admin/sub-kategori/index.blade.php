@@ -115,7 +115,7 @@
 
                     <div class="modal-footer d-md-block">
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                        <button type="button" class="btn btn-danger btn-sm">Batal</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Batal</button>
                     </div>
                 </form>
             </div>
@@ -127,9 +127,9 @@
 
 @section('js')
 
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
 
     <script>
         $(document).ready(function() {

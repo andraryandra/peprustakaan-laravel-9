@@ -5,7 +5,7 @@
 
     <div class="page-content">
         <button type="button" class="btn btn-primary my-2 px-4"
-            onclick="window.location.href='{{ route('anggota-ebook-isi.index') }}'">Back</button>
+            onclick="window.location.href='{{ route('anggota-ebook-isi.show', $buku->id) }}'">Back</button>
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Table</a></li>
@@ -24,7 +24,7 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Data Isi Content Ebook Anggota</h6>
+                        <h6 class="card-title">Data Isi Content Ebook -- {{ $buku->judul_buku }}</h6>
                         <div>
                             <form action="{{ route('anggota-ebook-isi.store') }}" method="POST"
                                 enctype="multipart/form-data">

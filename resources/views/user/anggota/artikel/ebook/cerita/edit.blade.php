@@ -5,7 +5,7 @@
 
     <div class="page-content">
         <button type="button" class="btn btn-primary my-2 px-4"
-            onclick="window.location.href='{{ route('anggota-ebook-isi.index') }}'">Back</button>
+            onclick="window.location.href='{{ route('anggota-ebook-isi.show', $isi_buku->ebook_id) }}'">Back</button>
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Table</a></li>
@@ -24,58 +24,58 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Data Isi Content Ebook</h6>
+                        <h6 class="card-title">Data Isi Content Ebook -- {{ $isi_buku->ebook->judul_buku }}</h6>
                         <div>
                             <form action="{{ route('anggota-ebook-isi.update', $isi_buku->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-body">
-                                    {{-- <div class="" hidden> --}}
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="mb-3">
-                                                <label class="user_id">Diposting Oleh</label>
-                                                <div>
-                                                    <input type="text" name="user_id" class="form-control"
-                                                        placeholder="User ID" value="{{ $isi_buku->user_id }}" readonly>
+                                    <div class="" hidden>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
+                                                    <label class="user_id">Diposting Oleh</label>
+                                                    <div>
+                                                        <input type="text" name="user_id" class="form-control"
+                                                            placeholder="User ID" value="{{ $isi_buku->user_id }}" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- Row -->
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
+                                                    <label class="kategori">Kategori</label>
+                                                    <div>
+                                                        <input type="text" name="kategori_id" class="form-control"
+                                                            placeholder="Kategori ID" value="{{ $isi_buku->kategori_id }}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
+                                                    <label class="subkategori">Sub Kategori</label>
+                                                    <div>
+                                                        <input type="text" name="subkategori_id" class="form-control"
+                                                            placeholder="SubKategori ID"
+                                                            value="{{ $isi_buku->subkategori_id }}" readonly>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div><!-- Row -->
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="mb-3">
-                                                <label class="kategori">Kategori</label>
-                                                <div>
-                                                    <input type="text" name="kategori_id" class="form-control"
-                                                        placeholder="Kategori ID" value="{{ $isi_buku->kategori_id }}"
-                                                        readonly>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
+                                                    <label class="ebook_id">Ebook ID</label>
+                                                    <input type="text" name="ebook_id" class="form-control"
+                                                        placeholder="Ebook ID" value="{{ $isi_buku->ebook_id }}" readonly>
+                                                    </select>
                                                 </div>
                                             </div>
-                                        </div><!-- Col -->
-                                        <div class="col-sm-6">
-                                            <div class="mb-3">
-                                                <label class="subkategori">Sub Kategori</label>
-                                                <div>
-                                                    <input type="text" name="subkategori_id" class="form-control"
-                                                        placeholder="SubKategori ID" value="{{ $isi_buku->subkategori_id }}"
-                                                        readonly>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div><!-- Row -->
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="mb-3">
-                                                <label class="ebook_id">Ebook ID</label>
-                                                <input type="text" name="ebook_id" class="form-control"
-                                                    placeholder="Ebook ID" value="{{ $isi_buku->ebook_id }}" readonly>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div><!-- Row -->
-                                    {{-- </div> --}}
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="mb-3">
@@ -112,10 +112,10 @@
 @endpush
 
 @push('javascript')
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
+    <script src="{{ url('https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js') }}"></script>
 
     <script>
         ClassicEditor

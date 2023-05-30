@@ -5,7 +5,7 @@
 
     <div class="page-content">
         <button type="button" class="btn btn-primary my-2 px-4"
-            onclick="window.location.href='{{ route('buku.index') }}'">Back</button>
+            onclick="window.location.href='{{ route('anggota-ebook.index') }}'">Back</button>
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Table</a></li>

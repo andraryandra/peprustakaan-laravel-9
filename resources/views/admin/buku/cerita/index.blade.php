@@ -20,7 +20,7 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Data Buku</h6>
+                        <h6 class="card-title">Data Buku -- {{ $buku->judul_buku }}</h6>
                         <div class="col-12 text-end">
                             <div class="mt-2 text-end">
                                 <a href="{{ route('isi-buku.isiCerita', $buku->id) }}" class="btn btn-primary"
@@ -231,10 +231,10 @@
 
 @section('js')
 
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
+    <script src="{{ url('https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js') }}"></script>
     <script>
         ClassicEditor
             .create(document.querySelector('#sinopsis'))

@@ -39,6 +39,7 @@ class ProfileController extends Controller
             'provinsi' => 'nullable',
             'id_kodepos' => 'nullable',
             'keterangan' => 'nullable',
+            'jenis_kelamin' => 'nullable',
     ],
     [
             'name.required' => 'Nama tidak boleh kosong!',
@@ -73,6 +74,7 @@ class ProfileController extends Controller
             'provinsi' => $request->provinsi,
             'id_kodepos' => $request->id_kodepos,
             'keterangan' => $request->keterangan,
+            'jenis_kelamin' => $request->jenis_kelamin,
         ];
 
         $user->update($userData);

@@ -11,9 +11,9 @@ class LoginController extends Controller
     public function index()
     {
         if($user = Auth::user()){
-            if($user->level == '1'){
+            if($user->level == '0'){
                 return redirect()->intended('dashboard');
-            }elseif($user->level == '2'){
+            }elseif($user->level == '1'){
                 return redirect()->intended('landingpage');
             }
         }
@@ -34,9 +34,9 @@ class LoginController extends Controller
     if(Auth::attempt($credentials)){
         $request->session()->regenerate();
         $user = Auth::user();
-        if($user->level == '1'){
+        if($user->level == '0'){
             return redirect()->intended('dashboard');
-        }elseif($user->level == '2'){
+        }elseif($user->level == '1'){
             return redirect()->intended('landingpage');
         }
 

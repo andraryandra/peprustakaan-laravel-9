@@ -91,7 +91,7 @@
                             <label>Nama Kategori</label>
                             <input type="nama_kategori" name="nama_kategori"
                                 class="form-control @error('nama_kategori') is-invalid @enderror"
-                                placeholder="Masukkan nama kategori" aria-describedby="basic-addon1">
+                                placeholder="Masukkan nama kategori" aria-describedby="basic-addon1" required>
                             @error('nama_kategori')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -101,7 +101,7 @@
 
                     <div class="modal-footer d-md-block">
                         <button type="submit" class="btn btn-success btn-sm">Simpan</button>
-                        <button type="button" class="btn btn-danger btn-sm">Batal</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Batal</button>
                     </div>
                 </form>
             </div>
@@ -114,28 +114,7 @@
 
 @section('js')
 
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Menghapus kategori
-            $('.btn-delete').click(function() {
-                var id = $(this).data('id');
-                if (confirm('Anda yakin ingin menghapus kategori ini?')) {
-                    $.ajax({
-                        url: '/kategoris/' + id,
-                        type: 'DELETE',
-                        data: {
-                            "_token": "{{ csrf_token() }}"
-                        },
-                        success: function(response) {
-                            // Hapus baris dari tabel
-                            $('button[data-id="' + id + '"]').closest('tr').remove();
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
 @endsection

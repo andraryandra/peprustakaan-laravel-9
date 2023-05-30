@@ -53,13 +53,13 @@
                                         </h6>
                                     </div>
                                     <div class="mt-3 mx-3">
-                                        <button type="button" onclick="window.location.href='{{ route('export.mading') }}'"
+                                        <button type="button" onclick="window.location.href='{{ route('export.ebook') }}'"
                                             class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0">
                                             <i class="btn-icon-prepend" data-feather="download"></i>
                                             Export to All Data Buku
                                         </button>
 
-                                        <a href="{{ route('print.mading') }}" target="__blank"
+                                        <a href="{{ route('print.ebook') }}" target="__blank"
                                             class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0"> <i
                                                 class="btn-icon-prepend" data-feather="printer"></i>
                                             Print</a>
@@ -136,7 +136,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('exportCustom.mading') }}" method="POST">
+                    <form action="{{ route('exportCustom.ebook') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -168,11 +168,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">PDF Laporan Mading</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">PDF Laporan Ebook</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('printCustom.mading') }}" method="POST">
+                    <form action="{{ route('printCustom.ebook') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -202,8 +202,8 @@
 
 @section('js')
 
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
 
 @endsection

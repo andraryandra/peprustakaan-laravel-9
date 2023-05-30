@@ -36,6 +36,7 @@ class PetugasController extends Controller
             'photo' => 'required',
             'email' => 'required|email',
             'keterangan' => 'required',
+            'jenis_kelamin' => 'required',
             'password' => 'required',
         ], [
             'name.required' => 'Nama Lengkap Wajib Diisi!',
@@ -43,6 +44,7 @@ class PetugasController extends Controller
             'photo.required' => 'Foto Wajib Diisi!',
             'email.required' => 'Email Wajib Diisi!',
             'keterangan.required' => 'Keterangan Wajib Diisi!',
+            'jenis_kelamin.required' => 'Jenis Kelamin Wajib Diisi!',
             'password.required' => 'Password Wajib Diisi!',
         ]);
 
@@ -58,6 +60,8 @@ class PetugasController extends Controller
             'photo' => $userPath,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'keterangan' => $request->keterangan,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'level' => 0,
             'status' => 'ACTIVE',
         ]);

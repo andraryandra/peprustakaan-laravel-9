@@ -16,7 +16,7 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Data Mading</h6>
+                        <h6 class="card-title">Data Mading -- {{ $data_mading->judul }}</h6>
                         <div>
                             <form action="{{ route('madjing.update', $data_mading->id) }}" method="POST"
                                 enctype="multipart/form-data">
@@ -75,6 +75,7 @@
                                                 style="display: none;">
                                             <input type="text" class="form-control" name="hidden_tags" id="hidden_tags"
                                                 value="{{ $data_mading->tags }}" readonly>
+
                                             @error('tags')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -95,15 +96,15 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+    <link rel="stylesheet" href="{{ url('https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css') }}">
 @endpush
 
 @push('javascript')
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
+    <script src="{{ url('https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js') }}"></script>
+    <script src="{{ url('https://cdn.jsdelivr.net/npm/@yaireo/tagify') }}"></script>
 
     <script>
         ClassicEditor

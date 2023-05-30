@@ -40,7 +40,7 @@
                     </div>
                     <div class="modal-footer d-md-block">
                         <button type="submit" class="btn btn-success btn-sm">Simpan</button>
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Batal</button>
                     </div>
                 </form>
             </div>

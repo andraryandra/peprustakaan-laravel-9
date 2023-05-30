@@ -143,7 +143,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/admin/laporan/dataebook') }}" class="nav-link">
+                                    <a href="{{ route('data-ebook.index') }}" class="nav-link">
                                         Data Ebook
                                     </a>
                                 </li>

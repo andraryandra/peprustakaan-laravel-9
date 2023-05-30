@@ -30,8 +30,10 @@
                                     <tr>
                                         <th class="text-center">No.</th>
                                         <th class="text-center">Username</th>
-                                        <th class="text-center">Mading</th>
+                                        <th class="text-center">Judul Mading</th>
+                                        <th class="text-center">Tags</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Pesan</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -40,8 +42,17 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center">{{ $item->user->name }}</td>
-                                            <td class="text-center">
+                                            {{-- <td class="text-center">
                                                 <img src="{{ Storage::url($item->image) }}" style="width: 50%;">
+                                            </td> --}}
+                                            <td class="text-center">{{ $item->judul }}</td>
+                                            <td class="text-center">
+                                                @php
+                                                    $tags = json_decode($item->tags);
+                                                @endphp
+                                                @foreach ($tags as $tag)
+                                                    <span class="badge bg-info p-2">{{ $tag->value }}</span>
+                                                @endforeach
                                             </td>
                                             @foreach ($item->mading_items as $item2)
                                                 <td class="text-center">
@@ -51,6 +62,15 @@
                                                         <span class="badge rounded-pill bg-danger">Ditolak</span>
                                                     @else
                                                         <span class="badge rounded-pill bg-warning">PENDING</span>
+                                                    @endif
+                                                </td>
+                                            @endforeach
+                                            @foreach ($item->mading_items as $item2)
+                                                <td class="text-center">
+                                                    @if ($item2->description == null)
+                                                        <span class="badge rounded-pill bg-warning">Tidak Ada Pesan</span>
+                                                    @else
+                                                        {{ $item2->description }}
                                                     @endif
                                                 </td>
                                             @endforeach
@@ -217,8 +237,7 @@
 
 @section('js')
 
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
-    <script type="text/javascript"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
 @endsection

@@ -64,7 +64,8 @@
                                                     <form action="{{ route('madjing.destroy', $item->id) }}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <button type="submit" class="btn btn-danger me-2"><i
+                                                        <button type="submit" class="btn btn-danger me-2"
+                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
                                                                 class="bi bi-trash"></i> Hapus</button>
                                                     </form>
                                                 </div>
@@ -81,12 +82,13 @@
     </div>
 
     {{-- Modal Tambah --}}
-    <div class="modal fade" id="exampleModalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModalTambah" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="width: 50%">
             <div class="modal-content">
                 <div class="modal-header hader">
                     <h3 class="modal-title" id="exampleModalLabel">
-                        Tambah Buku
+                        Tambah Mading
                     </h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -147,7 +149,7 @@
 
                     <div class="modal-footer d-md-block">
                         <button type="submit" class="btn btn-success btn-sm">Simpan</button>
-                        <button type="button" class="btn btn-danger btn-sm">Batal</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
@@ -159,14 +161,15 @@
 @endsection
 
 @push('style')
+    <link rel="stylesheet" href="{{ url('https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css') }}">
 @endpush
 
 @push('javascript')
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="{{ url('') }}/assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-    <script src="{{ url('') }}/assets/admin/js/data-table.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/data-table.js') }}"></script>
+    <script src="{{ url('https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js') }}"></script>
+    <script src="{{ url('https://cdn.jsdelivr.net/npm/@yaireo/tagify') }}"></script>
 
     <script>
         ClassicEditor
