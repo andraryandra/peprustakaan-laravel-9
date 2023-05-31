@@ -39,10 +39,11 @@ Route::get('/footer', [LandingpageController::class, 'indexfooter'])->name('land
 Route::get('/ebook-story/{slug}', [LandingpageController::class, 'ebookStory'])->name('landingPage.ebookStory');
 Route::get('buku-isi/{id}/pdf', [LandingpageController::class, 'showPdf'])->name('buku-isi.show-pdf');
 
+Route::get('/riwayat/ebook', [LandingpageController::class, 'riwayatEbook'])->name('landingPage.riwayatEbook');
+
+
 Route::middleware(['auth', 'user-access:anggota'])->group(function () {
     Route::get('/dashboard/anggota/home', [BerandaAnggotaController::class, 'index'])->name('dashboard.anggota.home');
-
-    Route::get('/riwayat/ebook', [LandingpageController::class, 'riwayatEbook'])->name('landingPage.riwayatEbook');
 
     Route::resource('artikel/anggota-mading', AnggotaMadingController::class);
     Route::resource('artikel/anggota-ebook', AnggotaEbookController::class);

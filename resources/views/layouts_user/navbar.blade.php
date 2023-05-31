@@ -1,4 +1,4 @@
-{{-- <header class="header-style-1">
+<header class="header-style-1">
     <div class="header-navbar navbar-sticky">
         <div class="container">
             <div class="d-flex align-items-center justify-content-between">
@@ -29,6 +29,46 @@
                             <a href="{{ route('landingPage.ebook') }}">Ebook</a>
                         </li>
 
+                        @if (Auth::check())
+                            @if (Auth::user()->level == 'petugas' || Auth::user()->level == '0')
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtikel"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Artikel
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtikel">
+                                        <li><a class="dropdown-item" href="{{ route('dashboard.index') }}">Dashboard</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ route('madjing.index') }}">Tambah
+                                                Mading</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ route('buku.index') }}">Tambah
+                                                Ebook</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @elseif (Auth::user()->level == 'anggota' || Auth::user()->level == '1')
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownArtikel"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Artikel
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownArtikel">
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('dashboard.anggota.home') }}">Dashboard</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ route('anggota-mading.index') }}">Tambah
+                                                Mading</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ route('anggota-ebook.index') }}">Tambah
+                                                Ebook</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endif
+                        @endif
+
+
                         <li class="nav-item dropdown">
                             @auth
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -36,14 +76,14 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/user/profil/profil">Riwayat Ebook</a></li>
-                                    <li><a class="dropdown-item" href="/user/pemesanan/history/on_progress">Riwayat
-                                            Download</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('landingPage.riwayatEbook') }}">Riwayat
+                                            Ebook</a>
+                                    </li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/logout" data-toggle="modal"
+                                        <a class="dropdown-item" href="{{ url('logout') }}" data-toggle="modal"
                                             data-target="#logoutModal">
                                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Logout
@@ -51,7 +91,7 @@
                                     </li>
                                 </ul>
                             @else
-                                <a class="nav-link" href="/login">Login</a>
+                                <a class="nav-link" href="{{ route('login') }}">Login</a>
                             @endauth
                         </li>
                     </ul>
@@ -61,10 +101,10 @@
             </div>
         </div>
     </div>
-</header> --}}
+</header>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+{{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="{{ asset('assets/admin/images/logo.png') }}" width="500" alt="logo" class="img-fluid" />
@@ -132,16 +172,16 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> --}}
 
 @push('style')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="{{ url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css') }}" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 @endpush
 
 
 @push('javascript')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    <script src="{{ url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js') }}"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 @endpush

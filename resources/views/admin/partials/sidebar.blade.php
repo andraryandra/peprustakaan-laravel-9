@@ -15,8 +15,8 @@
             <div class="sidebar-body">
                 <ul class="nav">
                     <li class="nav-item nav-category">Main</li>
-                    <li class="nav-item">
-                        <a href="{{ url('/dashboard') }}" class="nav-link">
+                    <li class="nav-item {{ Request::routeIs('dashboard.index') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.index') }}" class="nav-link">
                             <i class="link-icon" data-feather="box"></i>
                             <span class="link-title">Dashboard</span>
                         </a>
@@ -39,18 +39,21 @@
                         </a>
                         <div class="collapse" id="emails">
                             <ul class="nav sub-menu">
-                                <li class="nav-item">
-                                    <a href="{{ route('home.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('home.index') ? 'active' : '' }}">
+                                    <a href="{{ route('home.index') }}"
+                                        class="nav-link {{ Request::routeIs('home.index') ? 'active' : '' }}">
                                         Home
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('about.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('about.index') ? 'active' : '' }}">
+                                    <a href="{{ route('about.index') }}"
+                                        class="nav-link {{ Request::routeIs('about.index') ? 'active' : '' }}">
                                         About
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('footer.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('footer.index') ? 'active' : '' }}">
+                                    <a href="{{ route('footer.index') }}"
+                                        class="nav-link {{ Request::routeIs('footer.index') ? 'active' : '' }}">
                                         Footer
                                     </a>
                                 </li>
@@ -71,18 +74,21 @@
                         </a>
                         <div class="collapse" id="ebooks">
                             <ul class="nav sub-menu">
-                                <li class="nav-item">
-                                    <a href="{{ route('categori.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('categori.index') ? 'active' : '' }}">
+                                    <a href="{{ route('categori.index') }}"
+                                        class="nav-link {{ Request::routeIs('categori.index') ? 'active' : '' }}">
                                         Kategori
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('sub-kategori.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('sub-kategori.index') ? 'active' : '' }}">
+                                    <a href="{{ route('sub-kategori.index') }}"
+                                        class="nav-link {{ Request::routeIs('sub-kategori.index') ? 'active' : '' }}">
                                         Sub Kategori
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('buku.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('buku.index') ? 'active' : '' }}">
+                                    <a href="{{ route('buku.index') }}"
+                                        class="nav-link {{ Request::routeIs('buku.index') ? 'active' : '' }}">
                                         Buku
                                     </a>
                                 </li>
@@ -90,8 +96,9 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('madjing.index') }}" class="nav-link">
+                    <li class="nav-item {{ Request::routeIs('madjing.index') ? 'active' : '' }}">
+                        <a href="{{ route('madjing.index') }}"
+                            class="nav-link {{ Request::routeIs('madjing.index') ? 'active' : '' }}">
                             <i class="link-icon" data-feather="image"></i>
                             <span class="link-title">Mading</span>
                         </a>
@@ -110,13 +117,15 @@
                         </a>
                         <div class="collapse" id="verifikasi">
                             <ul class="nav sub-menu">
-                                <li class="nav-item">
-                                    <a href="{{ route('verifikasiEbook.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('verifikasiEbook.index') ? 'active' : '' }}">
+                                    <a href="{{ route('verifikasiEbook.index') }}"
+                                        class="nav-link {{ Request::routeIs('verifikasiEbook.index') ? 'active' : '' }}">
                                         Buku
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('verifikasiMading.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('verifikasiMading.index') ? 'active' : '' }}">
+                                    <a href="{{ route('verifikasiMading.index') }}"
+                                        class="nav-link {{ Request::routeIs('verifikasiMading.index') ? 'active' : '' }}">
                                         Mading
                                     </a>
                                 </li>
@@ -138,17 +147,20 @@
                         <div class="collapse" id="folders">
                             <ul class="nav sub-menu">
                                 <li class="nav-item {{ Request::routeIs('data-user.index') ? 'active' : '' }}">
-                                    <a href="{{ route('data-user.index') }}" class="nav-link">
+                                    <a href="{{ route('data-user.index') }}"
+                                        class="nav-link {{ Request::routeIs('data-user.index') ? 'active' : '' }}">
                                         Data Anggota
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('data-ebook.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('data-ebook.index') ? 'active' : '' }}">
+                                    <a href="{{ route('data-ebook.index') }}"
+                                        class="nav-link {{ Request::routeIs('data-ebook.index') ? 'active' : '' }}">
                                         Data Ebook
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('data-mading.index') }}" class="nav-link">
+                                <li class="nav-item {{ Request::routeIs('data-mading.index') ? 'active' : '' }}">
+                                    <a href="{{ route('data-mading.index') }}"
+                                        class="nav-link {{ Request::routeIs('data-mading.index') ? 'active' : '' }}">
                                         Data Mading
                                     </a>
                                 </li>
@@ -157,15 +169,17 @@
                     </li>
 
                     <li class="nav-item nav-category">Master</li>
-                    <li class="nav-item">
-                        <a href="{{ route('petugas.index') }}" class="nav-link">
+                    <li class="nav-item {{ Request::routeIs('petugas.index') ? 'active' : '' }}">
+                        <a href="{{ route('petugas.index') }}"
+                            class="nav-link {{ Request::routeIs('petugas.index') ? 'active' : '' }}">
                             <i class="link-icon" data-feather="user-plus"></i>
                             <span class="link-title">Petugas</span>
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('anggota.index') }}" class="nav-link">
+                    <li class="nav-item {{ Request::routeIs('anggota.index') ? 'active' : '' }}">
+                        <a href="{{ route('anggota.index') }}"
+                            class="nav-link {{ Request::routeIs('anggota.index') ? 'active' : '' }}">
                             <i class="link-icon" data-feather="users"></i>
                             <span class="link-title">Anggota</span>
                         </a>
@@ -176,8 +190,9 @@
             <div class="sidebar-body">
                 <ul class="nav">
                     <li class="nav-item nav-category">Main</li>
-                    <li class="nav-item">
-                        <a href="{{ route('dashboard.anggota.home') }}" class="nav-link">
+                    <li class="nav-item {{ Request::routeIs('dashboard.anggota.home') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.anggota.home') }}"
+                            class="nav-link {{ Request::routeIs('dashboard.anggota.home') ? 'active' : '' }}">
                             <i class="link-icon" data-feather="box"></i>
                             <span class="link-title">Dashboard</span>
                         </a>
@@ -186,14 +201,16 @@
                     <li class="nav-item nav-category">
                         Menu
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('anggota-mading.index') }}" class="nav-link">
+                    <li class="nav-item {{ Request::routeIs('anggota-mading.index') ? 'active' : '' }}">
+                        <a href="{{ route('anggota-mading.index') }}"
+                            class="nav-link {{ Request::routeIs('anggota-mading.index') ? 'active' : '' }}">
                             <i class="link-icon" data-feather="image"></i>
                             <span class="link-title">Mading</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('anggota-ebook.index') }}" class="nav-link">
+                    <li class="nav-item {{ Request::routeIs('anggota-ebook.index') ? 'active' : '' }}">
+                        <a href="{{ route('anggota-ebook.index') }}"
+                            class="nav-link {{ Request::routeIs('anggota-ebook.index') ? 'active' : '' }}">
                             <i class="link-icon" data-feather="file"></i>
                             <span class="link-title">Ebook</span>
                         </a>

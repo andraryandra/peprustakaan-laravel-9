@@ -28,7 +28,6 @@
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Aksi</th>
                                         <th class="text-center">No.</th>
                                         <th class="text-center">Username</th>
                                         <th class="text-center">Kategori</th>
@@ -39,20 +38,13 @@
                                         <th class="text-center">Tahun Terbit</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Pesan</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data_ebook as $item)
                                         <tr>
-                                            <td class="text-center">
-                                                <div class="d-flex justify-content-center">
-                                                    <a class="btn btn-primary mx-2" data-bs-toggle="modal"
-                                                        href="#exampleModalEdit{{ $item->id }}" role="button"><i
-                                                            class="bi bi-pencil-square"></i>
-                                                        Verifikasi
-                                                    </a>
-                                                </div>
-                                            </td>
+
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center text-capitalize">{{ $item->user->name }}</td>
                                             <td class="text-center text-capitalize">{{ $item->kategori->nama_kategori }}
@@ -89,6 +81,15 @@
                                                     @endif
                                                 </td>
                                             @endforeach
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a class="btn btn-primary mx-2" data-bs-toggle="modal"
+                                                        href="#exampleModalEdit{{ $item->id }}" role="button"><i
+                                                            class="bi bi-pencil-square"></i>
+                                                        Verifikasi
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
