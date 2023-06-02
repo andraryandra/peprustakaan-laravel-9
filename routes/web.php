@@ -61,9 +61,9 @@ Route::get('/d_ebook', function () {
     return view('/user/landingpage/d_ebook');
 });
 
-Route::get('/view_login', function () {
-    return view('/admin/loginadmin/view_login');
-});
+// Route::get('/view_login', function () {
+//     return view('/admin/loginadmin/view_login');
+// });
 
 Route::get('/landingpage', function () {
     return view('/user/anggota/landingpage');

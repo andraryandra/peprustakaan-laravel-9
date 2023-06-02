@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description" content="Edumel- Education Html Template by dreambuzz">
-    <meta name="keywords" content="education,edumel,instructor,lms,online,instructor,dreambuzz,bootstrap,kindergarten,tutor,e learning">
+    <meta name="keywords"
+        content="education,edumel,instructor,lms,online,instructor,dreambuzz,bootstrap,kindergarten,tutor,e learning">
     <meta name="author" content="dreambuzz">
     <title>Edumel- Login Petugas</title>
     <!-- Mobile Specific Meta-->
@@ -30,65 +32,79 @@
 <body id="top-header">
     @include('layouts_user.navbar')
     <!--====== Header End ======-->
-	<div class="main-wrapper">
-		<div class="page-wrapper full-page">
-			<div class="page-content d-flex align-items-center justify-content-center">
-				<div class="row w-100 mx-0 auth-page">
-					<div class="col-md-8 col-xl-6 mx-auto">
-						<div class="card">
-							<div class="row">
-                <div class="col-md-4 pe-md-0">
-                  <div class="auth-side-wrapper">
+    <div class="main-wrapper">
+        <div class="page-wrapper full-page">
+            <div class="page-content d-flex align-items-center justify-content-center">
+                <div class="row w-100 mx-0 auth-page">
+                    <div class="col-md-8 col-xl-6 mx-auto">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-4 pe-md-0">
+                                    <div class="auth-side-wrapper">
 
-                  </div>
-                </div>
-                <div class="col-md-8 ps-md-0">
-                  <div class="auth-form-wrapper px-4 py-5">
-                    <a href="#" class="noble-ui-logo d-block mb-2">Noble<span>UI</span></a>
-                    <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
-                    <form action="{{ url('/admin/login/proses') }}" method="POST" class="forms-sample">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" name="email" class="form-control" id="email" placeholder="email">
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                    </div>
                                 </div>
-                            @enderror
-                        </div>
+                                <div class="col-md-8 ps-md-0">
+                                    <div class="auth-form-wrapper px-4 py-5">
+                                        <a href="#" class="noble-ui-logo d-block mb-2">Noble<span>UI</span></a>
+                                        <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        <form action="{{ route('login.admin.proses') }}" method="POST"
+                                            class="forms-sample">
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="text" name="email" class="form-control" id="email"
+                                                    placeholder="email">
+                                                @error('email')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" autocomplete="current-password" placeholder="Password">
-                            @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                            <div class="mb-3">
+                                                <label for="password" class="form-label">Password</label>
+                                                <input type="password" name="password" class="form-control"
+                                                    id="password" autocomplete="current-password"
+                                                    placeholder="Password">
+                                                @error('password')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-check mb-3">
+                                                <input type="checkbox" class="form-check-input" id="authCheck">
+                                                <label class="form-check-label" for="authCheck">
+                                                    Remember me
+                                                </label>
+                                            </div>
+
+                                            <div>
+                                                <button type="submit"
+                                                    class="btn btn-primary me-2 mb-2 mb-md-0 text-white">Login</a>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            @enderror
+                            </div>
                         </div>
-
-                        <div class="form-check mb-3">
-                            <input type="checkbox" class="form-check-input" id="authCheck">
-                            <label class="form-check-label" for="authCheck">
-                            Remember me
-                            </label>
-                        </div>
-
-                        <div>
-                            <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0 text-white">Login</a>
-                        </div>
-                    </form>
-                  </div>
+                    </div>
                 </div>
-              </div>
-						</div>
-					</div>
-				</div>
 
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
     <!-- Footer section start -->
     @include('layouts_user.footer')
     <!-- Footer section End -->
@@ -113,5 +129,6 @@
     <script src="/../../assets/user/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
 
     <script src="/../../assets/user/js/script.js"></script>
-  </body>
-  </html>
+</body>
+
+</html>

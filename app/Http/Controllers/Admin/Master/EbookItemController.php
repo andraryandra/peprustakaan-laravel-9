@@ -74,7 +74,7 @@ class EbookItemController extends Controller
             "kategori_id"   => 'nullable',
             "subkategori_id"   => 'nullable',
             'ebook_id'      => 'required',
-            'files.*'       => 'nullable|mimes:jpeg,jpg,png,doc,docx,pdf,xls,xlsx,ppt,pptx|max:2048', // Mengizinkan multiple files dengan mimes dan max size yang ditentukan
+            'files.*'       => 'nullable|mimes:jpeg,jpg,png,pdf|max:4048', // Mengizinkan multiple files dengan mimes dan max size yang ditentukan
             "judul_part"    => 'nullable',
             'content_part'  => 'nullable',
             'slug'          => 'nullable',
@@ -134,13 +134,10 @@ class EbookItemController extends Controller
     }
 
     if (count($bookItems) > 0) {
-        return redirect()->route('buku-isi.show', $bookItems[0]->ebook_id)->with('berhasil', 'Buku baru telah ditambahkan');
+        return redirect()->route('isi-buku.showIsiCerita', $bookItems[0]->ebook_id)->with('berhasil', 'Buku baru telah ditambahkan');
     } else {
         return back()->with('gagal', 'Buku baru gagal ditambahkan');
     }
-
-
-
 }
 
 
@@ -151,16 +148,16 @@ class EbookItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showIsiCerita($buku)
     {
-        $buku = Ebook::findOrFail($id);
+        $bukus = Ebook::findOrFail($buku);
         $subkategori = SubKategori::all();
         $kategori = Kategori::all();
         $user = User::findOrFail(Auth::id());
         $users = User::get();
-        $isi_buku = EbookItem::where('ebook_id', $id)->get();
+        $isi_buku = EbookItem::where('ebook_id', $buku)->get();
 
-        return view("admin.buku.cerita.index", compact("buku", "user",'users', "subkategori", "kategori", "isi_buku"));
+        return view("admin.buku.cerita.index", compact("bukus", "user",'users', "subkategori", "kategori", "isi_buku"));
     }
 
     /**
@@ -220,7 +217,7 @@ class EbookItemController extends Controller
 
         $ebookItem->save();
 
-        return redirect()->route('buku-isi.show', $ebookItem->ebook_id)->with('berhasil', 'Buku telah diperbarui');
+        return redirect()->route('isi-buku.showIsiCerita', $ebookItem->ebook_id)->with('berhasil', 'Buku telah diperbarui');
     } else {
         return back()->with('gagal', 'Buku tidak ditemukan');
     }

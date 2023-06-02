@@ -1,89 +1,103 @@
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="Edumel- Education Html Template by dreambuzz">
-  <meta name="keywords" content="education,edumel,instructor,lms,online,instructor,dreambuzz,bootstrap,kindergarten,tutor,e learning">
-  <meta name="author" content="dreambuzz">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Edumel- Education Html Template by dreambuzz">
+    <meta name="keywords"
+        content="education,edumel,instructor,lms,online,instructor,dreambuzz,bootstrap,kindergarten,tutor,e learning">
+    <meta name="author" content="dreambuzz">
 
-  <title>Edumel- Login Pengunjung</title>
+    <title>Edumel- Login Pengunjung</title>
 
-  <!-- Mobile Specific Meta-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- bootstrap.min css -->
-  <link rel="stylesheet" href="assets/user/vendors/bootstrap/bootstrap.css">
-  <!-- Iconfont Css -->
-  <link rel="stylesheet" href="assets/user/vendors/awesome/css/fontawesome-all.min.css">
-  <link rel="stylesheet" href="assets/user/vendors/flaticon/flaticon.css">
-  <link rel="stylesheet" href="assets/user/fonts/gilroy/font-gilroy.css">
-  <link rel="stylesheet" href="assets/user/vendors/magnific-popup/magnific-popup.css">
-  <!-- animate.css -->
-  <link rel="stylesheet" href="assets/user/vendors/animate-css/animate.css">
-  <link rel="stylesheet" href="assets/user/vendors/animated-headline/animated-headline.css">
-  <link rel="stylesheet" href="assets/user/vendors/owl/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="assets/user/vendors/owl/assets/owl.theme.default.min.css">
+    <!-- Mobile Specific Meta-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="assets/user/vendors/bootstrap/bootstrap.css">
+    <!-- Iconfont Css -->
+    <link rel="stylesheet" href="assets/user/vendors/awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/user/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="assets/user/fonts/gilroy/font-gilroy.css">
+    <link rel="stylesheet" href="assets/user/vendors/magnific-popup/magnific-popup.css">
+    <!-- animate.css -->
+    <link rel="stylesheet" href="assets/user/vendors/animate-css/animate.css">
+    <link rel="stylesheet" href="assets/user/vendors/animated-headline/animated-headline.css">
+    <link rel="stylesheet" href="assets/user/vendors/owl/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/user/vendors/owl/assets/owl.theme.default.min.css">
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="assets/user/css/woocomerce.css">
-  <link rel="stylesheet" href="assets/user/css/style.css">
-  <link rel="stylesheet" href="assets/user/css/responsive.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="assets/user/css/woocomerce.css">
+    <link rel="stylesheet" href="assets/user/css/style.css">
+    <link rel="stylesheet" href="assets/user/css/responsive.css">
 
 </head>
 
 <body id="top-header">
 
-@include('layouts_user.navbar')
-<!--====== Header End ======-->
+    @include('layouts_user.navbar')
+    <!--====== Header End ======-->
 
 
-<section class="page-wrapper woocommerce single">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-xl-5">
-                <div class="woocommerce-notices-wrapper"></div>
-                <div class="login-form">
-                    <div class="form-header">
-                        <h2 class="font-weight-bold mb-3" style="color: #ffffff;">Login</h2>
-                        <p>
-                            Anggota Perpustakaan SMKN 2 Indramayu
-                        </p>
+    <section class="page-wrapper woocommerce single">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-xl-5">
+                    <div class="woocommerce-notices-wrapper"></div>
+                    <div class="login-form">
+                        <div class="form-header">
+                            <h2 class="font-weight-bold mb-3" style="color: #ffffff;">Login</h2>
+                            <p>
+                                Anggota Perpustakaan SMKN 2 Indramayu
+                            </p>
+                        </div>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form action="{{ url('login/proses') }}" method="POST" class="forms-sample">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nomor Induk Siswa</label>
+                                <input type="text" name="username" class="form-control" id="username"
+                                    placeholder="Masukkan Nomor Induk Siswa">
+                                @error('username')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Instansi Sekolah</label>
+                                <input type="password" name="password" class="form-control" id="password"
+                                    autocomplete="current-password" placeholder="Masukkan Instansi Sekolah">
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0 text-white">Login</a>
+                            </div>
+                        </form>
                     </div>
-                    <form action="{{ url('login/proses') }}" method="POST" class="forms-sample">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Nomor Induk Siswa</label>
-                            <input type="text" name="username" class="form-control" id="username" placeholder="Masukkan Nomor Induk Siswa">
-                            @error('username')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Instansi Sekolah</label>
-                            <input type="password" name="password" class="form-control" id="password" autocomplete="current-password" placeholder="Masukkan Instansi Sekolah">
-                            @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0 text-white">Login</a>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!--shop category end-->
+    </section>
+    <!--shop category end-->
 
-<!-- Footer section start -->
-@include('layouts_user.footer')
-<!-- Footer section End -->
+    <!-- Footer section start -->
+    @include('layouts_user.footer')
+    <!-- Footer section End -->
 
 
 
@@ -113,7 +127,6 @@
     <script src="assets/user/js/script.js"></script>
 
 
-  </body>
-  </html>
+</body>
 
-
+</html>

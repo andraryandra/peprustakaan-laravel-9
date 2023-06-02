@@ -5,7 +5,7 @@
 
     <div class="page-content">
         <button type="button" class="btn btn-primary my-2 px-4"
-            onclick="window.location.href='{{ route('buku-isi.show', $buku->id) }}'">Back</button>
+            onclick="window.location.href='{{ route('isi-buku.showIsiCerita', $buku->id) }}'">Back</button>
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Table</a></li>

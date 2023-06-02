@@ -71,7 +71,7 @@
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center">
                                                     <button type="button" class="btn btn-warning text-white me-2"
-                                                        onclick="window.location.href='{{ route('buku-isi.show', $data->id) }}'">
+                                                        onclick="window.location.href='{{ route('isi-buku.showIsiCerita', $data->id) }}'">
                                                         <i class="bi bi-pencil-square"></i>
                                                         Isi Cerita
                                                     </button>

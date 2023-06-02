@@ -20,10 +20,10 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Data Buku -- {{ $buku->judul_buku }}</h6>
+                        <h6 class="card-title">Data Buku -- {{ $bukus->judul_buku }}</h6>
                         <div class="col-12 text-end">
                             <div class="mt-2 text-end">
-                                <a href="{{ route('isi-buku.isiCerita', $buku->id) }}" class="btn btn-primary"
+                                <a href="{{ route('isi-buku.isiCerita', $bukus->id) }}" class="btn btn-primary"
                                     class="btn btn-primary fw-bold rounded-pill px-4 shadow btn-sm">Tambah +</a>
                             </div>
                         </div>

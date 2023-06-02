@@ -20,13 +20,15 @@ use App\Http\Controllers\Admin\Verifikasi\VerifikasiMadingController;
 use App\Http\Controllers\Admin\Laporan\EbookController as LaporanEbookController;
 use App\Http\Controllers\Admin\Laporan\MadingController as LaporanMadingController;
 use App\Http\Controllers\Admin\Laporan\AnggotaController as LaporanAnggotaController;
+use App\Http\Controllers\Admin\Master\LoginAdminController;
 
-Route::group(['middleware' => ['guest']], function() {
-    Route::controller(LoginController::class)->group(function(){
-        Route::get('admin/login', 'index')->name('login');
-        Route::post('admin/login/proses', 'proses');
+// Route::group(['middleware' => ['guest']], function() {
+    // Login Siswa
+    Route::controller(LoginAdminController::class)->group(function(){
+        Route::get('admin/login', 'index')->name('login.admin');
+        Route::post('admin/login/proses', 'proses')->name('login.admin.proses');
     });
-});
+// });
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -92,9 +94,10 @@ Route::middleware(['auth', 'user-access:petugas'])->group(function () {
             Route::resource("madjing", MadingController::class);
 
             Route::resource("buku", EbookController::class);
-            Route::resource("buku-isi", EbookItemController::class);
-            Route::get('/buku/{buku}/isi', [EbookItemController::class,'isiCerita'])->name('isi-buku.isiCerita');
-            Route::post('/buku/bukuisi', [EbookItemController::class,'storeIsiCerita'])->name('isi-buku.storeIsiCerita');
+            Route::resource("buku-isi", EbookItemController::class)->except(['show']);
+            Route::get('buku-show/{buku}/isi', [EbookItemController::class,'showIsiCerita'])->name('isi-buku.showIsiCerita');
+            Route::get('buku/{buku}/isi', [EbookItemController::class,'isiCerita'])->name('isi-buku.isiCerita');
+            Route::post('buku/bukuisi', [EbookItemController::class,'storeIsiCerita'])->name('isi-buku.storeIsiCerita');
 
     });
 });
